@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Process roadmap for the USU–AGI SLA review: how the original MOS feedback, SLA Draft 2.0, the four AI reviews, the cross-model syntheses, the fusion brief, and the traceability report fed each other, stage by stage.">
+<title>Review Roadmap · How the Documents Fed Each Other</title>
+<style>
+ :root{
+   --navy:#142c44; --navy-2:#1d3c59; --ink:#1c2d3e; --muted:#4d6073; --faint:#8296a8;
+   --line:#d6dfe8; --paper:#f3f6f9; --white:#fff;
+   --accent:#17625b; --accent-bg:#eaf6f2;
+   --blue:#205987; --blue-bg:#eaf2f9;
+   --amber:#9a6d1c; --amber-bg:#fff6e3;
+ }
+ *{box-sizing:border-box}
+ html{scroll-behavior:smooth}
+ body{margin:0;background:var(--paper);color:var(--ink);
+      font:1rem/1.62 system-ui,-apple-system,"Segoe UI",sans-serif}
+ h1,h2,h3{color:var(--navy);line-height:1.2;margin:0}
+ p{margin:0 0 .8rem} p:last-child{margin:0}
+ a{color:var(--blue);text-decoration:none} a:hover{text-decoration:underline}
+ ul{margin:.3rem 0 .8rem;padding-left:1.35rem} li{margin:.28rem 0}
+ strong{color:#12283d}
+
+ .topbar{position:sticky;top:0;z-index:20;background:rgba(20,44,68,.97);color:#fff;
+         padding:.8rem clamp(1rem,4vw,2.5rem);display:flex;flex-wrap:wrap;gap:.6rem 2rem;
+         align-items:baseline;justify-content:space-between;box-shadow:0 2px 12px rgba(16,36,58,.25)}
+ .topbar .brand{font-weight:800;letter-spacing:.02em}
+ .topbar .brand small{display:block;font-weight:450;color:#c5d3e0;font-size:.76rem}
+ .topbar .links{font-size:.8rem}
+ .topbar .links a{color:#fff;border:1px solid #ffffff42;border-radius:999px;padding:.25rem .7rem;margin-left:.35rem}
+ .topbar .links a:hover{background:#ffffff22;text-decoration:none}
+
+ .shell{max-width:56rem;margin:0 auto;padding:0 clamp(1rem,4vw,2rem) 3rem}
+
+ .hero{padding:2.4rem 0 1.4rem;border-bottom:2.5px solid var(--navy);margin-bottom:1.6rem}
+ .eyebrow{font-size:.74rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--blue)}
+ .hero h1{font-size:clamp(1.6rem,4vw,2.3rem);letter-spacing:-.02em;margin:.35rem 0 .5rem}
+ .hero .sub{font-size:1.04rem;color:var(--muted);max-width:64ch}
+ .badges{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.9rem}
+ .badges span{font-size:.72rem;border:1px solid var(--line);background:#fff;color:var(--muted);
+      border-radius:999px;padding:.22rem .7rem}
+
+ /* pipeline strip */
+ .pipe{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;margin:0 0 1.6rem;font-size:.78rem}
+ .pipe div{background:#fff;border:1px solid var(--line);border-radius:10px;padding:.4rem .6rem;line-height:1.3}
+ .pipe .st{display:block;font-size:.6rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+ .pipe b{color:var(--navy);font-weight:700}
+ .pipe .arr{border:0;background:none;padding:0 .1rem;color:var(--faint);font-size:.9rem}
+
+ .callout{border-radius:0 9px 9px 0;padding:.75rem .95rem;margin:.9rem 0 .5rem;
+          border-left:4px solid var(--accent);background:var(--accent-bg);font-size:.95rem}
+ .callout .lbl{display:block;font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.25rem;color:var(--accent)}
+
+ /* timeline */
+ .tl{position:relative;margin:1.8rem 0 .4rem}
+ .tl::before{content:"";position:absolute;left:1.02rem;top:.5rem;bottom:1.6rem;width:2px;background:var(--line)}
+ .stage{position:relative;padding:0 0 1.5rem 3.4rem}
+ .stage:last-child{padding-bottom:.4rem}
+ .snum{position:absolute;left:0;top:.05rem;width:2.1rem;height:2.1rem;border-radius:50%;
+       background:var(--navy);color:#fff;font-weight:800;font-size:.95rem;
+       display:flex;align-items:center;justify-content:center}
+ .sbody{background:#fff;border:1px solid var(--line);border-radius:12px;padding:.9rem 1.1rem 1rem}
+ .shead{display:flex;flex-wrap:wrap;gap:.4rem .8rem;align-items:baseline;justify-content:space-between;margin-bottom:.3rem}
+ .shead h3{font-size:1.08rem}
+ .sdate{font-size:.74rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);white-space:nowrap}
+ .tag{display:inline-block;font-size:.6rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;
+      border-radius:999px;padding:.13rem .55rem;vertical-align:.14em;margin-left:.4rem}
+ .tag.in{background:var(--accent-bg);color:var(--accent)}
+ .tag.ext{background:var(--amber-bg);color:var(--amber);border:1px dashed var(--amber)}
+ .stage p{margin:.2rem 0 .7rem;color:var(--ink)}
+ .io{display:grid;grid-template-columns:5.6rem 1fr;gap:.3rem .6rem;font-size:.86rem;
+     border-top:1px dashed var(--line);padding-top:.6rem}
+ .iolbl{font-size:.62rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);
+        padding-top:.14rem;text-align:right}
+ .io .val{color:var(--muted)}
+ .feed{margin-top:.7rem;font-size:.8rem;font-weight:700;color:var(--blue)}
+ .feed::before{content:"▼  ";color:var(--faint);font-weight:400}
+
+ /* document map table */
+ .docmap{margin-top:1.2rem}
+ h2{font-size:1.3rem;border-bottom:1.5px solid var(--line);padding-bottom:.3rem;margin:2rem 0 .7rem}
+ table{border-collapse:collapse;width:100%;font-size:.86rem;background:#fff;margin:.5rem 0}
+ th{background:#e8eef5;color:#22374c;text-align:left;padding:.45rem .55rem;border:1px solid var(--line);
+    font-size:.66rem;text-transform:uppercase;letter-spacing:.05em}
+ td{vertical-align:top;padding:.42rem .55rem;border:1px solid var(--line)}
+ tbody tr:nth-child(even){background:#f8fafc}
+ .sn{display:inline-block;width:1.35rem;height:1.35rem;border-radius:50%;background:var(--navy);color:#fff;
+     font-weight:800;font-size:.76rem;text-align:center;line-height:1.35rem}
+ .fmt{display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
+      border-radius:999px;padding:.14rem .5rem;margin-left:.3rem;vertical-align:1px}
+ .fmt.html{background:var(--blue-bg);color:var(--blue)}
+ .fmt.pdf{background:#f9ecec;color:#8c3a3a}
+ .fmt.md{background:#eef0f3;color:#4b5a6a}
+ .footnote{font-size:.78rem;color:var(--muted);border-top:1px solid var(--line);padding-top:1rem;margin-top:2rem}
+ @media (max-width:560px){ .io{grid-template-columns:4.6rem 1fr} .pipe{font-size:.72rem} }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">USU–AGI SLA Review <small>Process roadmap · how the documents fed each other</small></div>
+  <div class="links"><a href="index.html">Document hub</a><a href="README.html">README</a></div>
+</header>
+
+<div class="shell">
+
+  <div class="hero">
+    <div class="eyebrow">Roadmap</div>
+    <h1>Six Stages: How the Review Unfolded</h1>
+    <p class="sub">Read top to bottom. Each stage consumed the outputs of the stage before it and
+       produced the inputs for the next — every document in the repository belongs to exactly one stage.</p>
+    <div class="badges">
+      <span>6 stages</span><span>Sept 12 → Nov 20, 2026</span><span>19 comments in · 80 findings examined · 1 Board brief out</span>
+    </div>
+  </div>
+
+  <nav class="pipe" aria-label="Stage overview">
+    <div><span class="st">1</span><b>MOS reviews SLA v1</b></div><span class="arr">▸</span>
+    <div><span class="st">2</span><b>SLA Draft 2.0</b></div><span class="arr">▸</span>
+    <div><span class="st">3</span><b>4 AI reviews of v2</b></div><span class="arr">▸</span>
+    <div><span class="st">4</span><b>3 consistency checks</b></div><span class="arr">▸</span>
+    <div><span class="st">5</span><b>Fusion → Board brief</b></div><span class="arr">▸</span>
+    <div><span class="st">6</span><b>MOS ↔ v2 traceability</b></div>
+  </nav>
+
+  <div class="callout">
+    <span class="lbl">The short version</span>
+    A board-level reviewer marked up the first draft of the SLA (v1). The university rewrote it as
+    <strong>Draft 2.0</strong>. Four AI systems then reviewed v2 <strong>independently</strong>, producing
+    80 findings. Three further models cross-checked those findings for consistent themes, and a fusion
+    panel merged the cross-checks into one <strong>Board brief</strong>. Finally, a traceability report
+    loops back to confirm the original reviewer comments were actually resolved in v2.
+  </div>
+
+  <div class="tl">
+
+    <!-- STAGE 1 -->
+    <div class="stage" id="s1">
+      <div class="snum">1</div>
+      <div class="sbody">
+        <div class="shead">
+          <h3>Board review of SLA v1 <span class="tag ext">not in this repository</span></h3>
+          <span class="sdate">Sept 12, 2026</span>
+        </div>
+        <p>A board-level reviewer — referred to as <strong>“MOS”</strong> in the files — marked up the
+           <strong>original draft SLA (v1)</strong>: 19 comments (MOS1–MOS19) on governance boundaries,
+           accreditation control, and drafting discipline.</p>
+        <div class="io">
+          <div class="iolbl">Consumed</div><div class="val">SLA v1 — <em>not included here</em></div>
+          <div class="iolbl">Produced</div><div class="val">The 19 comments. Only the <a href="USU_original_SLA_Comments_Board_Summary.Claud.md">board summary of those comments</a><span class="fmt md">MD</span> is in this repository — not SLA v1 itself and not the full comment log.</div>
+        </div>
+        <div class="feed">The 19 comments became the revision requirements for Draft 2.0</div>
+      </div>
+    </div>
+
+    <!-- STAGE 2 -->
+    <div class="stage" id="s2">
+      <div class="snum">2</div>
+      <div class="sbody">
+        <div class="shead">
+          <h3>SLA Draft 2.0 delivered <span class="tag in">in this repository</span></h3>
+          <span class="sdate">Oct 14, 2026</span>
+        </div>
+        <p>The university issued the rewritten agreement built around those comments: consolidated service
+           matrices, clarified reserved authority, and new performance-standards and escalation sections.
+           This is now the document under review for everything that follows.</p>
+        <div class="io">
+          <div class="iolbl">Consumed</div><div class="val">The 19 MOS comments</div>
+          <div class="iolbl">Produced</div><div class="val"><a href="USU_AGI_SLA_Revised_2026_BOT%20Review.pdf">USU–AGI Service Level Agreement — Draft 2.0</a><span class="fmt pdf">PDF</span></div>
+        </div>
+        <div class="feed">Draft 2.0 became the single subject of the three review waves that follow</div>
+      </div>
+    </div>
+
+    <!-- STAGE 3 -->
+    <div class="stage" id="s3">
+      <div class="snum">3</div>
+      <div class="sbody">
+        <div class="shead">
+          <h3>Four independent AI reviews of Draft 2.0 <span class="tag in">in this repository</span></h3>
+          <span class="sdate">Nov 7, 2026</span>
+        </div>
+        <p>Four AI systems reviewed Draft 2.0 <strong>separately, without seeing each other’s findings</strong>,
+           each flagging areas that could be improved — contractual machinery, legal drafting, operational
+           clarity, and accreditation readiness. Together: <strong>80 findings</strong>.</p>
+        <div class="io">
+          <div class="iolbl">Consumed</div><div class="val">SLA Draft 2.0</div>
+          <div class="iolbl">Produced</div><div class="val">
+             <a href="USU_AGI_SLA_Governance_Review_ChatGPT.html">ChatGPT</a><span class="fmt html">HTML</span> ·
+             <a href="USU%E2%80%93AGI%20SLA%20Draft%202.0_%20Review_Suggestions_Claude.html">Claude</a><span class="fmt html">HTML</span> ·
+             <a href="USU%E2%80%93AGI%20SLA%20Draft%202.0_%20Review_Suggestions_Copilot.html">Copilot</a><span class="fmt html">HTML</span> ·
+             <a href="USU%E2%80%93AGI%20SLA%20Review%20Studio_Perplexity.html">Perplexity</a><span class="fmt html">HTML</span>
+             — four interactive workspaces (24 + 18 + 10 + 28 = 80 items)</div>
+        </div>
+        <div class="feed">All 80 findings went to three different models for cross-checking</div>
+      </div>
+    </div>
+
+    <!-- STAGE 4 -->
+    <div class="stage" id="s4">
+      <div class="snum">4</div>
+      <div class="sbody">
+        <div class="shead">
+          <h3>Cross-model consistency assessment <span class="tag in">in this repository</span></h3>
+          <span class="sdate">Nov 20, 2026</span>
+        </div>
+        <p>Three <em>different</em> models — GPT, Gemini Pro, and Claude Haiku — each read <strong>all four
+           reviews</strong> and grouped the 80 findings into themes and topics. This is the consistency
+           check: where several models converge, the theme is strong signal; where they conflict, the
+           disagreement is named; where only one reviewer raised an item, it is marked as a
+           single-reviewer issue worth a look.</p>
+        <div class="io">
+          <div class="iolbl">Consumed</div><div class="val">The four AI reviews (80 items)</div>
+          <div class="iolbl">Produced</div><div class="val">
+             <a href="GPT-Analysis-of-all-reviews.pdf">GPT analysis</a><span class="fmt pdf">PDF</span> ·
+             <a href="Gemini-Analysis-of-all-reviews.pdf">Gemini Pro analysis</a><span class="fmt pdf">PDF</span> ·
+             <a href="Haiku-Analysis-of-all-reviews.pdf">Claude Haiku analysis</a><span class="fmt pdf">PDF</span>
+             — three independent comparative analyses (MD sources in the inventory)</div>
+        </div>
+        <div class="feed">The three analyses went into a fusion panel to be reconciled</div>
+      </div>
+    </div>
+
+    <!-- STAGE 5 -->
+    <div class="stage" id="s5">
+      <div class="snum">5</div>
+      <div class="sbody">
+        <div class="shead">
+          <h3>Fusion panel → one summary view <span class="tag in">in this repository</span></h3>
+          <span class="sdate">Nov 20, 2026</span>
+        </div>
+        <p>The synthesis models critiqued <strong>each other’s</strong> summaries and reconciled the
+           differences — catching real errors along the way (one analysis had labeled disputed details
+           “unanimous”; the panel corrected it and recorded why). The corrected material was fused into
+           a single board-facing summary.</p>
+        <div class="io">
+          <div class="iolbl">Consumed</div><div class="val">The three comparative analyses</div>
+          <div class="iolbl">Produced</div><div class="val">
+             <a href="Fusion-GPT-Claude-Haiku-Gemini-Pro.pdf">Fusion panel transcript</a><span class="fmt pdf">PDF</span>
+             (audit trail) → <a href="Fusion-GPT-Haiku-Gemini.HTML">Final Comparative Board Brief</a><span class="fmt html">HTML</span>
+             — the pipeline’s summary deliverable. Recommendation: <strong>endorse the framework in
+             principle; complete the pre-signature worklist before signing</strong>.</div>
+        </div>
+        <div class="feed">With the AI side complete, the loop closes back at the original MOS feedback</div>
+      </div>
+    </div>
+
+    <!-- STAGE 6 -->
+    <div class="stage" id="s6">
+      <div class="snum">6</div>
+      <div class="sbody">
+        <div class="shead">
+          <h3>MOS feedback ↔ v2 traceability <span class="tag in">in this repository</span></h3>
+          <span class="sdate">Nov 20, 2026</span>
+        </div>
+        <p>The closing loop: every one of the 19 MOS comments is checked against what Draft 2.0
+           <em>actually says</em>, and cross-referenced to the AI findings that re-flag the same point.
+           Result: <strong>10 closed, 3 closed with residuals, 4 framework-closed but deferred, 1 partial,
+           1 not assessable</strong> — and confirmation that the remaining AI findings are mostly new
+           ground beyond the MOS scope.</p>
+        <div class="io">
+          <div class="iolbl">Consumed</div><div class="val">MOS comments + Draft 2.0 + the four AI reviews</div>
+          <div class="iolbl">Produced</div><div class="val">
+             <a href="MOS-Feedback_vs_Draft2_vs_AI-Reviews_Comparison_DRAFT-1.html">MOS Feedback → Draft 2.0 → AI Reviews — Traceability Report</a><span class="fmt html">HTML</span>
+             (Draft 1 — PDF and MD alternates in the inventory)</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /tl -->
+
+  <h2>Document map — who made what, and when</h2>
+  <table class="docmap">
+    <thead><tr><th style="width:6%">Stage</th><th style="width:15%">Date</th><th style="width:8%">Made by</th><th style="width:34%">Produced</th><th>Where it lives</th></tr></thead>
+    <tbody>
+      <tr><td><span class="sn">1</span></td><td>Sept 12, 2026</td><td>Board reviewer (MOS)</td><td>19 comments on SLA v1 (only the board summary is included)</td><td><a href="USU_original_SLA_Comments_Board_Summary.Claud.md">Board summary<span class="fmt md">MD</span></a></td></tr>
+      <tr><td><span class="sn">2</span></td><td>Oct 14, 2026</td><td>USU / AGI</td><td>SLA Draft 2.0 — the revised agreement</td><td><a href="USU_AGI_SLA_Revised_2026_BOT%20Review.pdf">SLA Draft 2.0<span class="fmt pdf">PDF</span></a></td></tr>
+      <tr><td><span class="sn">3</span></td><td>Nov 7, 2026</td><td>ChatGPT · Claude · Copilot · Perplexity</td><td>Four independent reviews — 80 improvement findings</td><td><a href="USU_AGI_SLA_Governance_Review_ChatGPT.html">ChatGPT</a> · <a href="USU%E2%80%93AGI%20SLA%20Draft%202.0_%20Review_Suggestions_Claude.html">Claude</a> · <a href="USU%E2%80%93AGI%20SLA%20Draft%202.0_%20Review_Suggestions_Copilot.html">Copilot</a> · <a href="USU%E2%80%93AGI%20SLA%20Review%20Studio_Perplexity.html">Perplexity</a><span class="fmt html">HTML</span></td></tr>
+      <tr><td><span class="sn">4</span></td><td>Nov 20, 2026</td><td>GPT · Gemini Pro · Claude Haiku</td><td>Three cross-model consistency assessments of all 80 findings</td><td><a href="GPT-Analysis-of-all-reviews.pdf">GPT</a> · <a href="Gemini-Analysis-of-all-reviews.pdf">Gemini</a> · <a href="Haiku-Analysis-of-all-reviews.pdf">Haiku</a><span class="fmt pdf">PDF</span></td></tr>
+      <tr><td><span class="sn">5</span></td><td>Nov 20, 2026</td><td>Fusion panel (same three models)</td><td>Reconciled summary — Final Comparative Board Brief</td><td><a href="Fusion-GPT-Claude-Haiku-Gemini-Pro.pdf">Transcript<span class="fmt pdf">PDF</span></a> · <a href="Fusion-GPT-Haiku-Gemini.HTML">Board brief<span class="fmt html">HTML</span></a></td></tr>
+      <tr><td><span class="sn">6</span></td><td>Nov 20, 2026</td><td>Review team</td><td>MOS ↔ v2 traceability report (Draft 1)</td><td><a href="MOS-Feedback_vs_Draft2_vs_AI-Reviews_Comparison_DRAFT-1.html">Traceability report<span class="fmt html">HTML</span></a></td></tr>
+    </tbody>
+  </table>
+
+  <p class="footnote">This roadmap is an AI-prepared navigation aid (Nov 20, 2026) — part of the
+     USU–AGI SLA review record, like the <a href="USU-AGI_SLA_Review_Master_View.html">master view</a>,
+     <a href="index.html">document hub</a>, and <a href="README.html">README</a>. AI output in the linked
+     documents is documentary analysis, not legal advice. For format conventions, provenance, and caveats
+     see the <a href="README.html#provenance">README</a>.</p>
+
+</div>
+</body>
+</html>

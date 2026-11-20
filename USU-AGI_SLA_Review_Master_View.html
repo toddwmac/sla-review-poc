@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>USU–AGI SLA Multi-Model AI Review — Master View</title>
+<style>
+ :root{
+   color-scheme: light;
+   --navy:#142c44; --navy-2:#1d3c59; --ink:#1c2d3e; --muted:#4d6073; --faint:#8296a8;
+   --line:#d6dfe8; --paper:#f3f6f9; --white:#fff;
+   --accent:#17625b; --accent-bg:#eaf6f2;
+   --amber:#9a6d1c; --amber-bg:#fff6e3; --amber-line:#e8d5a8;
+   --blue:#205987; --blue-bg:#eaf2f9;
+   --red:#8c3a3a; --red-bg:#f9eded; --red-line:#e3c3c3;
+   --radius:14px;
+ }
+ *{box-sizing:border-box}
+ html{scroll-behavior:smooth}
+ body{margin:0;background:var(--paper);color:var(--ink);
+      font:1rem/1.62 system-ui,-apple-system,"Segoe UI",sans-serif}
+ h1,h2,h3,h4{color:var(--navy);line-height:1.2;margin:0}
+ p{margin:0 0 .85rem} p:last-child{margin-bottom:0}
+ a{color:var(--blue);text-decoration:none} a:hover{text-decoration:underline}
+ :focus-visible{outline:3px solid #2369ad;outline-offset:3px;border-radius:4px}
+ .skip{position:absolute;top:.6rem;left:.6rem;z-index:20;transform:translateY(-300%);
+       background:#fff;padding:.55rem .9rem;border-radius:6px;border:1px solid var(--line)}
+ .skip:focus{transform:none}
+
+ /* ---------- masthead ---------- */
+ .masthead{background:var(--navy);color:#fff}
+ .masthead .shell{max-width:88rem;margin:0 auto;padding:1.9rem clamp(1rem,4vw,3rem) 1.7rem;
+       display:flex;flex-wrap:wrap;gap:1rem 2.4rem;justify-content:space-between;align-items:center}
+ .eyebrow{font-size:.74rem;font-weight:750;letter-spacing:.14em;text-transform:uppercase;color:#a9c4dc}
+ .masthead h1{color:#fff;font-size:clamp(1.55rem,3.4vw,2.45rem);margin:.35rem 0 .5rem;letter-spacing:-.02em}
+ .masthead .sub{color:#dce8f2;font-size:1.02rem;max-width:56ch}
+ .headmeta{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1rem}
+ .headmeta span{font-size:.76rem;border:1px solid #ffffff38;border-radius:999px;padding:.3rem .7rem;color:#e4eef6}
+ .print-btn{background:#fff;color:var(--navy);cursor:pointer;border:1px solid #a7bbce;
+       border-radius:8px;padding:.55rem .95rem;font-weight:700;font-size:.9rem}
+ .print-btn:hover{background:#e3edf6}
+
+ /* ---------- layout ---------- */
+ .shell{max-width:88rem;margin:0 auto}
+ .layout{display:grid;grid-template-columns:16.5rem minmax(0,1fr);gap:0}
+ .sidebar{align-self:start;position:sticky;top:0;max-height:100vh;overflow:auto;
+       padding:1.6rem 1rem;border-right:1px solid var(--line)}
+ .nav-label{font-size:.7rem;font-weight:750;letter-spacing:.12em;text-transform:uppercase;
+       color:var(--faint);margin:1.1rem .7rem .5rem}
+ .nav-label:first-child{margin-top:0}
+ .nav-list{list-style:none;padding:0;margin:0}
+ .nav-list li+li{margin-top:.15rem}
+ .nav-list a{display:flex;align-items:baseline;gap:.6rem;padding:.5rem .7rem;border-radius:7px;
+       color:var(--ink);font-size:.92rem;border-inline-start:3px solid transparent}
+ .nav-list a:hover{background:#e7eef5;text-decoration:none}
+ .nav-list .num{color:var(--faint);font-variant-numeric:tabular-nums;font-size:.82rem;min-width:1.3rem}
+ .side-note{margin-top:1.4rem;padding:.9rem .8rem;border-top:1px solid var(--line);
+       font-size:.8rem;color:var(--muted)}
+ main{padding:2.2rem clamp(1.1rem,4vw,3.2rem) 4.5rem;min-width:0}
+ section{margin-bottom:2.9rem;scroll-margin-top:1.2rem}
+ h2{font-size:clamp(1.35rem,2.6vw,1.8rem);margin-bottom:.4rem;letter-spacing:-.015em}
+ .h2-sub{color:var(--muted);font-size:.98rem;margin:0 0 1.2rem;max-width:70ch}
+ h3{font-size:1.08rem;margin:1.6rem 0 .55rem}
+ h4{font-size:.98rem;margin:1.1rem 0 .4rem;color:var(--navy-2)}
+
+ /* ---------- cards & callouts ---------- */
+ .card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);
+       padding:1.5rem 1.6rem;margin:1.1rem 0;box-shadow:0 4px 14px rgba(22,42,64,.05)}
+ .callout{border-radius:0 10px 10px 0;padding:.95rem 1.15rem;margin:1.1rem 0;border-left:4px solid var(--blue);background:var(--blue-bg)}
+ .callout.accent{border-color:var(--accent);background:var(--accent-bg)}
+ .callout.warn{border-color:var(--amber);background:var(--amber-bg)}
+ .callout.risk{border-color:var(--red);background:var(--red-bg)}
+ .callout .lbl{display:block;font-size:.72rem;font-weight:800;letter-spacing:.1em;
+       text-transform:uppercase;margin-bottom:.3rem}
+ .callout .lbl.blue{color:var(--blue)} .callout .lbl.teal{color:var(--accent)}
+ .callout .lbl.amber{color:var(--amber)} .callout .lbl.red{color:var(--red)}
+ .filemonos{font-family:ui-monospace,Consolas,"Courier New",monospace;font-size:.83em;
+       background:#eef2f6;border:1px solid var(--line);border-radius:5px;padding:.08em .4em;
+       color:var(--navy-2);word-break:break-all}
+ .tag{display:inline-block;font-size:.7rem;font-weight:800;letter-spacing:.06em;
+       text-transform:uppercase;border-radius:999px;padding:.22rem .6rem;margin:0 .25rem .3rem 0}
+ .tag.pdf{background:#f9ecec;color:#8c3a3a} .tag.html{background:var(--blue-bg);color:var(--blue)}
+ .tag.md{background:#eef0f3;color:#4b5a6a} .tag.base{background:var(--accent-bg);color:var(--accent)}
+
+ /* ---------- tables ---------- */
+ table{border-collapse:collapse;width:100%;font-size:.92rem;margin:.7rem 0 .4rem;background:#fff}
+ th,td{text-align:left;padding:.6rem .7rem;border-bottom:1px solid var(--line);vertical-align:top}
+ th{background:#eef3f8;color:#2b4157;font-size:.8rem;letter-spacing:.04em;text-transform:uppercase}
+ tbody tr:hover{background:#f7fafc}
+ td.c,th.c{text-align:center}
+ .tbl-note{font-size:.8rem;color:var(--muted);margin-top:.3rem}
+ .count{font-variant-numeric:tabular-nums;font-weight:700;color:var(--navy)}
+ .total-row td{background:#f0f4f8;border-top:2px solid var(--navy);font-weight:700;color:var(--navy)}
+
+ /* ---------- pipeline diagram ---------- */
+ .pipe{display:flex;flex-direction:column;gap:0;margin:1.4rem 0;align-items:stretch}
+ .stage{border:1px solid var(--line);border-radius:var(--radius);background:#fff;
+       padding:1rem 1.2rem;box-shadow:0 4px 14px rgba(22,42,64,.05)}
+ .stage .stg{font-size:.7rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+ .stage h3{margin:.15rem 0 .2rem}
+ .stage p{font-size:.9rem;color:var(--muted);margin:0}
+ .arrow{align-self:center;color:var(--faint);font-size:1.15rem;padding:.15rem 0;
+       display:flex;flex-direction:column;align-items:center;gap:.1rem}
+ .arrow small{font-size:.72rem;font-style:italic;color:var(--faint)}
+ .fan4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.7rem}
+ .fan3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.7rem}
+ .rev{border:1px solid var(--line);border-radius:11px;padding:.85rem .9rem;background:#fbfdfe}
+ .rev .who{font-weight:750;color:var(--navy)}
+ .rev .n{font-size:.82rem;color:var(--muted)}
+ .rev .lens{font-size:.8rem;color:var(--accent);margin-top:.3rem;font-weight:650}
+ .stage.final{border:2px solid var(--accent);background:var(--accent-bg)}
+ .stage.final .stg{color:var(--accent)}
+ .stage.final p{color:#123f3a}
+
+ /* ---------- lists ---------- */
+ ul.tight,ol.tight{padding-left:1.35rem;margin:.5rem 0}
+ ul.tight li,ol.tight li{margin:.32rem 0}
+ ol.big{counter-reset:item;list-style:none;padding-left:0}
+ ol.big li{counter-increment:item;position:relative;padding-left:2.3rem;margin:.55rem 0}
+ ol.big li::before{content:counter(item);position:absolute;left:0;top:.1rem;width:1.55rem;height:1.55rem;
+       border-radius:50%;background:var(--navy);color:#fff;font-weight:750;font-size:.85rem;
+       display:flex;align-items:center;justify-content:center}
+ .footnote{font-size:.82rem;color:var(--muted);border-top:1px solid var(--line);
+       padding-top:1rem;margin-top:2.5rem}
+
+ /* ---------- responsive & print ---------- */
+ @media (max-width:900px){
+   .layout{grid-template-columns:1fr}
+   .sidebar{position:relative;max-height:none;border-right:0;border-bottom:1px solid var(--line);
+       display:flex;gap:.2rem;overflow-x:auto;padding:.8rem 1rem}
+   .nav-label,.side-note{display:none}
+   .nav-list{display:flex;gap:.2rem}
+   .nav-list li+li{margin-top:0}
+   .nav-list a{white-space:nowrap}
+   .fan4,.fan3{grid-template-columns:1fr 1fr}
+ }
+ @media (max-width:600px){ .fan4,.fan3{grid-template-columns:1fr} }
+ @media print{
+   body{background:#fff;font-size:10.5pt}
+   .sidebar,.print-btn,.skip{display:none!important}
+   .layout{display:block}
+   .masthead{background:#fff;color:#111;border-bottom:3px solid var(--navy)}
+   .masthead h1,.masthead .sub{color:#111}
+   .masthead .eyebrow{color:#3a5068} .headmeta span{color:#333;border-color:#999}
+   main{padding:1.2rem 0}
+   .card,.stage,.rev{box-shadow:none;break-inside:avoid}
+   section{break-inside:auto} h2{break-after:avoid}
+   a{color:#111}
+ }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="shell">
+    <div>
+      <div class="eyebrow">Board orientation · Master view of the review process</div>
+      <h1>USU–AGI Service Level Agreement — Multi-Model AI Review</h1>
+      <p class="sub">Process, artifacts, and findings from the four-model review of the USU–AGI SLA
+         Draft 2.0 (Executive Edition, revised October 14, 2026), its comparative syntheses,
+         and the fusion panel that produced the final Board brief.</p>
+      <div class="headmeta">
+        <span>Prepared for the Board of Trustees &amp; executive leadership</span>
+        <span>Orientation guide — adds no new findings</span>
+        <span>14 source files · 80 review items · 4 review layers</span>
+      </div>
+    </div>
+    <button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
+  </div>
+</header>
+
+<div class="shell layout">
+  <nav class="sidebar" aria-label="Contents">
+    <div class="nav-label">Contents</div>
+    <ul class="nav-list">
+      <li><a href="#purpose"><span class="num">1</span> Purpose &amp; bottom line</a></li>
+      <li><a href="#process"><span class="num">2</span> The process at a glance</a></li>
+      <li><a href="#inventory"><span class="num">3</span> Document inventory</a></li>
+      <li><a href="#numbers"><span class="num">4</span> The reviews in numbers</a></li>
+      <li><a href="#findings"><span class="num">5</span> What the review concluded</a></li>
+      <li><a href="#paths"><span class="num">6</span> Suggested reading paths</a></li>
+      <li><a href="#caveats"><span class="num">7</span> Caveats &amp; limitations</a></li>
+      <li><a href="#glossary"><span class="num">8</span> Glossary</a></li>
+    </ul>
+    <p class="side-note">This document is a navigation and orientation aid for the Board.
+       It summarizes existing review artifacts; all substantive findings remain those of the
+       source reviews and syntheses.</p>
+  </nav>
+
+  <main id="main">
+
+  <!-- ============ 1. PURPOSE ============ -->
+  <section id="purpose">
+    <h2>1 · Purpose of This Document</h2>
+    <p class="h2-sub">One entry point that answers three questions: what was done, what documents
+       exist, and what the review concluded.</p>
+    <p>The revised USU–AGI SLA was reviewed by four different AI systems working independently, then
+       compared, synthesized, and fused into a final Board brief. That process produced
+       <strong>14 files across 5 layers</strong> — a volume of material that is difficult to navigate.
+       This master view organizes it for Board use.</p>
+
+    <div class="callout accent">
+      <span class="lbl teal">One-paragraph bottom line</span>
+      All four independent reviews agree that Draft 2.0 is a sound governance framework that is
+      <strong>not yet an executable operating agreement</strong>. They strongly agree on <em>what</em>
+      needs fixing — decision rights, measurable service standards, escalation clocks, data exit,
+      employer verification, and system inventory — but differ on <em>how</em>, <em>when</em>
+      (before signature vs. before effectiveness), and on a handful of governance choices. The
+      consensus recommendation is to <strong>endorse the framework in principle, but do not authorize
+      signature</strong> until a defined pre-signature worklist is complete.
+    </div>
+  </section>
+
+  <!-- ============ 2. PROCESS ============ -->
+  <section id="process">
+    <h2>2 · The Process at a Glance</h2>
+    <p class="h2-sub">Each stage deliberately used <em>different</em> models so later stages could
+       check and correct earlier ones rather than inherit a single system’s blind spots.</p>
+
+    <div class="pipe">
+      <div class="stage">
+        <div class="stg">Stage 0 · The document</div>
+        <h3>USU–AGI SLA Draft 2.0 — Executive Edition (Oct 14, 2026, 19 pages)</h3>
+        <p>Defines AGI shared services, USU retained authority, eight service matrices,
+           performance standards, and corrective action.</p>
+      </div>
+
+      <div class="arrow" aria-hidden="true">▼<small>reviewed independently by</small></div>
+
+      <div class="stage">
+        <div class="stg">Stage 1 · Four independent reviews — 80 items total</div>
+        <div class="fan4" style="margin-top:.6rem">
+          <div class="rev"><div class="who">ChatGPT</div><div class="n">24 recommendations (R01–R24)</div><div class="lens">Contract machinery · internal controls · risk allocation</div></div>
+          <div class="rev"><div class="who">Claude</div><div class="n">18 suggestions (S01–S18)</div><div class="lens">Legal drafting · independence · conflicts of interest</div></div>
+          <div class="rev"><div class="who">Copilot</div><div class="n">10 recommendations (#1–#10)</div><div class="lens">Operational clarity · authority (RACI) · process</div></div>
+          <div class="rev"><div class="who">Perplexity</div><div class="n">28 findings (F-01–F-28)</div><div class="lens">WSCUC readiness · auditability · execution gates</div></div>
+        </div>
+      </div>
+
+      <div class="arrow" aria-hidden="true">▼<small>all four compared by</small></div>
+
+      <div class="stage">
+        <div class="stg">Stage 2 · Three comparative syntheses — one per model</div>
+        <div class="fan3" style="margin-top:.6rem">
+          <div class="rev"><div class="who">GPT synthesis</div><div class="lens">Topic groups; clearest on decisions still open</div></div>
+          <div class="rev"><div class="who">Gemini synthesis</div><div class="lens">Financial risk &amp; severity framing (consensus claims later corrected)</div></div>
+          <div class="rev"><div class="who">Claude Haiku synthesis</div><div class="lens">Item-level traceability to source IDs</div></div>
+        </div>
+      </div>
+
+      <div class="arrow" aria-hidden="true">▼<small>reconciled by a panel of all three</small></div>
+
+      <div class="stage">
+        <div class="stg">Stage 3 · Fusion panel — GPT Latest + Claude Haiku Latest + Gemini Pro Latest</div>
+        <h3 style="margin-top:.3rem">Cross-model reconciliation</h3>
+        <p>Cross-checks the syntheses, corrects overstatements (notably unsupported “unanimous”
+           claims), preserves genuine disagreements, and drafts the comparative summary.</p>
+      </div>
+
+      <div class="arrow" aria-hidden="true">▼</div>
+
+      <div class="stage final">
+        <div class="stg">Final deliverable</div>
+        <h3 style="margin-top:.3rem">Comparative Board Brief</h3>
+        <p>Decision summary, alignment, open choices, and recommended actions before signature —
+           delivered as HTML and PDF (<span class="filemonos">Fusion-GPT-Haiku-Gemini</span>).</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <span class="lbl blue">Why two layers of AI cross-checking?</span>
+      Stage 2 asked three models to compare the four reviews; Stage 3 then asked those same three
+      models to compare <em>each other’s</em> comparisons. This caught real errors — one synthesis
+      labeled several points “unanimous” when the underlying reviews actually conflicted on timing
+      and triggers. The fusion panel stripped those claims back to attributed support.
+    </div>
+  </section>
+
+  <!-- ============ 3. INVENTORY ============ -->
+  <section id="inventory">
+    <h2>3 · Document Inventory</h2>
+    <p class="h2-sub">Fourteen files in the working folder, in five classes.
+       <span class="tag pdf">PDF</span> print / distribution ·
+       <span class="tag html">HTML</span> interactive workspace (open in browser) ·
+       <span class="tag md">MD</span> plain-text source</p>
+
+    <div class="card">
+      <h3><span class="tag base">Stage 0</span> The base document</h3>
+      <table>
+        <thead><tr><th style="width:42%">File</th><th>What it is</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><span class="filemonos">USU_AGI_SLA_Revised_2026_BOT Review.pdf</span> <span class="tag pdf">PDF</span></td>
+            <td><strong>The SLA itself — Draft 2.0, Executive Edition</strong> (19 pp). Executive letters,
+                definitions, governance, eight service matrices (recruitment/marketing, student finance &amp;
+                financial aid, MIS &amp; security, business office, HR, academic support, academic operations,
+                regulatory compliance &amp; institutional research), performance standards, corrective
+                action, approvals.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3><span class="tag html">Stage 1</span> Four independent reviews — interactive HTML workspaces</h3>
+      <p style="font-size:.92rem;color:var(--muted)">Each review is a self-contained web page with filters,
+         per-item status tracking (accept / reject / needs discussion), and note export.
+         These are <strong>working documents</strong>, not just reports.</p>
+      <table>
+        <thead><tr><th style="width:34%">File</th><th>Reviewer</th><th class="c">Items</th><th>Focus</th></tr></thead>
+        <tbody>
+          <tr><td><span class="filemonos">USU_AGI_SLA_Governance_Review_ChatGPT.html</span> <span class="tag html">HTML</span></td><td>ChatGPT</td><td class="c">24 (R01–R24)</td><td>Governance &amp; execution: contractual machinery, internal controls, risk allocation</td></tr>
+          <tr><td><span class="filemonos">USU–AGI SLA Draft 2.0_ Review_Suggestions_Claude.html</span> <span class="tag html">HTML</span></td><td>Claude</td><td class="c">18 (S01–S18)</td><td>Legal drafting precision, independence safeguards, conflict-of-interest</td></tr>
+          <tr><td><span class="filemonos">USU–AGI SLA Draft 2.0_ Review_Suggestions_Copilot.html</span> <span class="tag html">HTML</span></td><td>Copilot</td><td class="c">10 (#1–#10)</td><td>Operational clarity: authority matrix (RACI), process standardization</td></tr>
+          <tr><td><span class="filemonos">USU–AGI SLA Review Studio_Perplexity.html</span> <span class="tag html">HTML</span></td><td>Perplexity</td><td class="c">28 (F-01–F-28)</td><td>WSCUC accreditation readiness, auditability, execution gates; most page-level citations</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3><span class="tag md">Stage 2</span> Comparative syntheses of all four reviews — MD source + PDF</h3>
+      <table>
+        <thead><tr><th style="width:34%">Files</th><th>Analyst</th><th>Character</th></tr></thead>
+        <tbody>
+          <tr><td><span class="filemonos">GPT-Analysis-of-all-reviews.MD</span> / <span class="filemonos">.pdf</span></td><td>GPT</td><td>Groups the 80 items by topic; clearest on which decisions remain open</td></tr>
+          <tr><td><span class="filemonos">Gemini-Analysis-of-all-reviews.MD</span> / <span class="filemonos">.pdf</span></td><td>Gemini Pro</td><td>Strongest financial-risk and severity framing; rated each consensus area and offered “advisor assessments” on disagreements (later corrected for overstating unanimity)</td></tr>
+          <tr><td><span class="filemonos">Haiku-Analysis-of-all-reviews.MD</span> / <span class="filemonos">.pdf</span></td><td>Claude Haiku</td><td>Item-level traceability: every theme tied back to specific R / S / # / F source IDs</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3><span class="tag pdf">Stage 3</span> Fusion — cross-model reconciliation</h3>
+      <table>
+        <thead><tr><th style="width:44%">File</th><th>What it is</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><span class="filemonos">Fusion-GPT-Latest-Claude-Haiku-Latest-Gemini-Pro-Latest-2026-11-20T13-30-15-958Z.md</span><br>
+                <span class="filemonos">Fusion-GPT-Claude-Haiku-Gemini-Pro.pdf</span> <span class="tag pdf">PDF</span></td>
+            <td>The full fusion panel transcript: each model’s critique of the draft comparative report,
+                plus a structured analysis (consensus / partial coverage / unique insights / blind spots).</td>
+          </tr>
+          <tr>
+            <td><span class="filemonos">Fusion-GPT-Haiku-Gemini.HTML</span> <span class="tag html">HTML</span> ·
+                <span class="filemonos">Fusion-GPT-Haiku-Gemini.PDF</span> <span class="tag pdf">PDF</span></td>
+            <td><strong>The final Board brief</strong> — the polished output of the pipeline (§5).
+                The HTML is the presentation version; the PDF is for distribution.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============ 4. NUMBERS ============ -->
+  <section id="numbers">
+    <h2>4 · The Reviews in Numbers</h2>
+    <div class="card">
+      <table>
+        <thead><tr><th>Reviewer</th><th class="c">Items</th><th class="c">Critical / High</th><th class="c">Medium</th><th class="c">Low</th><th>Primary lens</th></tr></thead>
+        <tbody>
+          <tr><td>ChatGPT</td><td class="c count">24</td><td class="c">16</td><td class="c">8</td><td class="c">0</td><td>Contractual machinery, internal controls, risk allocation</td></tr>
+          <tr><td>Perplexity</td><td class="c count">28</td><td class="c">18</td><td class="c">7</td><td class="c">3</td><td>WSCUC accreditation readiness, auditability, execution gates</td></tr>
+          <tr><td>Claude</td><td class="c count">18</td><td class="c">9</td><td class="c">8</td><td class="c">1</td><td>Legal drafting, independence, conflicts of interest</td></tr>
+          <tr><td>Copilot</td><td class="c count">10</td><td class="c">4</td><td class="c">3</td><td class="c">3</td><td>Operational RACI clarity, process standardization</td></tr>
+          <tr class="total-row"><td>Total</td><td class="c">80</td><td class="c">47</td><td class="c">26</td><td class="c">7</td><td>—</td></tr>
+        </tbody>
+      </table>
+      <p class="tbl-note"><strong>Reading note:</strong> the reviewers used different priority scales and different
+         depth. A shorter review (Copilot, 10 items) is a compressed scan, not a vote of confidence —
+         <strong>silence is not agreement</strong>. This asymmetry (10–28 items) is why the syntheses
+         treat omissions cautiously.</p>
+    </div>
+  </section>
+
+  <!-- ============ 5. FINDINGS ============ -->
+  <section id="findings">
+    <h2>5 · What the Review Concluded</h2>
+    <p class="h2-sub">The substance at Board altitude, with pointers to the detail.</p>
+
+    <h3>5.1 · Where all four reviews agree <span style="font-weight:400;color:var(--muted)">(strong consensus)</span></h3>
+    <p>The reviews independently converged on the same six needs. Agreement is on <em>what</em> must be
+       clarified — not on exact wording, thresholds, or deadlines.</p>
+    <div class="card">
+      <ol class="big">
+        <li><strong>Decision rights.</strong> Specify who at USU approves, validates, executes, and monitors
+            material decisions — with thresholds and a delegation schedule.</li>
+        <li><strong>Measurable service standards.</strong> Section 17 lists evidence categories, not numeric
+            targets. Evidence that work occurred is not a performance standard.</li>
+        <li><strong>Escalation and incident clocks.</strong> Replace “promptly” / “immediately” with severity
+            levels and fixed notice deadlines.</li>
+        <li><strong>Data return and exit.</strong> Make transition obligations testable: export formats,
+            timelines, assistance, certified destruction.</li>
+        <li><strong>Employer-of-record register.</strong> Verify the legal employer for every covered position
+            before execution.</li>
+        <li><strong>System inventory.</strong> Resolve undefined names (notably <strong>“CNS”</strong>) in a
+            controlled appendix with owners and data classifications.</li>
+      </ol>
+    </div>
+
+    <h3>5.2 · Where several reviews align <span style="font-weight:400;color:var(--muted)">(moderate consensus)</span></h3>
+    <ul class="tight">
+      <li><strong>Commercial and legal terms</strong> (3 of 4 — ChatGPT, Claude, Perplexity): the draft lacks
+          term, renewal, termination, liability, insurance, dispute resolution, and a documented
+          shared-cost allocation methodology.</li>
+      <li><strong>Board oversight</strong> (3 of 4): Audit Committee cadence, rating definitions, named owner
+          rosters, Board sign-off on the agreement itself.</li>
+      <li><strong>Independence optics</strong> (3 of 4): the org chart appears to place USU validators under the
+          AGI CEO line; letters contain promotional claims unsuited to an accreditation-facing document.</li>
+      <li><strong>Vendor flow-down controls</strong> (3 of 4) and <strong>AI / algorithmic governance</strong>
+          (2 of 4 — the CRM “next-best-action” algorithm is described in the CEO letter but unregulated in
+          the operative text).</li>
+    </ul>
+
+    <h3>5.3 · Where the reviews disagree <span style="font-weight:400;color:var(--muted)">(the open choices for the Board)</span></h3>
+    <div class="card">
+      <table>
+        <thead><tr><th class="c" style="width:3.2rem">#</th><th style="width:30%">Open choice</th><th>The disagreement</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="c count">1</td>
+            <td><strong>When does the security-notice clock start?</strong><br><em style="color:var(--muted)">clearest direct conflict</em></td>
+            <td>Perplexity: within 24 h of a <strong>confirmed</strong> incident · ChatGPT: <strong>do not wait</strong> for confirmation · Copilot: 24 h window, trigger unspecified</td>
+          </tr>
+          <tr>
+            <td class="c count">2</td>
+            <td><strong>What must exist before signature vs. before effectiveness?</strong></td>
+            <td>Perplexity: no signature until the metrics exhibit is approved · ChatGPT: completed schedules gate <em>effectiveness</em> (signing earlier is conceivable) · Copilot: metrics needed, but no pre-signature condition</td>
+          </tr>
+          <tr>
+            <td class="c count">3</td>
+            <td><strong>How is “material” defined?</strong></td>
+            <td>One agreement-wide definition (Perplexity) vs. domain-specific thresholds for spending, technology, outsourcing (Claude, Copilot)</td>
+          </tr>
+          <tr>
+            <td class="c count">4</td>
+            <td><strong>How does the Board evidence approval?</strong></td>
+            <td>Board Chair signature or secretary attestation (Perplexity) vs. resolution with delegated execution (ChatGPT) — compatible, but the Board must choose</td>
+          </tr>
+          <tr>
+            <td class="c count">5</td>
+            <td><strong>How serious are the gaps?</strong> <em style="color:var(--muted)">(severity, not substance)</em></td>
+            <td>Copilot: “fundamentally well designed; most remaining risks are operational precision.” ChatGPT / Claude / Perplexity: the missing term, exit, and legal provisions are <strong>structural</strong> omissions. The majority view is treated as the safer reading.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>5.4 · Items raised by only one review <span style="font-weight:400;color:var(--muted)">(worth considering, not consensus)</span></h3>
+    <p style="font-size:.95rem">Conflict-of-interest and recusal rules for trustees with AGI roles (Claude) ·
+       privilege, independent counsel, whistleblower routing (Perplexity) · insurance minimums (Perplexity) ·
+       recovery time / point objectives for continuity (ChatGPT) · promotional claims in executive letters
+       (Claude) · optional service credits for persistent SLA failure (ChatGPT — others silent, neither
+       endorsement nor rejection).</p>
+
+    <h3>5.5 · Recommended disposition <span style="font-weight:400;color:var(--muted)">(from the final Board brief)</span></h3>
+    <div class="callout accent">
+      <span class="lbl teal">Recommendation</span>
+      <strong>Endorse the framework in principle only — do not authorize signature or effectiveness yet.</strong>
+    </div>
+    <div class="card">
+      <h4>Before signing</h4>
+      <ol class="big">
+        <li><strong>Confirm authority</strong> — settle reserved decisions, delegations, materiality thresholds,
+            and the required Board action.</li>
+        <li><strong>Approve the operating schedules</strong> — finalize the metrics exhibit, incident protocol,
+            and service-owner roster; verify the employer register and system inventory.</li>
+        <li><strong>Confirm commercial and exit terms</strong> — document cost allocation, termination rights,
+            and transition obligations in the SLA, or precisely identify the existing agreement that governs
+            them (check the 2017 acquisition / intercompany agreements first).</li>
+        <li><strong>Record the approval requirements</strong> — owner, approver, and evidence of completion for
+            each item; separate signing requirements from conditions to effectiveness.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============ 6. READING PATHS ============ -->
+  <section id="paths">
+    <h2>6 · Suggested Reading Paths</h2>
+    <div class="card">
+      <table>
+        <thead><tr><th style="width:16%">Time</th><th>Path</th></tr></thead>
+        <tbody>
+          <tr><td><strong>5 minutes</strong></td><td>This master view (§1, §5) → the final brief: <span class="filemonos">Fusion-GPT-Haiku-Gemini.PDF</span> (2 pages)</td></tr>
+          <tr><td><strong>20 minutes</strong></td><td>Add the three one-page syntheses (<span class="filemonos">GPT-</span> / <span class="filemonos">Gemini-</span> / <span class="filemonos">Haiku-Analysis-of-all-reviews.MD</span>) and the “Scope and Interpretation” section of the final brief</td></tr>
+          <tr><td><strong>Pre-meeting prep</strong></td><td>Open the Perplexity Review Studio (HTML) — the most granular, page-cited findings — and the ChatGPT workspace for the contractual detail</td></tr>
+          <tr><td><strong>Working session</strong></td><td>Use any Stage 1 HTML workspace live: filter by priority, record accept / reject / discuss positions per item, and export the notes for the disposition log</td></tr>
+          <tr><td><strong>Audit trail</strong></td><td>The fusion <span class="filemonos">.md</span> transcript shows how the three syntheses were reconciled and which overstatements were corrected</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============ 7. CAVEATS ============ -->
+  <section id="caveats">
+    <h2>7 · Caveats and Limitations</h2>
+    <p class="h2-sub">Carry these five qualifications into any Board discussion.</p>
+    <div class="card">
+      <ol class="big">
+        <li><strong>Nothing was independently verified.</strong> No stage reviewed the underlying SLA text
+            against source agreements, nor checked external regulatory requirements (WSCUC, U.S. ED,
+            FERPA, state boards). Every finding is a claim about what the reviews say — not a verified
+            fact about the contract or the law.</li>
+        <li><strong>Silence ≠ agreement.</strong> Review depth varies nearly 3× (10–28 items). Where a review
+            does not mention a term, that reflects scope compression, not a position.</li>
+        <li><strong>“Unanimous” was corrected.</strong> One Stage 2 synthesis labeled several implementation
+            details unanimous; the fusion panel traced them back and found direct conflicts (notice
+            trigger, signing gate, review cadence). The corrected, attributed-support framing is used
+            in §5 and in the final brief.</li>
+        <li><strong>Different priority scales.</strong> Critical / High / Medium / Low labels come from four
+            different rubrics; they indicate reviewer emphasis, not a common severity standard.</li>
+        <li><strong>AI output is not legal advice.</strong> All documents say so explicitly.
+            External-compliance assertions (e.g., specific WSCUC expectations, CDR thresholds, the 2017
+            agreements) must be verified with counsel and compliance before the Board relies on them.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============ 8. GLOSSARY ============ -->
+  <section id="glossary">
+    <h2>8 · Glossary</h2>
+    <div class="card">
+      <table>
+        <tbody>
+          <tr><td style="width:16%"><strong>AGI</strong></td><td>Aspen Group, Inc. — education-technology holding company; has owned 100% of USU since December 1, 2017</td></tr>
+          <tr><td><strong>USU</strong></td><td>United States University — WSCUC-accredited subsidiary; retains final responsibility for all activities conducted in its name</td></tr>
+          <tr><td><strong>SLA</strong></td><td>Service Level Agreement — defines AGI’s shared services, USU’s retained authority, oversight, and corrective action</td></tr>
+          <tr><td><strong>WSCUC</strong></td><td>WASC Senior College and University Commission — USU’s regional accreditor</td></tr>
+          <tr><td><strong>Title IV</strong></td><td>Federal student financial aid programs; a key compliance exposure</td></tr>
+          <tr><td><strong>FERPA</strong></td><td>Federal student-records privacy law</td></tr>
+          <tr><td><strong>MSA</strong></td><td>Master Services Agreement — an umbrella contract that could house the commercial/legal terms some reviews find missing from the SLA</td></tr>
+          <tr><td><strong>RACI</strong></td><td>Responsible / Accountable / Consulted / Informed — an authority-assignment model</td></tr>
+          <tr><td><strong>CNS</strong></td><td>An undefined system name appearing in the draft’s MIS matrix — flagged by all four reviews</td></tr>
+          <tr><td><strong>Effectiveness gate</strong></td><td>A condition precedent: the agreement does not take effect until required schedules are complete (distinct from signing)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="footnote">Pipeline dates: Stage 1 workspaces created Nov 7, 2026; Stage 2 syntheses and Stage 3
+       fusion produced Nov 20, 2026 (fusion timestamp 13:30 UTC). This master view was prepared afterward as a
+       navigation and orientation aid and adds no new findings. Companion file:
+       <span class="filemonos">USU-AGI_SLA_Review_Master_View.md</span> (plain-text source).</p>
+  </section>
+
+  </main>
+</div>
+</body>
+</html>

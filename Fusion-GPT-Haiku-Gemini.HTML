@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Board briefing comparing four reviews of the USU–AGI Service Level Agreement, Draft 2.0.">
+<title>USU–AGI SLA | Comparative Board Brief</title>
+<style>
+  :root {
+    color-scheme: light;
+    --navy: #142c44;
+    --ink: #1c2d3e;
+    --muted: #4d6073;
+    --line: #d6dfe8;
+    --paper: #f3f6f9;
+    --white: #fff;
+    --accent: #17625b;
+    --teal-bg: #eaf6f2;
+    --amber-bg: #fff4df;
+    --amber-ink: #694611;
+    --radius: 14px;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font: 1rem/1.6 system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  a { color: #205987; }
+  button { font: inherit; }
+  h1, h2, h3 { color: var(--navy); line-height: 1.2; }
+  h1 { font-size: clamp(1.7rem, 4vw, 2.65rem); margin: .3rem 0 .7rem; }
+  h2 { font-size: clamp(1.45rem, 3vw, 2rem); margin: .25rem 0 .55rem; }
+  h3 { font-size: 1.08rem; margin: 0 0 .45rem; }
+  p { margin: 0 0 .85rem; }
+  p:last-child { margin-bottom: 0; }
+  :focus-visible { outline: 3px solid #2369ad; outline-offset: 4px; }
+  .skip {
+    position: absolute; top: .6rem; left: .6rem; z-index: 10;
+    transform: translateY(-200%);
+    background: var(--white); padding: .55rem .9rem; border-radius: 6px;
+  }
+  .skip:focus { transform: none; }
+  .shell { width: min(100%, 88rem); margin: 0 auto; }
+  .masthead { background: var(--navy); color: var(--white); }
+  .masthead .shell {
+    padding: 1.7rem clamp(1rem, 4vw, 3rem);
+    display: flex; flex-wrap: wrap; gap: 1rem 2rem;
+    justify-content: space-between; align-items: center;
+  }
+  .masthead h1 { color: var(--white); }
+  .masthead p { color: #e0ebf4; }
+  .eyebrow {
+    font-size: .76rem; font-weight: 750; letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+  .print-button {
+    background: var(--white); color: var(--navy); cursor: pointer;
+    border: 1px solid #a7bbce; border-radius: 8px; padding: .5rem .85rem;
+    font-weight: 700;
+  }
+  .print-button:hover { background: #e3edf6; }
+  .masthead :focus-visible { outline-color: #fff; }
+  .layout { display: grid; grid-template-columns: 16rem minmax(0, 1fr); }
+  .sidebar {
+    align-self: start; position: sticky; top: 0; max-height: 100vh;
+    overflow: auto; padding: 1.55rem 1rem;
+  }
+  .nav-label { color: var(--muted); margin: 0 .7rem .65rem; }
+  .nav-list { list-style: none; padding: 0; margin: 0; }
+  .nav-list li + li { margin-top: .2rem; }
+  .nav-list a {
+    display: flex; align-items: baseline; gap: .7rem;
+    text-decoration: none; color: var(--ink); padding: .55rem .7rem;
+    border-inline-start: 4px solid transparent; border-radius: 7px;
+  }
+  .nav-list a:hover { background: #e7eef5; }
+  .nav-list a[aria-current="page"] {
+    background: #dfebf6; border-inline-start-color: #205987; font-weight: 750;
+  }
+  .nav-number { color: var(--muted); font-size: .8rem; font-variant-numeric: tabular-nums; }
+  .sidebar-note {
+    border-top: 1px solid var(--line); margin: 1.1rem .7rem 0;
+    padding-top: .9rem; color: var(--muted); font-size: .84rem;
+  }
+  main {
+    min-width: 0; width: 100%; max-width: 68rem;
+    padding: 1.55rem clamp(1rem, 3.5vw, 3rem) 3rem;
+  }
+  .scope {
+    background: var(--white); border: 1px solid var(--line);
+    border-radius: 9px; padding: .8rem 1rem; margin-bottom: 1.25rem;
+    font-size: .9rem; color: var(--muted);
+  }
+  .view + .view { margin-top: 2rem; }
+  .view-head { margin-bottom: 1rem; }
+  .view-head p { color: var(--muted); max-width: 72ch; }
+  .view-head .eyebrow { color: var(--accent); margin-bottom: .3rem; }
+  .hero, .card {
+    background: var(--white); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 1rem 1.15rem;
+  }
+  .hero { background: var(--teal-bg); border-inline-start: 5px solid var(--accent); }
+  .hero p { max-width: 72ch; }
+  .grid {
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: .8rem; margin-top: 1rem;
+  }
+  .stack { display: grid; gap: .8rem; }
+  .ref { color: var(--muted); font-size: .82rem; }
+  .tag {
+    display: inline-block; font-size: .76rem; font-weight: 750;
+    color: var(--amber-ink); background: var(--amber-bg);
+    border: 1px solid #ead4a8; border-radius: 20px;
+    padding: .12rem .55rem; margin-bottom: .55rem;
+  }
+  .actions { margin: 0; padding-inline-start: 1.4rem; }
+  .actions li { padding-inline-start: .25rem; margin-bottom: .7rem; }
+  .actions li:last-child { margin-bottom: 0; }
+  .sources { margin: .4rem 0 .8rem; padding-inline-start: 1.25rem; }
+  .report-footer {
+    border-top: 1px solid var(--line); margin-top: 1.5rem;
+    padding-top: .8rem; color: var(--muted); font-size: .82rem;
+  }
+  .view[hidden], .print-button[hidden] { display: none; }
+
+  @media (max-width: 48rem) {
+    .layout { grid-template-columns: 1fr; }
+    .sidebar {
+      position: static; max-height: none; overflow: visible;
+      background: var(--white); border-bottom: 1px solid var(--line);
+      padding: .85rem 1rem;
+    }
+    .sidebar-note { display: none; }
+  }
+  @media (max-width: 33rem) {
+    .grid { grid-template-columns: 1fr; }
+  }
+  @page { margin: 15mm; }
+  @media print {
+    body { background: #fff; color: #000; font-size: 10.5pt; }
+    .skip, .sidebar, .print-button { display: none !important; }
+    .layout, .grid, .stack { display: block; }
+    .masthead, .masthead h1, .masthead p {
+      background: #fff; color: #000;
+    }
+    .masthead .shell, main { padding: 0; max-width: none; }
+    .masthead { margin-bottom: .7rem; }
+    .print-intro { break-inside: avoid; }
+    main .view[hidden] { display: block !important; }
+    .view:not(:first-of-type) { margin-top: 1.1rem; }
+    .hero, .card, .scope {
+      background: #fff; color: #000; border-color: #666;
+      break-inside: avoid; padding: .55rem .7rem;
+    }
+    .grid .card, .stack .card { margin-bottom: .45rem; }
+    .eyebrow, .ref, .view-head p, .report-footer { color: #222 !important; }
+    .tag { color: #000; background: #fff; border-color: #666; }
+    h2, h3 { color: #000; break-after: avoid; }
+    .view-head { break-after: avoid; margin-bottom: .5rem; }
+    p { orphans: 3; widows: 3; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to assessment</a>
+
+<header class="masthead">
+  <div class="shell">
+    <div>
+      <p class="eyebrow">Board discussion brief · Draft 2.0 review</p>
+      <h1>USU–AGI SLA</h1>
+      <p>Comparative assessment · SLA draft dated October 14, 2026</p>
+    </div>
+    <button type="button" id="print-report" class="print-button" hidden>
+      Print full report
+    </button>
+  </div>
+</header>
+
+<div class="shell layout">
+  <aside class="sidebar">
+    <nav aria-label="Assessment sections">
+      <p class="eyebrow nav-label">Contents</p>
+      <ol class="nav-list">
+        <li><a href="#overview"><span class="nav-number" aria-hidden="true">01</span>Decision summary</a></li>
+        <li><a href="#strong"><span class="nav-number" aria-hidden="true">02</span>Strong agreement</a></li>
+        <li><a href="#moderate"><span class="nav-number" aria-hidden="true">03</span>Moderate agreement</a></li>
+        <li><a href="#differences"><span class="nav-number" aria-hidden="true">04</span>Disagreements &amp; choices</a></li>
+        <li><a href="#next"><span class="nav-number" aria-hidden="true">05</span>Before signing</a></li>
+        <li><a href="#basis"><span class="nav-number" aria-hidden="true">06</span>Review basis</a></li>
+      </ol>
+    </nav>
+    <p class="sidebar-note">Four reviews · 80 items before grouping overlapping recommendations.</p>
+  </aside>
+
+  <main id="main" tabindex="-1">
+    <div class="scope">
+      <strong>Evidence limit:</strong> This briefing compares four review documents. It does not
+      independently verify the underlying SLA, related agreements, or regulatory requirements.
+    </div>
+
+    <section class="view" id="overview" aria-labelledby="overview-title">
+      <header class="view-head">
+        <p class="eyebrow">Executive assessment</p>
+        <h2 id="overview-title" tabindex="-1">Decision summary</h2>
+      </header>
+      <div class="hero">
+        <h3>Endorse the framework in principle only</h3>
+        <p>Do not authorize signature or effectiveness on the basis of this assessment.
+          The reviews broadly find that Draft 2.0 is a useful governance framework, but
+          it needs more detail to function as an operating agreement.</p>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <h3>Where the reviews align</h3>
+          <p>Clarify who decides, define measurable service standards, set escalation deadlines,
+            make transition obligations testable, and verify the employer and system registers.</p>
+        </article>
+        <article class="card">
+          <h3>Where decisions remain</h3>
+          <p>Decide when incident notice is triggered, what must be complete before signing,
+            how materiality is defined, and how Board approval is recorded.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="view" id="strong" aria-labelledby="strong-title">
+      <header class="view-head">
+        <p class="eyebrow">Broad alignment</p>
+        <h2 id="strong-title" tabindex="-1">Strong agreement</h2>
+        <p>The reviews identify the same needs, but do not necessarily agree on wording, thresholds, or deadlines.</p>
+      </header>
+      <div class="grid">
+        <article class="card"><h3>Decision rights</h3><p>Specify who at USU may approve or validate decisions, what AGI may recommend or carry out, and where written authorization is required.</p></article>
+        <article class="card"><h3>Measurable service standards</h3><p>Set targets, calculation rules, accountable owners, evidence sources, reporting frequency, and exceptions. Evidence that work occurred is not a performance standard.</p></article>
+        <article class="card"><h3>Escalation and corrective action</h3><p>Specify severity levels, notice deadlines, accountable contacts, and the response required when a standard is missed.</p></article>
+        <article class="card"><h3>Data return and service transition</h3><p>Specify export formats, timelines, transition support, and secure disposition. Test whether returned data are complete and usable.</p></article>
+        <article class="card"><h3>Employer-of-record register</h3><p>Verify the legal employer for covered positions and distinguish AGI’s administrative support from authority over University personnel decisions.</p></article>
+        <article class="card"><h3>System inventory</h3><p>Maintain a controlled register of system names, owners, and uses. Resolve undefined names such as “CNS.”</p></article>
+      </div>
+    </section>
+
+    <section class="view" id="moderate" aria-labelledby="moderate-title">
+      <header class="view-head">
+        <p class="eyebrow">Support from several reviews</p>
+        <h2 id="moderate-title" tabindex="-1">Moderate agreement</h2>
+        <p>Several reviews address these areas, but the proposed controls vary in scope and detail.</p>
+      </header>
+      <div class="stack">
+        <article class="card">
+          <h3>Commercial and legal terms</h3>
+          <p>ChatGPT, Claude, and Perplexity call for clearer term, termination, and shared-cost
+            provisions. Perplexity favors a term section inside the SLA. Claude accepts an SLA
+            section or a companion agreement; ChatGPT recommends identifying any governing
+            agreement and specifying which document prevails if they conflict.</p>
+          <p class="ref">References: ChatGPT R06, R07, R19 · Claude S03 · Perplexity F-01, F-11</p>
+        </article>
+        <article class="card">
+          <h3>Board oversight and independence</h3>
+          <p>Several reviews support a defined Audit Committee calendar, standard evidence
+            packages, and timely reporting to trustees. “Twice a year,” with scheduled dates
+            and submission deadlines, is clearer than “biannually.”</p>
+        </article>
+        <article class="card">
+          <h3>Regulatory accountability</h3>
+          <p>Identify who prepares each filing, which USU official validates or approves it,
+            when it is due, and where the approval record is kept.</p>
+        </article>
+        <article class="card">
+          <h3>Narrower proposals worth considering</h3>
+          <p>ChatGPT and Claude propose AI or algorithmic safeguards. Conflict-of-interest
+            rules, access to independent counsel, and whistleblower routing appear in fewer reviews.
+            ChatGPT alone proposes optional service credits or fee adjustments;
+            the other reviews’ silence is not endorsement or rejection.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="view" id="differences" aria-labelledby="differences-title">
+      <header class="view-head">
+        <p class="eyebrow">Divergence and implementation choices</p>
+        <h2 id="differences-title" tabindex="-1">Disagreements &amp; open choices</h2>
+        <p>The notice trigger is the clearest direct conflict. The other differences concern sequencing, drafting, or approval mechanics.</p>
+      </header>
+      <div class="stack">
+        <article class="card">
+          <span class="tag">Direct conflict</span>
+          <h3>When does the security notice clock start?</h3>
+          <p>Perplexity proposes initial notice within 24 hours of a <strong>confirmed</strong>
+            incident. ChatGPT says <strong>not to wait for confirmation</strong>. Copilot proposes
+            a 24-hour window without specifying when the clock starts.</p>
+          <p><strong>Resolve:</strong> Define which suspected incidents qualify for notice, what
+            starts the clock, and how deadlines vary by severity.</p>
+          <p class="ref">ChatGPT R04 · Perplexity F-12 · Copilot escalation table</p>
+        </article>
+        <article class="card">
+          <span class="tag">Sequencing choice</span>
+          <h3>What is required before signature versus effectiveness?</h3>
+          <p>Perplexity would block signature until the metrics exhibit is approved. ChatGPT
+            calls for measurable service levels before signing and separately proposes an
+            effectiveness gate for mandatory schedules. Copilot requests a metrics appendix
+            and employer register but does not make either a pre-signature condition.</p>
+          <p><strong>Resolve:</strong> List the requirements for approval in principle,
+            signature, and effectiveness separately.</p>
+          <p class="ref">ChatGPT R02, R03 · Perplexity F-02, F-04 · Copilot #2, #6</p>
+        </article>
+        <article class="card">
+          <span class="tag">Drafting choice</span>
+          <h3>Should materiality be uniform or tailored?</h3>
+          <p>Perplexity proposes one agreement-wide definition. Other reviews emphasize
+            thresholds or approval rules suited to specific functions such as spending,
+            technology changes, and outsourcing.</p>
+          <p><strong>Resolve:</strong> Consider a common risk baseline with additional
+            thresholds where a function needs a more precise approval trigger.</p>
+          <p class="ref">Perplexity F-03 · Claude S09 · Copilot #3</p>
+        </article>
+        <article class="card">
+          <span class="tag">Governance choice</span>
+          <h3>How should the Board evidence approval?</h3>
+          <p>Perplexity proposes a Board Chair signature or secretary attestation.
+            ChatGPT leaves open whether a Board resolution and delegated execution suffice.</p>
+          <p><strong>Resolve:</strong> Check USU’s governing documents and record who
+            approves the agreement, who attests to that approval, and who may sign.</p>
+          <p class="ref">Perplexity F-05 · ChatGPT R23 · Claude S17</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="view" id="next" aria-labelledby="next-title">
+      <header class="view-head">
+        <p class="eyebrow">Recommended action</p>
+        <h2 id="next-title" tabindex="-1">Before signing</h2>
+      </header>
+      <div class="card">
+        <ol class="actions">
+          <li><strong>Confirm authority.</strong> Settle USU’s reserved decisions, delegations, materiality thresholds, and required Board action.</li>
+          <li><strong>Approve the operating schedules.</strong> Finalize service metrics, the incident protocol, and the service-owner roster. Verify employer assignments and the critical system inventory.</li>
+          <li><strong>Confirm the commercial and exit terms.</strong> Document the cost-allocation basis, termination rights, and transition obligations in the SLA or precisely identify the agreement that governs them.</li>
+          <li><strong>Record the approval requirements.</strong> For each required item, identify the owner, approver, and evidence of completion. Separate signing requirements from any remaining conditions to effectiveness.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="view" id="basis" aria-labelledby="basis-title">
+      <header class="view-head">
+        <p class="eyebrow">Scope and interpretation</p>
+        <h2 id="basis-title" tabindex="-1">Review basis</h2>
+      </header>
+      <div class="stack">
+        <article class="card">
+          <h3>Sources compared</h3>
+          <ul class="sources">
+            <li>ChatGPT governance and execution review — 24 recommendations</li>
+            <li>Claude review and suggestions — 18 suggestions</li>
+            <li>Copilot review and recommendations — 10 recommendations</li>
+            <li>Perplexity Review Studio — 28 findings</li>
+          </ul>
+          <p>The 80 items were grouped by topic. Reviewers used different priority scales;
+            these labels describe agreement, not severity or readiness for approval.
+            A review’s silence is not a vote for or against a proposal.</p>
+        </article>
+        <article class="card">
+          <h3>How the assessments differ</h3>
+          <p>GPT’s synthesis distinguishes the governance decisions still open. Claude’s
+            provides the most item-level traceability. Gemini’s foregrounds financial
+            exposure but overstates agreement on some implementation details. In the source
+            reviews, Copilot characterizes <em>most</em> remaining gaps as operational;
+            it does not establish that there are no structural gaps.</p>
+        </article>
+      </div>
+    </section>
+
+    <footer class="report-footer">
+      USU–AGI SLA Draft 2.0 · Comparative assessment for Board discussion
+    </footer>
+  </main>
+</div>
+
+<script>
+(() => {
+  'use strict';
+
+  const main = document.getElementById('main');
+  const views = Array.from(main.querySelectorAll('.view'));
+  const routes = new Map(views.map(view => [view.id, view]));
+  const nav = document.querySelector('.nav-list');
+  const links = Array.from(nav.querySelectorAll('a'));
+  const printButton = document.getElementById('print-report');
+  const defaultRoute = 'overview';
+
+  function activate(id, moveFocus) {
+    const view = routes.get(id);
+    if (!view) return;
+
+    for (const section of views) section.hidden = section !== view;
+    for (const link of links) {
+      if (link.hash === '#' + id) link.setAttribute('aria-current', 'page');
+      else link.removeAttribute('aria-current');
+    }
+
+    const heading = view.querySelector('h2');
+    document.title = heading.textContent + ' | USU–AGI SLA';
+
+    if (moveFocus) {
+      heading.focus({ preventScroll: true });
+      window.scrollTo(0, 0);
+    }
+  }
+
+  function routeFromHash() {
+    const id = window.location.hash.slice(1);
+    return routes.has(id) ? id : defaultRoute;
+  }
+
+  // Native links preserve deep links and browser Back/Forward behavior.
+  window.addEventListener('hashchange', () => activate(routeFromHash(), true));
+
+  // A click on the current section does not produce a hashchange.
+  nav.addEventListener('click', event => {
+    const link = event.target.closest('a');
+    if (!link || event.button !== 0 || event.metaKey || event.ctrlKey ||
+        event.shiftKey || event.altKey) return;
+    if (link.hash === window.location.hash) {
+      event.preventDefault();
+      activate(link.hash.slice(1), true);
+    }
+  });
+
+  document.querySelector('.skip').addEventListener('click', event => {
+    event.preventDefault();
+    main.focus();
+    main.scrollIntoView({ block: 'start' });
+  });
+
+  printButton.addEventListener('click', () => window.print());
+  printButton.hidden = false;
+  activate(routeFromHash(), false);
+})();
+</script>
+</body>
+</html>

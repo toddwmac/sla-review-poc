@@ -1,0 +1,1404 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SLA Review Studio — USU / AGI Service Level Agreement (Draft 2.0)</title>
+<link href="https://api.fontshare.com/v2/css?f[]=zodiak@400,500,700&f[]=general-sans@300,400,500,600,700&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+  --text-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+  --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  --text-lg: clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
+  --text-xl: clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);
+  --space-1:.25rem;--space-2:.5rem;--space-3:.75rem;--space-4:1rem;--space-5:1.25rem;
+  --space-6:1.5rem;--space-8:2rem;--space-10:2.5rem;--space-12:3rem;--space-16:4rem;
+  --color-bg:#f5f3ee;
+  --color-surface:#fbfaf7;
+  --color-surface-2:#ffffff;
+  --color-surface-offset:#eeebe3;
+  --color-divider:#e0dcd2;
+  --color-border:#d3cec1;
+  --color-text:#23262e;
+  --color-text-muted:#6b6f78;
+  --color-text-faint:#a3a6ad;
+  --color-primary:#1f3a5f;
+  --color-primary-hover:#16293f;
+  --color-primary-highlight:#dfe6ef;
+  --color-accent:#8a6a1f;
+  --color-critical:#8c2f2f;
+  --color-critical-bg:#f7e9e7;
+  --color-high:#a4531c;
+  --color-high-bg:#f8efe4;
+  --color-medium:#8a6d1a;
+  --color-medium-bg:#f6f1e0;
+  --color-low:#55606e;
+  --color-low-bg:#e9edf2;
+  --color-agu:#1f3a5f;
+  --color-joint:#5b4a75;
+  --radius-sm:.375rem;--radius-md:.5rem;--radius-lg:.75rem;--radius-xl:1rem;--radius-full:9999px;
+  --transition-interactive:180ms cubic-bezier(0.16,1,0.3,1);
+  --shadow-sm:0 1px 2px rgba(35,38,46,.06);
+  --shadow-md:0 4px 12px rgba(35,38,46,.08);
+  --shadow-lg:0 12px 32px rgba(35,38,46,.12);
+  --font-display:'Zodiak',Georgia,serif;
+  --font-body:'General Sans','Helvetica Neue',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:none;text-rendering:optimizeLegibility;scroll-behavior:smooth;scroll-padding-top:calc(var(--space-16) + var(--space-4))}
+body{min-height:100dvh;line-height:1.6;font-family:var(--font-body);font-size:var(--text-base);color:var(--color-text);background-color:var(--color-bg)}
+img,svg{display:block;max-width:100%}
+input,button,textarea,select{font:inherit;color:inherit}
+h1,h2,h3,h4{font-family:var(--font-display);text-wrap:balance;line-height:1.15;font-weight:500}
+p,li,figcaption{text-wrap:pretty;max-width:72ch}
+a{color:var(--color-primary);text-decoration:none}
+a:hover{text-decoration:underline}
+button{cursor:pointer;background:none;border:none}
+:focus-visible{outline:2px solid var(--color-primary);outline-offset:3px;border-radius:var(--radius-sm)}
+
+/* ---------- App bar ---------- */
+.appbar{position:sticky;top:0;z-index:60;background:color-mix(in oklab,var(--color-primary) 94%,black);color:#f4f2ea;box-shadow:var(--shadow-md)}
+.appbar-inner{max-width:1440px;margin:0 auto;padding:var(--space-3) var(--space-6);display:flex;align-items:center;gap:var(--space-4);flex-wrap:wrap}
+.appbar-brand{display:flex;flex-direction:column;line-height:1.2;min-width:0}
+.appbar-brand strong{font-family:var(--font-display);font-size:var(--text-lg);letter-spacing:.01em;color:#fff;font-weight:500}
+.appbar-brand span{font-size:var(--text-xs);color:#c9c4b2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:52vw}
+.appbar-actions{margin-left:auto;display:flex;align-items:center;gap:var(--space-2);flex-wrap:wrap}
+.chip-progress{font-size:var(--text-xs);background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);color:#efeadf;padding:var(--space-1) var(--space-3);border-radius:var(--radius-full);white-space:nowrap}
+.btn{font-size:var(--text-sm);font-weight:500;padding:var(--space-2) var(--space-4);border-radius:var(--radius-md);border:1px solid transparent;transition:all var(--transition-interactive)}
+.btn-light{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.3);color:#fff}
+.btn-light:hover{background:rgba(255,255,255,.2)}
+.btn-primary{background:var(--color-accent);color:#fff}
+.btn-primary:hover{background:#6e5417}
+.btn-ghost{background:var(--color-surface-2);border-color:var(--color-border);color:var(--color-text)}
+.btn-ghost:hover{background:var(--color-surface-offset)}
+.banner{background:#fdf3d7;border-bottom:1px solid #e4cf8e;color:#5f4c14;font-size:var(--text-sm);padding:var(--space-2) var(--space-6);text-align:center}
+.banner[hidden]{display:none}
+
+/* ---------- Layout ---------- */
+.layout{max-width:1440px;margin:0 auto;display:grid;grid-template-columns:288px minmax(0,1fr);gap:0;align-items:start}
+.sidebar{position:sticky;top:calc(var(--space-16) + var(--space-4));max-height:calc(100dvh - var(--space-16) - var(--space-8));overflow-y:auto;padding:var(--space-6) var(--space-4) var(--space-12);border-right:1px solid var(--color-divider)}
+.nav-views{display:flex;gap:var(--space-1);margin-bottom:var(--space-5)}
+.nav-view{flex:1;text-align:center;font-size:var(--text-sm);font-weight:600;padding:var(--space-2) var(--space-2);border-radius:var(--radius-md);color:var(--color-text-muted);border:1px solid transparent}
+.nav-view:hover{background:var(--color-surface-offset);text-decoration:none}
+.nav-view.active{background:var(--color-primary);color:#fff}
+.nav-label{font-size:var(--text-xs);text-transform:uppercase;letter-spacing:.08em;color:var(--color-text-faint);font-weight:600;margin:var(--space-4) var(--space-2) var(--space-2)}
+.nav-item{display:flex;align-items:center;gap:var(--space-2);width:100%;text-align:left;font-size:var(--text-sm);padding:var(--space-2) var(--space-2);border-radius:var(--radius-sm);color:var(--color-text);line-height:1.35}
+.nav-item:hover{background:var(--color-surface-offset);text-decoration:none}
+.nav-item>span:first-child{flex:1;min-width:0}
+.nav-item .pg{font-size:var(--text-xs);color:var(--color-text-faint);white-space:nowrap;margin-left:var(--space-2)}
+.nav-item .ct{font-size:var(--text-xs);background:var(--color-surface-offset);border:1px solid var(--color-divider);color:var(--color-text-muted);border-radius:var(--radius-full);padding:0 var(--space-2);min-width:1.5rem;text-align:center;flex:none}
+.nav-item.active{background:var(--color-primary-highlight);font-weight:600}
+.main{padding:var(--space-8) var(--space-10) var(--space-16);min-width:0}
+
+/* ---------- Overview ---------- */
+.doc-hero{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-8);box-shadow:var(--shadow-sm);margin-bottom:var(--space-8)}
+.doc-hero .kicker{font-size:var(--text-xs);text-transform:uppercase;letter-spacing:.1em;color:var(--color-accent);font-weight:700;margin-bottom:var(--space-2)}
+.doc-hero h1{font-size:var(--text-xl);margin-bottom:var(--space-2)}
+.doc-hero .sub{color:var(--color-text-muted);font-size:var(--text-sm);margin-bottom:var(--space-5)}
+.meta-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:var(--space-3)}
+.meta-cell{background:var(--color-surface-2);border:1px solid var(--color-divider);border-radius:var(--radius-md);padding:var(--space-3) var(--space-4)}
+.meta-cell dt{font-size:var(--text-xs);text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-faint);font-weight:600}
+.meta-cell dd{font-size:var(--text-sm);font-weight:500;margin-top:2px;overflow-wrap:anywhere;word-break:break-word}
+.section-block{margin-bottom:var(--space-10)}
+.section-block>h2{font-size:var(--text-lg);margin-bottom:var(--space-3);padding-bottom:var(--space-2);border-bottom:2px solid var(--color-primary)}
+.section-block p{margin-bottom:var(--space-3);color:var(--color-text);max-width:75ch}
+.section-block p.muted{color:var(--color-text-muted)}
+.stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:var(--space-3);margin-bottom:var(--space-6)}
+.stat-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-md);padding:var(--space-4);cursor:pointer;transition:all var(--transition-interactive);text-align:left}
+.stat-card:hover{box-shadow:var(--shadow-md);transform:translateY(-1px)}
+.stat-num{font-family:var(--font-display);font-size:var(--text-xl);line-height:1}
+.stat-lbl{font-size:var(--text-xs);text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-muted);font-weight:600;margin-top:var(--space-1)}
+.strength-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--space-3)}
+.strength{background:var(--color-surface);border:1px solid var(--color-border);border-left:4px solid var(--color-primary);border-radius:var(--radius-md);padding:var(--space-4)}
+.strength h3{font-size:var(--text-base);margin-bottom:var(--space-1)}
+.strength p{font-size:var(--text-sm);color:var(--color-text-muted)}
+.howto{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-6);margin-top:var(--space-4)}
+.howto ol{padding-left:var(--space-6);display:grid;gap:var(--space-2);font-size:var(--text-sm)}
+
+/* ---------- Findings ---------- */
+.findings-head{display:flex;align-items:baseline;gap:var(--space-4);flex-wrap:wrap;margin-bottom:var(--space-4)}
+.findings-head h1{font-size:var(--text-xl)}
+.findings-head .count{color:var(--color-text-muted);font-size:var(--text-sm)}
+.filterbar{position:sticky;top:calc(var(--space-16) + var(--space-4));z-index:40;background:color-mix(in oklab,var(--color-bg) 88%,white);backdrop-filter:blur(6px);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-3) var(--space-4);display:flex;gap:var(--space-3);align-items:center;flex-wrap:wrap;margin-bottom:var(--space-8);box-shadow:var(--shadow-sm)}
+.chip{font-size:var(--text-xs);font-weight:600;padding:var(--space-1) var(--space-3);border-radius:var(--radius-full);border:1px solid var(--color-border);background:var(--color-surface-2);color:var(--color-text-muted);transition:all var(--transition-interactive)}
+.chip:hover{border-color:var(--color-primary)}
+.chip.on{background:var(--color-primary);border-color:var(--color-primary);color:#fff}
+.chip.on.crit{background:var(--color-critical);border-color:var(--color-critical)}
+.chip.on.high{background:var(--color-high);border-color:var(--color-high)}
+.chip.on.med{background:var(--color-medium);border-color:var(--color-medium)}
+.chip.on.low{background:var(--color-low);border-color:var(--color-low)}
+.filterbar select,.filterbar input[type=search]{font-size:var(--text-sm);padding:var(--space-1) var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-md);background:var(--color-surface-2);min-width:130px}
+.filterbar input[type=search]{flex:1;min-width:180px}
+.sec-group{margin-bottom:var(--space-10);scroll-margin-top:calc(var(--space-16) + var(--space-12))}
+.sec-group>header{display:flex;align-items:baseline;gap:var(--space-3);flex-wrap:wrap;margin-bottom:var(--space-4);padding-bottom:var(--space-2);border-bottom:2px solid var(--color-divider)}
+.sec-group>header h2{font-size:var(--text-lg)}
+.sec-group>header .pages{font-size:var(--text-xs);font-weight:600;background:var(--color-surface-offset);border:1px solid var(--color-divider);color:var(--color-text-muted);padding:var(--space-1) var(--space-3);border-radius:var(--radius-full);white-space:nowrap}
+.sec-group>header .desc{font-size:var(--text-sm);color:var(--color-text-muted);flex-basis:100%}
+.card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);margin-bottom:var(--space-4);box-shadow:var(--shadow-sm);overflow:hidden;transition:box-shadow var(--transition-interactive)}
+.card:hover{box-shadow:var(--shadow-md)}
+.card.notewrap{border-color:var(--color-primary);box-shadow:0 0 0 1px var(--color-primary),var(--shadow-sm)}
+.card-head{display:flex;align-items:flex-start;gap:var(--space-3);padding:var(--space-4) var(--space-5);cursor:pointer}
+.card-head:hover{background:var(--color-surface-2)}
+.fid{font-family:var(--font-body);font-size:var(--text-xs);font-weight:700;background:var(--color-primary);color:#fff;border-radius:var(--radius-sm);padding:var(--space-1) var(--space-2);white-space:nowrap;margin-top:2px}
+.badge{font-size:var(--text-xs);font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:var(--space-1) var(--space-3);border-radius:var(--radius-full);white-space:nowrap;margin-top:2px}
+.b-critical{background:var(--color-critical-bg);color:var(--color-critical);border:1px solid #e3c4c0}
+.b-high{background:var(--color-high-bg);color:var(--color-high);border:1px solid #ecd4bd}
+.b-medium{background:var(--color-medium-bg);color:var(--color-medium);border:1px solid #e6dcbc}
+.b-low{background:var(--color-low-bg);color:var(--color-low);border:1px solid #ccd5df}
+.card-title{font-family:var(--font-display);font-size:var(--text-lg);line-height:1.25;flex:1;min-width:0}
+.card-title small{display:block;font-family:var(--font-body);font-size:var(--text-xs);font-weight:500;color:var(--color-text-faint);letter-spacing:.02em;margin-top:var(--space-1)}
+.caret{color:var(--color-text-faint);flex:none;margin-top:6px;transition:transform var(--transition-interactive)}
+.card.open .caret{transform:rotate(90deg)}
+.card-body{padding:0 var(--space-5) var(--space-5);display:none}
+.card.open .card-body{display:block}
+.loc-row{display:flex;gap:var(--space-2);flex-wrap:wrap;align-items:center;margin-bottom:var(--space-4);padding:var(--space-3);background:var(--color-surface-offset);border-radius:var(--radius-md)}
+.loc-row .pg{font-size:var(--text-xs);font-weight:700;background:var(--color-primary);color:#fff;padding:2px var(--space-2);border-radius:var(--radius-sm)}
+.loc-row .where{font-size:var(--text-sm);color:var(--color-text)}
+.tag{font-size:var(--text-xs);font-weight:600;padding:2px var(--space-2);border-radius:var(--radius-full);border:1px solid var(--color-divider);background:var(--color-surface-2);color:var(--color-text-muted);white-space:nowrap}
+.tag.joint{color:var(--color-joint);border-color:#d8d0e4}
+.lbl{font-size:var(--text-xs);text-transform:uppercase;letter-spacing:.07em;font-weight:700;color:var(--color-accent);margin:var(--space-4) 0 var(--space-1)}
+blockquote.quote{border-left:3px solid var(--color-border);padding:var(--space-2) var(--space-4);background:var(--color-surface-2);border-radius:0 var(--radius-md) var(--radius-md) 0;font-size:var(--text-sm);color:var(--color-text-muted);font-style:normal;margin-bottom:var(--space-2)}
+blockquote.quote em{color:var(--color-text);font-style:normal;background:linear-gradient(transparent 62%,#f0e3b8 62%)}
+.rec-text{font-size:var(--text-sm)}
+.rec-text ul{padding-left:var(--space-5);display:grid;gap:var(--space-1)}
+.lang-box{background:var(--color-surface-2);border:1px dashed var(--color-border);border-radius:var(--radius-md);padding:var(--space-3) var(--space-4);font-size:var(--text-sm);color:var(--color-text);white-space:pre-wrap;margin-top:var(--space-2)}
+/* note panel */
+.note-panel{margin-top:var(--space-5);border-top:1px solid var(--color-divider);padding-top:var(--space-4)}
+.note-grid{display:grid;grid-template-columns:200px 1fr;gap:var(--space-3);align-items:start}
+.note-panel select{font-size:var(--text-sm);padding:var(--space-2);border:1px solid var(--color-border);border-radius:var(--radius-md);background:var(--color-surface-2);width:100%}
+.note-panel textarea{width:100%;min-height:76px;font-size:var(--text-sm);padding:var(--space-2) var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-md);background:var(--color-surface-2);resize:vertical}
+.note-hint{font-size:var(--text-xs);color:var(--color-text-faint);margin-top:var(--space-1)}
+.save-ind{font-size:var(--text-xs);color:var(--color-text-faint);margin-top:var(--space-1);min-height:1.2em}
+.save-ind.ok{color:#3d6b2a;font-weight:600}
+.status-dot{width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:6px;background:var(--color-text-faint)}
+.status-dot.agreed{background:#3d6b2a}.status-dot.changes{background:#8a6d1a}
+.status-dot.disagree{background:var(--color-critical)}.status-dot.question{background:var(--color-primary)}
+.status-dot.deferred{background:var(--color-text-faint)}
+.empty{padding:var(--space-12) var(--space-6);text-align:center;color:var(--color-text-muted);background:var(--color-surface);border:1px dashed var(--color-border);border-radius:var(--radius-lg);font-size:var(--text-sm)}
+
+/* ---------- Notes view ---------- */
+.notes-head{display:flex;align-items:baseline;gap:var(--space-4);flex-wrap:wrap;margin-bottom:var(--space-5)}
+.notes-head h1{font-size:var(--text-xl)}
+.reviewer-row{display:flex;gap:var(--space-3);align-items:center;flex-wrap:wrap;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-4) var(--space-5);margin-bottom:var(--space-6)}
+.reviewer-row label{font-size:var(--text-sm);font-weight:600}
+.reviewer-row input{font-size:var(--text-sm);padding:var(--space-2) var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-md);background:var(--color-surface-2);min-width:240px}
+.export-row{display:flex;gap:var(--space-2);flex-wrap:wrap;margin-left:auto}
+.note-summary-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-4) var(--space-5);margin-bottom:var(--space-3);display:grid;grid-template-columns:auto 1fr auto;gap:var(--space-4);align-items:start}
+.note-summary-card .nmeta{font-size:var(--text-xs);color:var(--color-text-muted);display:grid;gap:2px}
+.note-summary-card .ntitle{font-family:var(--font-display);font-size:var(--text-base)}
+.note-summary-card .nstat{font-size:var(--text-xs);font-weight:700;padding:var(--space-1) var(--space-3);border-radius:var(--radius-full);border:1px solid var(--color-divider);white-space:nowrap}
+.note-summary-card .nbody{font-size:var(--text-sm);grid-column:2/4;color:var(--color-text);background:var(--color-surface-2);border-radius:var(--radius-md);padding:var(--space-3);white-space:pre-wrap}
+.modal-backdrop{position:fixed;inset:0;background:rgba(23,26,32,.55);z-index:100;display:flex;align-items:center;justify-content:center;padding:var(--space-6)}
+.modal-backdrop[hidden]{display:none}
+.modal{background:var(--color-surface);border-radius:var(--radius-lg);max-width:760px;width:100%;max-height:85dvh;display:flex;flex-direction:column;box-shadow:var(--shadow-lg)}
+.modal-head{display:flex;align-items:center;justify-content:space-between;padding:var(--space-4) var(--space-5);border-bottom:1px solid var(--color-divider)}
+.modal-head h3{font-size:var(--text-lg)}
+.modal-body{padding:var(--space-4) var(--space-5);overflow:auto}
+.modal-body textarea{width:100%;min-height:380px;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:var(--text-xs);line-height:1.55;padding:var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-md);background:var(--color-surface-2)}
+.modal-foot{display:flex;justify-content:flex-end;gap:var(--space-2);padding:var(--space-3) var(--space-5);border-top:1px solid var(--color-divider)}
+
+footer.sitefoot{border-top:1px solid var(--color-divider);padding:var(--space-6);text-align:center;font-size:var(--text-xs);color:var(--color-text-faint)}
+
+@media (max-width:980px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{position:static;max-height:none;border-right:none;border-bottom:1px solid var(--color-divider);padding:var(--space-4)}
+  .sidebar nav{display:none}
+  .sidebar nav.open{display:block}
+  .main{padding:var(--space-6) var(--space-4) var(--space-12)}
+  .note-grid{grid-template-columns:1fr}
+  .note-summary-card{grid-template-columns:auto 1fr;gap:var(--space-3)}
+  .note-summary-card .nbody{grid-column:1/3}
+  .nav-toggle{display:inline-flex}
+}
+.nav-toggle{display:none;font-size:var(--text-sm);font-weight:600;border:1px solid var(--color-border);border-radius:var(--radius-md);padding:var(--space-1) var(--space-3);color:var(--color-text)}
+
+@media print{
+  .appbar,.sidebar,.filterbar,.banner,.export-row,.nav-toggle,.caret{display:none !important}
+  .layout{display:block}
+  .main{padding:0;max-width:none}
+  .card-body{display:block !important}
+  .card{break-inside:avoid;box-shadow:none}
+  .sec-group{break-after:page}
+  body{background:#fff}
+}
+</style>
+</head>
+<body>
+
+<header class="appbar">
+  <div class="appbar-inner">
+    <div class="appbar-brand">
+      <strong>SLA Review Studio</strong>
+      <span>USU / Aspen Group Service Level Agreement — Draft 2.0 (Oct 14, 2026) · Board Review Edition</span>
+    </div>
+    <div class="appbar-actions">
+      <span class="chip-progress" id="progressChip">0 of 0 reviewed</span>
+      <button class="btn btn-light" data-goto="notes">Review notes</button>
+      <button class="btn btn-primary" id="btnExportMd">Export notes</button>
+    </div>
+  </div>
+</header>
+<div class="banner" id="storageBanner">
+  Reviewer notes are kept for this session. Use <strong>Export notes</strong> (Markdown or JSON) before closing to keep a copy of your comments — and import the JSON file to pick up where you left off.
+</div>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div style="display:flex;gap:var(--space-2);align-items:center;margin-bottom:var(--space-4)">
+      <button class="nav-toggle" id="navToggle" aria-expanded="false">Sections ▾</button>
+    </div>
+    <nav id="sideNav">
+      <div class="nav-views" role="tablist" aria-label="Views">
+        <a class="nav-view active" href="#overview" data-view="overview">Overview</a>
+        <a class="nav-view" href="#findings" data-view="findings">Findings</a>
+        <a class="nav-view" href="#notes" data-view="notes">Notes</a>
+      </div>
+      <div class="nav-label">Document map</div>
+      <div id="navSections"></div>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <!-- ============ OVERVIEW ============ -->
+    <section id="view-overview">
+      <div class="doc-hero">
+        <p class="kicker">Independent review · Prepared for Board of Trustees discussion</p>
+        <h1>USU / AGI Service Level Agreement<br/>Draft 2.0 — Structured Review &amp; Suggestions</h1>
+        <p class="sub">Review of the “Executive Edition” SLA between United States University and Aspen Group, Inc., revised October 14, 2026 (19 pages), with 28 numbered suggestions mapped to exact pages, sections, and table rows — plus space for reviewer notes on each one.</p>
+        <dl class="meta-grid">
+          <div class="meta-cell"><dt>Document reviewed</dt><dd>SLA BOT-Review PDF (19 pages)</dd></div>
+          <div class="meta-cell"><dt>Version / date</dt><dd>Draft 2.0 · October 14, 2026</dd></div>
+          <div class="meta-cell"><dt>Framework</dt><dd>WSCUC outsourcing policy &amp; Outsource Services Table</dd></div>
+          <div class="meta-cell"><dt>Review focus</dt><dd>Clarity, enforceability, governance, actionability</dd></div>
+        </dl>
+      </div>
+
+      <div class="section-block">
+        <h2>What this document is trying to do</h2>
+        <p>The SLA defines the shared-services relationship between the university and its owner: AGI (a Phoenix-based education technology holding company) delivers marketing, finance, IT, HR, business office, academic support, and compliance services, while USU — through its Board of Trustees, President, and faculty governance — retains final authority over everything done in the university’s name. It is written to satisfy WSCUC accreditation expectations for documented oversight of outsourced functions.</p>
+        <p>The draft’s architecture is sound: eight service matrices in a consistent five-column format (deliverable, AGI responsibility, USU responsibility, shared coordination, measure/evidence), a performance-standards section, a corrective-action ladder, and an explicit statement that shared coordination never transfers approval authority to AGI. The suggestions below are aimed at making the agreement easier to <em>act on</em>: most gaps are matters of specificity — undefined terms, pending targets, missing calendars and rosters — rather than structural defects.</p>
+      </div>
+
+      <div class="section-block">
+        <h2>Findings at a glance</h2>
+        <p class="muted">Click a card to jump to that group of suggestions. Every suggestion is tied to an exact page and section of the SLA.</p>
+        <div class="stat-row" id="statRow"></div>
+        <div class="howto">
+          <h3 style="font-size:var(--text-base);margin-bottom:var(--space-2)">How to use this review</h3>
+          <ol>
+            <li><strong>Findings view</strong> lists 28 suggestions grouped in document order, each showing the exact page, section, and (where relevant) the table row it applies to, what the SLA currently says, the recommendation, and why it matters.</li>
+            <li><strong>Record your position</strong> on each suggestion using the status dropdown (Agree / Agree with changes / Disagree / Question / Deferred) and add comments in the note box. Notes save automatically when this preview can store them.</li>
+            <li><strong>Notes view</strong> consolidates everything you have commented on, with your reviewer name — then use <strong>Export notes</strong> to download a Markdown record for the BOT packet or email it to the document owner.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="section-block">
+        <h2>What already works well</h2>
+        <div class="strength-list">
+          <div class="strength"><h3>Retained authority, stated plainly</h3><p>The Definitions section enumerates exactly what USU keeps — curriculum, admissions, faculty, grading, degrees, complaints, accreditation — and repeats that ownership does not transfer authority. (p. 5)</p></div>
+          <div class="strength"><h3>Consistent five-column matrices</h3><p>Every service area uses the same deliverable / AGI / USU / shared / evidence structure, which replaced overlapping tables and makes responsibilities directly comparable. (pp. 7–16)</p></div>
+          <div class="strength"><h3>Evidence-first review</h3><p>Each matrix row names the artifact that proves performance, and the Audit Committee reviews results biannually with met / needs-improvement / did-not-meet ratings. (pp. 6, 17)</p></div>
+          <div class="strength"><h3>Immediate-risk carve-out</h3><p>Risks to students, compliance, or accreditation must be reported and protected without waiting for the next scheduled review. (p. 18)</p></div>
+          <div class="strength"><h3>Data portability &amp; destruction</h3><p>The MIS matrix guarantees export capability, usable return formats, and verified destruction of remaining copies. (p. 9)</p></div>
+          <div class="strength"><h3>Employer-of-record discipline</h3><p>HR requires a verified employer register and states that administrative services do not establish the legal employer. (p. 12)</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FINDINGS ============ -->
+    <section id="view-findings" hidden>
+      <div class="findings-head">
+        <h1>Findings &amp; suggestions</h1>
+        <span class="count" id="findCount"></span>
+      </div>
+      <div class="filterbar" role="group" aria-label="Filters">
+        <button class="chip on" data-pri="all">All</button>
+        <button class="chip crit" data-pri="Critical">Critical</button>
+        <button class="chip high" data-pri="High">High</button>
+        <button class="chip med" data-pri="Medium">Medium</button>
+        <button class="chip low" data-pri="Low">Low</button>
+        <select id="fOwner" aria-label="Filter by owner"><option value="all">All owners</option><option>USU</option><option>AGI</option><option>Joint</option></select>
+        <select id="fStatus" aria-label="Filter by review status"><option value="all">Any status</option><option value="none">Not yet reviewed</option><option value="agreed">Agreed</option><option value="changes">Agreed w/ changes</option><option value="disagree">Disagree</option><option value="question">Question</option><option value="deferred">Deferred</option></select>
+        <input type="search" id="fSearch" placeholder="Search suggestions, quotes, sections…" aria-label="Search findings" />
+      </div>
+      <div id="findingsRoot"></div>
+    </section>
+
+    <!-- ============ NOTES ============ -->
+    <section id="view-notes" hidden>
+      <div class="notes-head">
+        <h1>Reviewer notes</h1>
+        <span class="count" id="notesCount"></span>
+      </div>
+      <div class="reviewer-row">
+        <label for="reviewerName">Reviewer name</label>
+        <input id="reviewerName" type="text" placeholder="e.g., J. Billingsley or BOT Finance Committee" />
+        <div class="export-row">
+          <button class="btn btn-primary" id="btnExportMd2">Export Markdown</button>
+          <button class="btn btn-ghost" id="btnExportJson">Export JSON</button>
+          <button class="btn btn-ghost" id="btnImportJson">Import JSON</button>
+          <button class="btn btn-ghost" id="btnPrint">Print</button>
+        </div>
+      </div>
+      <div id="notesRoot"></div>
+    </section>
+  </main>
+</div>
+
+<div class="modal-backdrop" id="mdModal" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="mdModalTitle">
+    <div class="modal-head"><h3 id="mdModalTitle">Your review notes</h3><button class="btn btn-ghost" id="mdClose">Close</button></div>
+    <div class="modal-body"><textarea id="mdText" readonly></textarea></div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" id="mdCopy">Copy to clipboard</button>
+      <button class="btn btn-primary" id="mdDownload">Download .md</button>
+    </div>
+  </div>
+</div>
+
+<footer class="sitefoot">
+  Structured review of the USU / AGI Service Level Agreement, Draft 2.0 (October 14, 2026). Suggestions are advisory and reference page numbers of the reviewed PDF. Prepared for Board of Trustees discussion — not legal advice.
+</footer>
+
+<script>
+/* ================= DATA ================= */
+const SECTIONS = [
+  {id:'sec-front',   title:'Front matter & document control', pages:'p. 1', desc:'Cover, version control, and amendment history.'},
+  {id:'sec-letters', title:'Executive letters & org chart', pages:'pp. 2–4', desc:'CEO and President letters, organizational chart, collaborative development process.'},
+  {id:'sec-defs',    title:'Definitions & governance', pages:'p. 5', desc:'Party definitions, retained authority list, BOT and AGI board roles.'},
+  {id:'sec-reviews', title:'Operating reviews & monitoring', pages:'p. 6', desc:'Audit Committee reviews, continuous monitoring, service owners, background & purpose.'},
+  {id:'sec-mkt',     title:'Matrix: recruitment & marketing', pages:'p. 7', desc:'Strategy & budget, lead generation, content & social, measurement.'},
+  {id:'sec-finaid',  title:'Matrix: student finance & financial aid', pages:'p. 8', desc:'Aid administration, collections, data protection, reporting & audits.'},
+  {id:'sec-mis',     title:'Matrix: MIS & security', pages:'p. 9', desc:'Platforms, security & access, continuity, institutional data, contracts & transition.'},
+  {id:'sec-bus',     title:'Matrix: business office support', pages:'pp. 10–11', desc:'Accounting, shared costs, student accounting, risk, legal, audits, tax, facilities, treasury.'},
+  {id:'sec-hr',      title:'Matrix: human resources', pages:'p. 12', desc:'Employer records, recruitment, onboarding, compensation, complaints & separations.'},
+  {id:'sec-acadsupp',title:'Matrix: academic support & student services', pages:'p. 13', desc:'Registration & records, advising & retention, career services & tutoring, clinical placement.'},
+  {id:'sec-acadops', title:'Matrix: academic operations', pages:'p. 14', desc:'Curriculum & syllabi, faculty appointments, instruction & assessment, library.'},
+  {id:'sec-comply',  title:'Matrix: regulatory compliance & institutional research', pages:'pp. 15–16', desc:'Regulatory administration, protected processes, institutional research, data quality, quality assurance.'},
+  {id:'sec-perf',    title:'Performance standards', pages:'p. 17', desc:'Metric documentation requirement and per-area measures table.'},
+  {id:'sec-correct', title:'Corrective action & escalation', pages:'p. 18', desc:'Deficiency documentation, escalation, recovery plans, repeated failures.'},
+  {id:'sec-approve', title:'Approvals & execution', pages:'pp. 18–19', desc:'Effectiveness conditions and signature blocks.'},
+  {id:'sec-missing', title:'Missing structural provisions', pages:'whole document', desc:'Provisions a reviewer would expect to find but that do not appear anywhere in Draft 2.0.'}
+];
+
+const FINDINGS = [
+/* ---------- CRITICAL ---------- */
+{ id:'F-01', pri:'Critical', cat:'Structural gap', owner:'Joint', sec:'sec-missing',
+  title:'Add a Term, Renewal & Termination section',
+  where:'Whole agreement; visible at Approvals, pp. 18–19',
+  quote:'“This draft becomes effective only after required institutional approvals and execution by authorized representatives…” — the agreement contains no term length, renewal mechanism, termination rights, notice periods, or post-termination obligations.',
+  rec:['Insert a “Term, Renewal, and Termination” section before Approvals. At minimum: an initial term (e.g., three years) with renewal by documented approval of both parties; termination for convenience with 180 days’ written notice; termination for cause tied to unresolved material deficiencies; and a transition-assistance obligation (duration, scope, and cost treatment) that survives termination.',
+  'Cross-reference the MIS matrix’s transition row (p. 9) so exit obligations are consistent across the document.'],
+  why:'An SLA with no exit path leaves the university’s service continuity governed only by the underlying 2017 acquisition agreements — documents the BOT reviewers are not reading side-by-side. WSCUC reviewers also expect a documented exit plan for outsourced functions. This is the single largest structural omission in Draft 2.0.',
+  lang:'Suggested structure — 1. Term: This Agreement takes effect on the Effective Date and continues for three (3) years unless terminated as provided below. 2. Renewal: Renewal requires documented review and written approval by authorized representatives of both parties at least ninety (90) days before expiry. 3. Termination for convenience: Either party may terminate on one hundred eighty (180) days’ written notice. 4. Termination for cause: USU may terminate for material deficiency remaining uncured after the corrective-action process (Section: Corrective Action and Escalation). 5. Transition: On termination or expiry, AGI shall provide transition assistance for up to twelve (12) months on terms documented in the transition plan, consistent with the Contracts and transition row of the MIS service matrix.' },
+
+{ id:'F-02', pri:'Critical', cat:'Enforceability', owner:'Joint', sec:'sec-perf',
+  title:'Do not execute until the metrics exhibit exists — every target is pending',
+  where:'p. 17, Performance Standards, both paragraphs',
+  quote:'“Before this Agreement becomes effective, the USU service owner and AGI service owner shall document the metric definition, numeric target, reporting frequency, data source, owner, and exception criteria for each recurring service. USU approves the standards. <em>Targets below remain pending approval and are not representations of current performance.</em>”',
+  rec:['Make completion of the metrics exhibit a condition of execution, not a post-signature task: no signature until service owners submit — and USU approves — the full metric definition set for all eight service areas.',
+  'Require a baseline (current performance) next to each target so “needs improvement” has a factual starting point.',
+  'Add a deadline (e.g., within 60 days of BOT approval-in-principle) and name the accountable owner for assembling the exhibit.'],
+  why:'An SLA whose every numeric target is TBD cannot be enforced, audited, or rated — the biannual met / needs-improvement / did-not-meet reviews have nothing objective to measure against. The document already knows this; the fix is to gate execution on it rather than defer it.',
+  lang:'Suggested language — Execution of this Agreement is conditioned on USU approval of the Service Performance Exhibit, which shall state for each recurring service: metric definition, current baseline, numeric target, reporting frequency, data source, accountable owners, and exception criteria.' },
+
+{ id:'F-03', pri:'Critical', cat:'Undefined terms', owner:'Joint', sec:'sec-defs',
+  title:'Define “material” — it gates approvals, escalation, and termination',
+  where:'pp. 5, 9, 10, 11, 18 — e.g., MIS matrix “material system changes” (p. 9); Business Office “material commitments” (pp. 10–11); Corrective Action “material or unresolved deficiencies” (p. 18)',
+  quote:'“…approve product selection, service priorities, <em>material system changes</em>…” · “…authorize expenditure thresholds and <em>material commitments</em>…” · “<em>Material or unresolved deficiencies</em> shall be escalated…”',
+  rec:['Add a definition of “material” to the Definitions section with two tests: (a) a financial threshold (e.g., any commitment, change, or deficiency above $X or Y% of the annual operating budget) and (b) a severity test (any matter affecting accreditation, Title IV eligibility, student safety, data security, or legal exposure).',
+  'State once, centrally, that the same definition applies wherever the word appears, so the matrices do not need individual thresholds.'],
+  why:'“Material” appears throughout as the trigger for USU approval and for escalation, but each reader will supply their own threshold. That ambiguity is exactly where disputes between a university and its parent company begin — and where an accreditor asks “who decided this was not material?”',
+  lang:'Suggested definition — “Material” means (a) an amount exceeding $[•] or [•]% of the University’s annual operating budget, or (b) any matter reasonably likely to affect accreditation status, Title IV participation, student safety, information security, or the University’s legal position. This definition applies wherever “material” is used in this Agreement.' },
+
+{ id:'F-04', pri:'Critical', cat:'Execution readiness', owner:'Joint', sec:'sec-approve',
+  title:'Attach the confirmed employer register as an exhibit at signing',
+  where:'p. 12, HR matrix row “Employer and official records” · p. 18, Approvals',
+  quote:'“Before execution, confirm legal employers for AGI corporate staff, USU staff, core faculty, and adjunct faculty; reconcile files.” · “Approval dates, service standards, <em>employer assignments</em>, and financial delegation parameters must be confirmed before execution.”',
+  rec:['Produce the verified employer register now and attach it as an exhibit to the executed agreement, with a named completion date in the amendment history.',
+  'Add a standing obligation: the register is re-attested annually by both service owners, and any change to an employer of record requires prior written notice to USU.'],
+  why:'Who the legal employer is determines who is liable for wage claims, benefits disputes, and immigration (I-9) matters. The SLA flags this correctly but leaves the artifact outstanding — an execution-ready draft should ship with the register attached, not promised.' },
+
+{ id:'F-05', pri:'Critical', cat:'Governance / execution', owner:'Joint', sec:'sec-approve',
+  title:'Add Board sign-off and fix the split signature block',
+  where:'pp. 18–19, Approvals section',
+  quote:'Signature block lists only the AGI Chief Executive Officer and the USU President; the first block is split across the page break (title and entity on p. 19).',
+  rec:['Add a signature line for the Chair of the USU Board of Trustees (or a Secretary attestation) — reserved authority flows from the Board, so the Board should evidence its approval on the face of the document.',
+  'Add an “Effective date” line, and keep each signature block intact on one page.',
+  'Optionally add a reference line citing the underlying 2017 purchase agreement / master services agreement this SLA operates under.'],
+  why:'A BOT-review draft that the Board itself does not sign undercuts the letter’s claim that “the Board of Trustees retains exclusive governing authority.” The split block is a small thing, but it is the kind of formatting defect that makes a legal reviewer question the document’s care.' },
+
+/* ---------- HIGH ---------- */
+{ id:'F-06', pri:'High', cat:'Governance clarity', owner:'Joint', sec:'sec-letters',
+  title:'Resolve the President’s reporting line shown on the org chart',
+  where:'p. 4, Organizational Chart (as of September 23, 2026) · cf. President’s letter, p. 3',
+  quote:'President’s letter: “The Board of Trustees retains exclusive governing authority over the University. The Trustees delegate to the president the authority to operate the University.” — yet the chart places the USU President in a box beneath the AGI CEO.',
+  rec:['Label the reporting lines on the chart: solid line to the USU Board of Trustees for institutional matters; dashed line to the AGI CEO for administrative coordination only.',
+  'Add one sentence to the Collaborative Development Process (p. 4) stating that no AGI executive holds approval authority over reserved University matters, and that administrative reporting does not alter the delegation chain described in the President’s letter.'],
+  why:'This is the first thing a WSCUC reviewer looks for: evidence that corporate structure does not reach into institutional decision-making. As drawn, the chart contradicts the letter three pages earlier. A two-line fix removes the ambiguity.',
+  lang:'Suggested language — Organizational reporting to AGI executives is administrative and supportive only. It does not confer approval authority over matters reserved to the University, and the President’s delegation from the Board of Trustees is unaffected.' },
+
+{ id:'F-07', pri:'High', cat:'Undefined terms', owner:'Joint', sec:'sec-reviews',
+  title:'Add a systems glossary — “CNS” is never defined',
+  where:'p. 6, Background and Purpose (last paragraph) · system lists on pp. 7–9, 12–15',
+  quote:'“Undefined internal system names such as CNS must be confirmed in the institutional system inventory before execution.” — CNS then appears in the systems lists for student finance (p. 8), MIS (p. 9), HR (p. 12), academic support (p. 13), academic operations (p. 14), and compliance (p. 15).',
+  rec:['Add a Systems Appendix: one row per named system (Blue SIS, CNS, D2L, CRM, Tableau, Project Concert, CourseDog, Watermark, Great Plains, iSolve, Budgyt, Brainfuse, Mandrill, etc.) with vendor/owner, service area, data classification (FERPA / financial / public), and USU approval status.',
+  'Resolve what “CNS” is before execution — the document cannot rely on a system it declines to define.'],
+  why:'BOT members are asked to approve obligations executed through systems they cannot identify. A one-page appendix turns “CNS, D2L, Watermark…” from noise into an auditable inventory — and doubles as the vendor-risk list the MIS matrix already promises to review.' },
+
+{ id:'F-08', pri:'High', cat:'Oversight cadence', owner:'USU', sec:'sec-reviews',
+  title:'Put the biannual reviews on a stated calendar with a materials deadline',
+  where:'p. 6, Service Agreement and Operating Reviews',
+  quote:'“The Audit Committee reviews service performance, assessment findings, updates, and corrective actions biannually and reports to the USU Board of Trustees.”',
+  rec:['State the two review months (e.g., May and November), a submission deadline (e.g., service-owner evidence packages due ten business days before the meeting), and a standing agenda: ratings, exceptions, corrective-action status, and any proposed service changes since the last review.',
+  'Name the person who consolidates the package.'],
+  why:'“Biannually” without a date is how reviews drift. A fixed calendar with a materials deadline is the difference between oversight that happens and oversight that is rescheduled.' },
+
+{ id:'F-09', pri:'High', cat:'Enforceability', owner:'Joint', sec:'sec-reviews',
+  title:'Define the rating criteria for met / needs improvement / did not meet',
+  where:'p. 6, Service Agreement and Operating Reviews',
+  quote:'“Service areas are rated met, needs improvement, or did not meet against approved criteria, with supporting evidence and documented follow-up.”',
+  rec:['Add objective thresholds for each rating — for example: Met = target achieved in both review periods; Needs improvement = target missed in one period or by less than [X]%; Did not meet = target missed in both periods, any material deficiency, or an unreported issue.',
+  'Tie each rating automatically to the corrective-action section so a “did not meet” cannot stand alone without a plan.'],
+  why:'Without defined bands, two owners can look at the same evidence and rate differently — and the Board cannot tell whether “needs improvement” means a near miss or a chronic failure. This also feeds directly into the termination-for-cause logic suggested in F-01.' },
+
+{ id:'F-10', pri:'High', cat:'Accountability', owner:'Joint', sec:'sec-reviews',
+  title:'Attach the service-owner roster as an appendix',
+  where:'p. 6, Continuous Monitoring Process, second paragraph',
+  quote:'“The USU President designates a University owner for each service area. AGI identifies an accountable service owner. Owners maintain evidence, review performance at the approved frequency, and refer material or unresolved issues through the corrective-action process.”',
+  rec:['Add an appendix table with one row per service area (all eight): USU owner (name/title), AGI owner (name/title), review frequency, and primary evidence repository.',
+  'Include a refresh rule — roster updated with each annual review and on any personnel change.'],
+  why:'The whole accountability structure routes through these owners, but the document never says who they are. A named roster is what makes the first biannual review actually runnable, and it is the artifact an accreditor or auditor will ask for first.' },
+
+{ id:'F-11', pri:'High', cat:'Financial governance', owner:'Joint', sec:'sec-bus',
+  title:'Tighten shared-cost allocation governance — the classic parent-subsidiary flashpoint',
+  where:'p. 10, Business Office matrix, row “Shared costs”',
+  quote:'“Prepare documented shared-cost agreements, allocations and supporting calculations.” · USU: “Review allocation methodology <em>periodically</em> and approve intercompany cost agreements and material changes.”',
+  rec:['Replace “periodically” with an annual methodology review, and require the methodology memo (allocation bases, drivers, calculations) to be an exhibit to the SLA.',
+  'Add independent validation — external accountant review of allocations at least every two to three years — and a dispute path with a defined response window (e.g., USU challenges within 30 days of receiving a schedule; unresolved items escalate to the Audit Committee).',
+  'Require advance notice for methodology changes (e.g., 60 days) rather than approval after the fact.'],
+  why:'Intercompany allocations are where shared-service relationships most often go wrong: costs flow to the university through a formula only one side controls. WSCUC and financial-statement auditors both probe related-party transactions; documented methodology and independent validation are the standard defenses.' },
+
+{ id:'F-12', pri:'High', cat:'Security / compliance', owner:'AGI', sec:'sec-mis',
+  title:'Replace “prompt” incident notification with hours',
+  where:'p. 8, Student Finance matrix, row “Data protection” · p. 9, MIS matrix, row “Security and access”',
+  quote:'“…administer approved privacy and access controls.” · “Administer role-based access, cybersecurity monitoring, vendor risk reviews, and <em>prompt incident notification</em> to USU.”',
+  rec:['Define notification timing: initial notice to designated USU officials within 24 hours of a confirmed security incident; written incident report within 72 hours; and joint decision-making on legally required notifications (state breach laws, ED, VA) with USU retaining the final decision on institutional communications.',
+  'Name the USU official(s) to be notified and require an annual incident-response tabletop that includes USU participation.'],
+  why:'“Prompt” is unenforceable and unmeasurable. In a Title IV institution, breach clocks run in hours and the university — not the service provider — owns the regulatory notification and the reputational consequence.' },
+
+{ id:'F-13', pri:'High', cat:'Legal protection', owner:'USU', sec:'sec-bus',
+  title:'Clarify privilege, independent counsel, and whistleblower routing',
+  where:'p. 10, Business Office matrix, row “Legal support”',
+  quote:'“Coordinate counsel, litigation, claims, notices, discovery, and whistleblower hotline administration.” · USU: “Retain timely access to legal information affecting USU…”',
+  rec:['State whose privilege governs work product about USU matters, and that USU may retain independent counsel on institutional matters with the cost treatment specified.',
+  'Route whistleblower hotline reports concerning USU to a designated USU officer (and to the Audit Committee for matters implicating senior leadership), not solely to AGI management.',
+  'Require notice to USU before any settlement involving the University’s name, students, or reserved decisions.'],
+  why:'When one company coordinates all counsel for a university it owns, the university needs an explicit guarantee that it can see the legal picture and get its own advice. Privilege and hotline routing are the two places that guarantee lives or dies.' },
+
+{ id:'F-14', pri:'High', cat:'Exit readiness', owner:'Joint', sec:'sec-mis',
+  title:'Test the data-return promise annually and set transition duration',
+  where:'p. 9, MIS matrix, row “Institutional data” and row “Contracts and transition”',
+  quote:'“Maintain USU data access and export capability… return data in usable formats and securely destroy remaining copies when authorized, subject to legal holds.” · “…provide data, documentation, and transition assistance on change or termination of services.”',
+  rec:['Add an annual data-export test (pull a defined sample from SIS, LMS, CRM, and finance systems; verify completeness and usability) with results reported in the biannual review.',
+  'Specify transition-assistance duration and cost treatment on termination (e.g., up to 12 months, at documented cost), and require a maintained, current exit plan per major system.',
+  'Add the data warehouse and Tableau BI workbooks to the export list — institutional data often lives in reporting layers, not just source systems.'],
+  why:'The portability language is genuinely good — but untested export promises are indistinguishable from broken ones. An annual test is cheap insurance on the single most consequential operational promise in the document.' },
+
+{ id:'F-15', pri:'High', cat:'Enforceability / privacy', owner:'Joint', sec:'sec-mkt',
+  title:'Document marketing parameters and student-data use rules',
+  where:'p. 7, Recruitment & Marketing matrix, rows “Strategy and budget”, “Lead generation and recruitment”',
+  quote:'“Approve acquisition-cost parameters and recruitment messaging…” · “Administer advertising, branded lead generation, email campaigns, vendors, and new and returning student recruitment using approved criteria.”',
+  rec:['Record the approved acquisition-cost parameters and spend-variance thresholds (e.g., flag at ±10%) in the metrics exhibit — the phrase currently has no number behind it.',
+  'Add an explicit data-use rule: student and prospect data may be used only for USU-authorized campaigns, under FERPA and applicable privacy law, and may not be shared with AGI’s other university or any third party without USU approval.',
+  'Require an approved-vendor list for marketing tools and lead vendors, consistent with the vendor-risk reviews promised in the MIS matrix.'],
+  why:'Marketing is where AGI’s proprietary advantage and USU’s compliance exposure intersect. A parent company running in-house lead generation for two universities needs one bright line: USU data stays with USU campaigns.' },
+
+{ id:'F-16', pri:'High', cat:'Federal compliance', owner:'Joint', sec:'sec-finaid',
+  title:'Add Title IV oversight cadence and early-warning thresholds',
+  where:'p. 8, Student Finance & Financial Aid matrix, rows “Financial aid administration” and “Reporting and audits” · cf. Business Office “Audits and compliance” (p. 10)',
+  quote:'“Collect documents; administer packaging, awarding, disbursement, aid counseling, and Department of Veterans Affairs (VA) processes under approved policies.” · “Prepare Title IV, 90/10, and FISAP reporting…”',
+  rec:['Add a monthly Title IV operations meeting (packaging backlog, disbursement exceptions, R2T4, late disbursements) with a standing minutes requirement.',
+  'Set numeric service standards in the metrics exhibit: e.g., aid files packaged within [X] days of completion; zero unresolved files older than [Y] days; CDR early-warning review each term against the 30% threshold with a defined action plan trigger.',
+  'Clarify who is the designated ED point of contact for program reviews, and require immediate notice to USU of any ED or VA contact.'],
+  why:'Title IV problems can suspend the university’s funding in a way no other service failure can. The matrix assigns duties correctly but leaves the cadence informal — and cohort default rate monitoring sits in the Business Office matrix, disconnected from the aid office that influences it. Cross-reference the two rows and set the clock.' },
+
+{ id:'F-17', pri:'High', cat:'HR governance', owner:'Joint', sec:'sec-hr',
+  title:'Require USU approval for personnel actions regardless of legal employer',
+  where:'p. 12, HR matrix, rows “Employer and official records” and “Complaints and separations”',
+  quote:'“Administrative services do not establish the legal employer.” · AGI “administers authorized full-time separations” while USU “authorizes University personnel actions and separations under policy.”',
+  rec:['Add one unambiguous sentence: no hire, discipline, compensation change, or separation for a University position takes effect without USU approval, even where AGI is the legal employer — and no AGI corporate-staff action may impair a University service without notice.',
+  'Define the approval chain for “authorized” separations (who at AGI may administer, who at USU must pre-approve), and require that AGI staff who work on USU functions receive FERPA and student-data training.'],
+  why:'The employer-register concept is good, but the approval interface between two employers sharing one workforce is where authority leaks. One sentence closes it, and the training requirement protects the data promises made in the MIS and finance matrices.' },
+
+{ id:'F-18', pri:'High', cat:'Compliance oversight', owner:'Joint', sec:'sec-comply',
+  title:'Publish the compliance calendar as an appendix',
+  where:'p. 15, Regulatory Compliance matrix, row “Regulatory administration”',
+  quote:'“Maintain a compliance calendar and verify required approvals before filing or publication.”',
+  rec:['Attach the compliance calendar as a living appendix: filing, owner (USU and AGI), due date, approval required, and evidence location — covering Title IV, 90/10, FISAP, IPEDS, VA/DoD, state authorizations, NC-SARA, state boards of nursing, Clery, and accreditation milestones.',
+  'Refresh it each annual review; report missed or at-risk filings in the biannual Audit Committee package.'],
+  why:'The calendar is the compliance program. Publishing it shows the Board the full regulatory footprint at a glance, converts “on-time filings” from a claim into a checkable fact, and is precisely the artifact WSCUC and program reviewers ask to see.' },
+
+/* ---------- MEDIUM ---------- */
+{ id:'F-19', pri:'Medium', cat:'Document control', owner:'Joint', sec:'sec-front',
+  title:'Round out document control: distribution list and versioning convention',
+  where:'p. 1, Document Control table',
+  quote:'Controls list version, dates, owner, and amendment history — but no distribution list, approval workflow, or version-numbering rule.',
+  rec:['Add a distribution list (who receives controlled copies: BOT, Audit Committee, service owners, AGI executives) and a versioning convention (e.g., Draft 2.1 for comment incorporation; 3.0 upon execution).',
+  'Name an AGI counterpart to the USU document owner so maintenance is two-sided.'],
+  why:'Small, cheap, and it prevents the classic failure of shared documents: two “current” versions circulating with different comments. The amendment history shows the team already does this well — finish the job.' },
+
+{ id:'F-20', pri:'Medium', cat:'Enforceability', owner:'Joint', sec:'sec-correct',
+  title:'Give “immediate risk” examples and add cure periods',
+  where:'p. 18, Corrective Action and Escalation, second and third paragraphs',
+  quote:'“Matters presenting an immediate risk to students, academic quality, regulatory compliance, information security, financial integrity, or accreditation shall be reported promptly…” · “If a deficiency remains unresolved by its approved completion date…”',
+  rec:['Add illustrative examples after “immediate risk” (e.g., suspected data breach, aid mis-disbursement, accreditation representation error, exam or grade integrity failure) and replace “promptly” with a stated window (e.g., 24 hours).',
+  'Add a cure-period ladder tied to severity: 30 days for routine, 60 for significant, immediate interim protections for critical — and state the consequence of a second missed date (escalation to alternate provider or service change, per the existing third paragraph).'],
+  why:'The escalation architecture is well built; the timing is soft. Examples make the trigger legible to a front-line owner deciding at 4 p.m. Friday whether something is “immediate,” and cure periods make the consequences predictable for both parties.' },
+
+{ id:'F-21', pri:'Medium', cat:'Service standards', owner:'AGI', sec:'sec-mis',
+  title:'State availability, recovery, and change-notice targets for core systems',
+  where:'p. 9, MIS matrix, rows “Platforms and support” and “Continuity and recovery”',
+  quote:'Measures: “Availability; response and resolution times; approved change logs.” · “Maintain backups, test restoration and disaster recovery, and provide business-continuity support.”',
+  rec:['Put numbers in the metrics exhibit: system availability % (e.g., ≥ 99.5% monthly for SIS/LMS), maintenance windows, help-desk response/resolution tiers, RTO/RPO per system tier, and disaster-recovery test frequency (e.g., annual full test, results to the Audit Committee).',
+  'Add a change-notice rule: material system changes require 30 days’ advance notice and USU approval per the matrix — including changes to shared platforms that serve both universities.'],
+  why:'“Availability” as a measure without a target is a mood, not a metric. And because AGI’s platforms serve two universities, a change made for Aspen University can land on USU unannounced — the notice rule closes that seam.' },
+
+{ id:'F-22', pri:'Medium', cat:'Service quality', owner:'Joint', sec:'sec-acadsupp',
+  title:'Set quality standards for tutoring and career services',
+  where:'p. 13, Academic Support matrix, row “Career services and tutoring”',
+  quote:'“Deliver approved career services and tutoring; maintain service records and report quality and usage.” · Measures: “Usage; satisfaction; tutoring quality; accessibility and complaint logs.”',
+  rec:['Define “quality” in the metrics exhibit: tutor qualification screening, session-quality sampling, student satisfaction threshold (e.g., ≥ [X] on a standard survey), and response/accessibility standards (e.g., scheduling within [Y] days).',
+  'Include the vendor (Brainfuse) service-level terms in the approved-vendor list from F-07, and give USU visibility of vendor performance data.'],
+  why:'These are the only student-facing academic support services AGI delivers directly, under USU’s brand. “Tutoring quality” as a measure without a standard invites a complaint-driven audit later; a number prevents it.' },
+
+{ id:'F-23', pri:'Medium', cat:'Service standards', owner:'USU', sec:'sec-acadsupp',
+  title:'Finish the advising standards: caseloads and response times',
+  where:'p. 13, Academic Support matrix, row “Advising and retention”',
+  quote:'USU: “Manage academic advisors… approve advising standards, caseload parameters, and response expectations.” · Measures: “Caseloads; response time; outreach completion; early-alert outcomes; case aging.”',
+  rec:['Adopt the caseload and response-time numbers in the metrics exhibit now (e.g., advisor:student ratio of [X]:1, first response within [Y] business days, no case aging past [Z] days without action), so the first review period has a benchmark.',
+  'Define the early-alert escalation path and the point at which “case aging” becomes a reportable exception.'],
+  why:'The matrix defers every number to standards “to be approved” — but advising response time is a student-experience metric the Board will be shown in the very first biannual review. Decide it before, not during.' },
+
+{ id:'F-24', pri:'Medium', cat:'Governance', owner:'USU', sec:'sec-acadops',
+  title:'Acknowledge faculty governance explicitly in academic operations',
+  where:'p. 14, Academic Operations matrix, row “Curriculum and syllabi”',
+  quote:'“Develop and approve programs, curriculum, syllabi, outcomes, objectives, and credits through <em>academic and faculty governance</em>…”',
+  rec:['Name the governance bodies (e.g., curriculum committee, faculty senate) and add a line that AGI’s production and platform support staff have no role in academic content decisions — the current text implies this; say it.',
+  'Add faculty access rights to the assessment systems (Watermark) so faculty can retrieve their own course and program data.'],
+  why:'The retained-authority language is strong; naming the bodies makes it verifiable. WSCUC specifically tests whether faculty governance is real or decorative — a named pathway through the document is free evidence that it is real.' },
+
+{ id:'F-25', pri:'Medium', cat:'Risk management', owner:'AGI', sec:'sec-bus',
+  title:'Specify insurance minimums and delivery of certificates',
+  where:'p. 10, Business Office matrix, row “Risk management”',
+  quote:'“Prepare and maintain authorized insurance, bonds, licenses, and registered-agent arrangements; assess risk coverage.”',
+  rec:['List required coverage with minimum limits — cyber liability, errors &amp; omissions, crime/fidelity bond, and general liability — naming USU as additional insured where appropriate.',
+  'Require annual certificates of insurance delivered to USU, and evidence of cybersecurity coverage sized to the data AGI holds.'],
+  why:'Insurance requirements are the standard backstop when an outsourced provider fails. The row maintains policies but never states what must be true of them — one paragraph fixes it.' },
+
+/* ---------- LOW ---------- */
+{ id:'F-26', pri:'Low', cat:'Editorial', owner:'Joint', sec:'sec-letters',
+  title:'Replace the low-resolution org chart image',
+  where:'p. 4, Organizational Chart (as of September 23, 2026)',
+  quote:'The chart is a pixelated raster image; box labels in the middle columns are difficult to read.',
+  rec:['Rebuild the chart as a vector graphic (or native Word/PowerPoint shapes) at full resolution, keep the “as of” date, and add a refresh rule tied to the annual review.'],
+  why:'In a document whose whole purpose is clarity about who answers to whom, the one visual making that point should not be the hardest thing to read.' },
+
+{ id:'F-27', pri:'Low', cat:'Editorial', owner:'Joint', sec:'sec-comply',
+  title:'Fix the orphaned table row and pagination gaps',
+  where:'p. 16 (single “Quality assurance and complaints” row alone on the page) · p. 18 (large blank gap under the header) · p. 19 (mostly blank after signature blocks)',
+  quote:'The “Quality assurance and complaints” row overflows alone onto p. 16, leaving most of the page empty; p. 18 begins with a large blank area; p. 19 is nearly empty.',
+  rec:['Set the table to keep rows together and rebalance page breaks so the compliance table ends on p. 15; pull the Approvals section onto a single page.'],
+  why:'Pure polish — but a BOT-review draft reads as carefully as it is formatted, and three half-empty pages are three impressions of haste.' },
+
+{ id:'F-28', pri:'Low', cat:'Editorial', owner:'Joint', sec:'sec-missing',
+  title:'Standardize system and terminology usage across matrices',
+  where:'Throughout — e.g., “SIS” (p. 7) vs. “Blue SIS” (pp. 8, 9, 15); “CRM” (pp. 7, 9); mixed “University” / “USU” in table cells',
+  quote:'Systems lists name tools inconsistently across the eight matrices, and the same platform is referred to differently in different sections.',
+  rec:['Adopt one canonical name per system (matching the Systems Appendix from F-07) and use it everywhere; pick “USU” or “University” for table cells and apply it consistently.',
+  'Run a final consistency pass for defined terms — every capitalized term in the matrices should appear in Definitions or the appendices.'],
+  why:'Small consistency issues compound: to a new Trustee, “SIS,” “Blue SIS,” and the student portal could be three systems. The glossary plus a naming pass removes the guesswork.' }
+];
+
+const STATUS_LABEL = {none:'Not reviewed', agreed:'Agreed', changes:'Agreed w/ changes', disagree:'Disagree', question:'Question', deferred:'Deferred'};
+
+/* ================= STORAGE (in-memory session state; export for persistence) ================= */
+const storage = {
+  get(key, fallback){ return memStore[key]!==undefined ? memStore[key] : fallback; },
+  set(key, val){ memStore[key] = val; }
+};
+const memStore = {};
+
+/* ================= STATE ================= */
+let notes = storage.get('slaNotes', {});
+let reviewerName = storage.get('slaReviewer','');
+let filter = {pri:'all', owner:'all', status:'all', q:''};
+
+/* ================= RENDER: NAV ================= */
+function renderNav(){
+  const nav = document.getElementById('navSections');
+  nav.innerHTML = SECTIONS.map(s=>{
+    const n = FINDINGS.filter(f=>f.sec===s.id).length;
+    if(!n) return '';
+    return `<a class="nav-item" href="#findings" data-sec="${s.id}"><span>${s.title}</span><span class="ct">${n}</span><span class="pg">${s.pages}</span></a>`;
+  }).join('');
+}
+
+/* ================= RENDER: STATS ================= */
+function renderStats(){
+  const counts = {Critical:0,High:0,Medium:0,Low:0};
+  FINDINGS.forEach(f=>counts[f.pri]++);
+  const rows = [
+    {k:'Critical', d:'Resolve before execution', cls:'crit', color:'var(--color-critical)'},
+    {k:'High', d:'Address in first revision', cls:'high', color:'var(--color-high)'},
+    {k:'Medium', d:'Strengthen at next review', cls:'med', color:'var(--color-medium)'},
+    {k:'Low', d:'Editorial & polish', cls:'low', color:'var(--color-low)'}
+  ];
+  document.getElementById('statRow').innerHTML = rows.map(r=>
+    `<button class="stat-card" data-goto-pri="${r.k}">
+       <span class="stat-num" style="color:${r.color}">${counts[r.k]}</span>
+       <span class="stat-lbl">${r.k} — ${r.d}</span>
+     </button>`).join('');
+}
+
+/* ================= RENDER: FINDINGS ================= */
+function statusOf(id){ return (notes[id] && notes[id].status) || 'none'; }
+
+function cardHTML(f){
+  const sec = SECTIONS.find(s=>s.id===f.sec);
+  const st = statusOf(f.id);
+  const note = (notes[f.id] && notes[f.id].note) || '';
+  const hasNote = st!=='none' || note.trim().length>0;
+  return `
+  <article class="card ${hasNote?'notewrap':''} ${f.pri==='Critical'?'':''}" id="card-${f.id}" data-id="${f.id}">
+    <div class="card-head" role="button" tabindex="0" aria-expanded="false" aria-controls="body-${f.id}">
+      <span class="fid">${f.id}</span>
+      <span class="badge b-${f.pri.toLowerCase()}">${f.pri}</span>
+      <span class="card-title">${f.title}<small>${sec.title} · ${sec.pages}</small></span>
+      <span class="caret" aria-hidden="true">▶</span>
+    </div>
+    <div class="card-body" id="body-${f.id}">
+      <div class="loc-row">
+        <span class="pg">${f.where.match(/p{1,2}\.\s?\d+[–-]\d+|p\.\s?\d+|whole document/i)?.[0] || ''}</span>
+        <span class="where">${f.where}</span>
+        <span class="tag ${f.owner.toLowerCase()}">Owner: ${f.owner}</span>
+        <span class="tag">${f.cat}</span>
+      </div>
+      <div class="lbl">What the document says</div>
+      <blockquote class="quote">${f.quote}</blockquote>
+      <div class="lbl">Recommendation</div>
+      <div class="rec-text"><ul>${f.rec.map(r=>`<li>${r}</li>`).join('')}</ul></div>
+      <div class="lbl">Why it matters</div>
+      <div class="rec-text">${f.why}</div>
+      ${f.lang ? `<div class="lbl">Suggested language</div><div class="lang-box">${f.lang}</div>` : ''}
+      <div class="note-panel">
+        <div class="note-grid">
+          <div>
+            <label class="lbl" for="st-${f.id}" style="margin-top:0">Your status</label>
+            <select id="st-${f.id}" data-id="${f.id}">
+              <option value="none">Not reviewed</option>
+              <option value="agreed">Agree</option>
+              <option value="changes">Agree with changes</option>
+              <option value="disagree">Disagree</option>
+              <option value="question">Question</option>
+              <option value="deferred">Deferred</option>
+            </select>
+            <div class="save-ind" id="si-${f.id}"></div>
+          </div>
+          <div>
+            <label class="lbl" for="nt-${f.id}" style="margin-top:0">Your comments on this suggestion</label>
+            <textarea id="nt-${f.id}" data-id="${f.id}" placeholder="Add your note — e.g., “BOT Finance Committee supports; ask AGI to propose the threshold by Nov 30.”"></textarea>
+            <div class="note-hint">Saved for this session — export before closing. Status: <span class="status-dot ${st!=='none'?st:''}"></span>${STATUS_LABEL[st]}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>`;
+}
+
+function matches(f){
+  if(filter.pri!=='all' && f.pri!==filter.pri) return false;
+  if(filter.owner!=='all' && f.owner!==filter.owner) return false;
+  if(filter.status!=='all'){
+    if(filter.status==='none' ? statusOf(f.id)!=='none' : statusOf(f.id)!==filter.status) return false;
+  }
+  if(filter.q){
+    const q = filter.q.toLowerCase();
+    const sec = SECTIONS.find(s=>s.id===f.sec);
+    const hay = (f.id+' '+f.title+' '+f.where+' '+f.quote+' '+f.why+' '+f.rec.join(' ')+' '+sec.title+' '+f.cat+' '+f.owner).toLowerCase();
+    if(!hay.includes(q)) return false;
+  }
+  return true;
+}
+
+function renderFindings(){
+  const root = document.getElementById('findingsRoot');
+  let visible = 0;
+  let html = '';
+  SECTIONS.forEach(s=>{
+    const cards = FINDINGS.filter(f=>f.sec===s.id && matches(f));
+    if(!cards.length) return;
+    visible += cards.length;
+    html += `<div class="sec-group" id="grp-${s.id}">
+      <header><h2>${s.title}</h2><span class="pages">${s.pages}</span><span class="desc">${s.desc}</span></header>
+      ${cards.map(cardHTML).join('')}
+    </div>`;
+  });
+  root.innerHTML = html || `<div class="empty">No suggestions match the current filters.</div>`;
+  document.getElementById('findCount').textContent = `${visible} of ${FINDINGS.length} suggestions shown`;
+  // bind card interactions
+  root.querySelectorAll('.card-head').forEach(h=>{
+    const open = ()=>{ h.closest('.card').classList.toggle('open'); h.setAttribute('aria-expanded', h.closest('.card').classList.contains('open')); };
+    h.addEventListener('click', open);
+    h.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); open(); } });
+  });
+  root.querySelectorAll('select[data-id]').forEach(sel=>{
+    const id = sel.dataset.id;
+    sel.value = statusOf(id);
+    sel.addEventListener('change', ()=>{ saveNote(id, {status: sel.value}); });
+  });
+  root.querySelectorAll('textarea[data-id]').forEach(ta=>{
+    const id = ta.dataset.id;
+    ta.value = (notes[id] && notes[id].note) || '';
+    let deb;
+    ta.addEventListener('input', ()=>{
+      clearTimeout(deb);
+      deb = setTimeout(()=> saveNote(id, {note: ta.value}), 500);
+    });
+  });
+}
+
+function saveNote(id, patch){
+  notes[id] = Object.assign({status:'none', note:''}, notes[id], patch);
+  storage.set('slaNotes', notes);
+  const si = document.getElementById('si-'+id);
+  if(si){ si.textContent = 'Saved ✓'; si.classList.add('ok'); setTimeout(()=>{ si.textContent=''; si.classList.remove('ok'); }, 1600); }
+  updateProgress();
+}
+
+/* ================= RENDER: NOTES VIEW ================= */
+function renderNotes(){
+  const root = document.getElementById('notesRoot');
+  const entries = FINDINGS.filter(f=>notes[f.id] && (notes[f.id].status!=='none' || (notes[f.id].note||'').trim()));
+  document.getElementById('notesCount').textContent = `${entries.length} of ${FINDINGS.length} suggestions have a status or note`;
+  if(!entries.length){
+    root.innerHTML = `<div class="empty">No notes yet. Go to <a href="#findings" data-goto="findings">Findings</a>, set a status and add comments on any suggestion — they will collect here for export.</div>`;
+    return;
+  }
+  root.innerHTML = entries.map(f=>{
+    const n = notes[f.id]; const sec = SECTIONS.find(s=>s.id===f.sec);
+    const statColor = {agreed:'#3d6b2a', changes:'#8a6d1a', disagree:'var(--color-critical)', question:'var(--color-primary)', deferred:'var(--color-text-faint)', none:'var(--color-text-faint)'}[n.status];
+    return `<div class="note-summary-card">
+      <span class="fid">${f.id}</span>
+      <div>
+        <div class="ntitle">${f.title}</div>
+        <div class="nmeta"><span>${sec.title} · ${f.where}</span></div>
+      </div>
+      <span class="nstat" style="color:${statColor}"><span class="status-dot ${n.status!=='none'?n.status:''}"></span>${STATUS_LABEL[n.status]||'Not reviewed'}</span>
+      ${n.note && n.note.trim() ? `<div class="nbody">${escHTML(n.note.trim())}</div>` : ''}
+    </div>`;
+  }).join('');
+}
+function escHTML(s){ return s.replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+/* ================= PROGRESS ================= */
+function updateProgress(){
+  const done = FINDINGS.filter(f=>statusOf(f.id)!=='none' || (notes[f.id]&&notes[f.id].note&&notes[f.id].note.trim())).length;
+  document.getElementById('progressChip').textContent = `${done} of ${FINDINGS.length} reviewed`;
+}
+
+/* ================= EXPORT ================= */
+function buildMarkdown(){
+  const entries = FINDINGS.filter(f=>notes[f.id] && (notes[f.id].status!=='none' || (notes[f.id].note||'').trim()));
+  const name = reviewerName.trim() || 'Anonymous reviewer';
+  const now = new Date().toLocaleString('en-US',{dateStyle:'long', timeStyle:'short'});
+  let md = `# SLA Review Notes — USU / AGI Service Level Agreement (Draft 2.0)\n\n`;
+  md += `**Reviewer:** ${name}  \n**Exported:** ${now}  \n**Findings with notes:** ${entries.length} of ${FINDINGS.length}\n\n---\n\n`;
+  if(!entries.length){ md += `_No statuses or notes recorded yet._\n`; return md; }
+  SECTIONS.forEach(s=>{
+    const secs = entries.filter(f=>f.sec===s.id);
+    if(!secs.length) return;
+    md += `## ${s.title} (${s.pages})\n\n`;
+    secs.forEach(f=>{
+      const n = notes[f.id];
+      md += `### ${f.id} — ${f.title} [${f.pri}]\n`;
+      md += `- **Location:** ${f.where}\n`;
+      md += `- **Reviewer status:** ${STATUS_LABEL[n.status]||'Not reviewed'}\n`;
+      if(n.note && n.note.trim()) md += `- **Comment:** ${n.note.trim().replace(/\n/g,'\n  ')}\n`;
+      md += `\n`;
+    });
+  });
+  return md;
+}
+
+function download(filename, text, type='text/markdown'){
+  try{
+    const blob = new Blob([text], {type});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob); a.download = filename;
+    document.body.appendChild(a); a.click();
+    setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); }, 400);
+    return true;
+  }catch(e){ return false; }
+}
+
+function showMdModal(){
+  document.getElementById('mdText').value = buildMarkdown();
+  document.getElementById('mdModal').hidden = false;
+}
+
+/* ================= VIEWS / ROUTING ================= */
+function setView(v){
+  ['overview','findings','notes'].forEach(id=>{
+    document.getElementById('view-'+id).hidden = id!==v;
+  });
+  document.querySelectorAll('.nav-view').forEach(b=>b.classList.toggle('active', b.dataset.view===v));
+  window.scrollTo({top:0});
+  if(v==='notes') renderNotes();
+  if(location.hash !== '#'+v) history.replaceState(null,'','#'+v);
+}
+
+function goToSection(secId){
+  setView('findings');
+  requestAnimationFrame(()=>{
+    const el = document.getElementById('grp-'+secId);
+    if(el){ el.scrollIntoView({behavior:'smooth', block:'start'}); }
+    document.querySelectorAll('.nav-item').forEach(n=>n.classList.toggle('active', n.dataset.sec===secId));
+  });
+}
+
+/* ================= EVENTS ================= */
+document.addEventListener('click', e=>{
+  const navItem = e.target.closest('.nav-item');
+  if(navItem){ e.preventDefault(); goToSection(navItem.dataset.sec); return; }
+  const viewBtn = e.target.closest('[data-goto]');
+  if(viewBtn){ e.preventDefault(); setView(viewBtn.dataset.goto); return; }
+  const priCard = e.target.closest('[data-goto-pri]');
+  if(priCard){
+    e.preventDefault();
+    filter.pri = priCard.dataset.gotoPri;
+    document.querySelectorAll('.filterbar .chip').forEach(c=>c.classList.toggle('on', c.dataset.pri===filter.pri));
+    setView('findings'); renderFindings();
+    document.getElementById('view-findings').scrollIntoView();
+    return;
+  }
+});
+document.querySelectorAll('.nav-view').forEach(b=>b.addEventListener('click', e=>{ e.preventDefault(); setView(b.dataset.view); }));
+
+document.querySelectorAll('.filterbar .chip').forEach(c=>c.addEventListener('click', ()=>{
+  filter.pri = c.dataset.pri;
+  document.querySelectorAll('.filterbar .chip').forEach(x=>x.classList.toggle('on', x===c));
+  renderFindings();
+}));
+document.getElementById('fOwner').addEventListener('change', e=>{ filter.owner=e.target.value; renderFindings(); });
+document.getElementById('fStatus').addEventListener('change', e=>{ filter.status=e.target.value; renderFindings(); });
+let searchDeb;
+document.getElementById('fSearch').addEventListener('input', e=>{
+  clearTimeout(searchDeb);
+  searchDeb = setTimeout(()=>{ filter.q = e.target.value.trim(); renderFindings(); }, 250);
+});
+
+const nameInput = document.getElementById('reviewerName');
+nameInput.value = reviewerName;
+nameInput.addEventListener('input', ()=>{ reviewerName = nameInput.value; storage.set('slaReviewer', reviewerName); });
+
+document.getElementById('btnExportMd').addEventListener('click', showMdModal);
+document.getElementById('btnExportMd2').addEventListener('click', showMdModal);
+document.getElementById('mdClose').addEventListener('click', ()=>document.getElementById('mdModal').hidden = true);
+document.getElementById('mdModal').addEventListener('click', e=>{ if(e.target.id==='mdModal') document.getElementById('mdModal').hidden = true; });
+document.getElementById('mdDownload').addEventListener('click', ()=>{
+  const ok = download(`SLA-review-notes-${(reviewerName||'reviewer').trim().replace(/\s+/g,'-').toLowerCase()||'reviewer'}.md`, buildMarkdown());
+  if(!ok) alert('Download blocked — copy the text from this window instead.');
+});
+document.getElementById('mdCopy').addEventListener('click', async ()=>{
+  const ta = document.getElementById('mdText'); ta.select();
+  try{ await navigator.clipboard.writeText(ta.value); alert('Copied to clipboard.'); }
+  catch(e){ document.execCommand('copy'); alert('Copied to clipboard.'); }
+});
+document.getElementById('btnExportJson').addEventListener('click', ()=>{
+  const data = JSON.stringify({reviewer:reviewerName, exported:new Date().toISOString(), notes}, null, 2);
+  if(!download('sla-review-notes.json', data, 'application/json')) alert('Download blocked — select the JSON text and copy manually.');
+});
+document.getElementById('btnImportJson').addEventListener('click', ()=>{
+  const inp = document.createElement('input'); inp.type='file'; inp.accept='.json,application/json';
+  inp.addEventListener('change', ()=>{
+    const file = inp.files[0]; if(!file) return;
+    const r = new FileReader();
+    r.onload = ()=>{ try{
+      const data = JSON.parse(r.result);
+      notes = Object.assign({}, notes, data.notes||{});
+      if(data.reviewer){ reviewerName = data.reviewer; nameInput.value = reviewerName; }
+      storage.set('slaNotes', notes); storage.set('slaReviewer', reviewerName);
+      updateProgress(); renderFindings(); renderNotes();
+      alert('Notes imported.');
+    }catch(err){ alert('Could not read that file as exported notes JSON.'); } };
+    r.readAsText(file);
+  });
+  inp.click();
+});
+document.getElementById('btnPrint').addEventListener('click', ()=>{
+  // open all cards for print
+  document.querySelectorAll('.card').forEach(c=>c.classList.add('open'));
+  window.print();
+});
+document.getElementById('navToggle').addEventListener('click', ()=>{
+  const nav = document.getElementById('sideNav');
+  const open = nav.classList.toggle('open');
+  document.getElementById('navToggle').setAttribute('aria-expanded', open);
+  document.getElementById('navToggle').textContent = open ? 'Sections ▴' : 'Sections ▾';
+});
+
+window.addEventListener('hashchange', ()=>{
+  const v = (location.hash||'#overview').slice(1);
+  if(['overview','findings','notes'].includes(v)) setView(v);
+});
+
+/* ================= INIT ================= */
+renderNav(); renderStats(); renderFindings(); updateProgress();
+const initial = (location.hash||'#overview').slice(1);
+setView(['overview','findings','notes'].includes(initial)?initial:'overview');
+</script>
+<script data-pplx-inline-edit>
+(function () {
+  if (window === window.top) return;
+
+  const allowedParentOrigins = ["https://www.perplexity.ai","https://perplexity.ai","https://testing.perplexity.ai","https://staging.perplexity.ai","https://*.preview.i.perplexity.ai","http://perplexity.localhost","http://localhost:1420","http://127.0.0.1:1420","http://localhost:3000","http://127.0.0.1:3000","http://localhost:5173","http://127.0.0.1:5173"];
+  const MAX_FONT_BYTES = 500 * 1024;
+  const MAX_TOTAL_FONT_BYTES = 2 * 1024 * 1024;
+  const DEFAULT_LINE_HEIGHT = 16;
+  let scrollForwarding = false;
+  let scrollRaf = 0;
+  let trustedTopOrigin = null;
+
+  // Allow entries like "https://*.preview.i.perplexity.ai" — the wildcard
+  // matches a single DNS label (no dots), so "https://*.foo" cannot stretch
+  // across multiple labels.
+  function matchesAllowedOrigin(origin) {
+    if (!origin) return false;
+    for (const entry of allowedParentOrigins) {
+      if (!entry.includes("*")) {
+        if (entry === origin) return true;
+        continue;
+      }
+      const pattern = new RegExp(
+        "^" +
+          entry.replace(/[.+?^${}()|[\]\\]/g, "\\$&").replace(/\*/g, "[^.]+") +
+          "$",
+      );
+      if (pattern.test(origin)) return true;
+    }
+    return false;
+  }
+
+  // Trust decision: when the sender is same-origin-visible (event.origin is a
+  // real origin like https://www.perplexity.ai) we trust event.origin directly.
+  // When event.origin is "null" (opaque broker srcdoc), we fall back to the
+  // broker's stamped `parentOrigin` to identify the top window. The fallback
+  // is claim-only — we rely on the browser's native `targetOrigin` enforcement
+  // on the response path (see postToTrustedTop) to ensure replies can't be
+  // delivered to anyone but the actual top window of that claimed origin.
+  function getTrustedParentOrigin(event) {
+    const forwardedParentOrigin =
+      typeof event.data.parentOrigin === "string" ? event.data.parentOrigin : null;
+    const parentOrigin = event.origin === "null" ? forwardedParentOrigin : event.origin;
+    return matchesAllowedOrigin(parentOrigin) ? parentOrigin : null;
+  }
+
+  // All responses go to window.top with targetOrigin = the allowlisted origin.
+  // An attacker that iframes us inside their own null-origin broker can claim
+  // any parentOrigin they like, but the browser will drop the reply whenever
+  // the real top's origin doesn't match — so the screenshot never leaves.
+  function postToTrustedTop(message) {
+    if (!trustedTopOrigin) return;
+    try {
+      window.top.postMessage(message, trustedTopOrigin);
+    } catch (_error) {}
+  }
+
+  const PICK_CAPABILITIES = ["pick"];
+  const PICK_CHAIN_LENGTH = 4;
+  const PICK_MAX_TEXT_CHARS = 120;
+  const PICK_MAX_HTML_CHARS = 300;
+
+  function truncate(value, maxChars) {
+    return value.length > maxChars ? value.slice(0, maxChars - 1) + "…" : value;
+  }
+
+  function isPickableElement(element) {
+    return (
+      element instanceof Element &&
+      element !== document.documentElement &&
+      element !== document.body
+    );
+  }
+
+  function resolvePickTarget(x, y) {
+    if (!Number.isFinite(x) || !Number.isFinite(y)) return null;
+    const element = document.elementFromPoint(x, y);
+    return isPickableElement(element) ? element.closest("svg") || element : null;
+  }
+
+  function pickLabel(element) {
+    if (element.id) return element.localName + "#" + element.id;
+    return [element.localName].concat(Array.from(element.classList).slice(0, 2)).join(".");
+  }
+
+  // Only attributes that help find the element in source. data-* values and URL
+  // query strings or fragments can carry tokens.
+  const PICK_ATTRIBUTES = new Set([
+    "id",
+    "class",
+    "name",
+    "type",
+    "role",
+    "alt",
+    "aria-label",
+    "href",
+    "src",
+  ]);
+
+  function pickAttributeValue(attribute) {
+    return attribute.name === "href" || attribute.name === "src"
+      ? attribute.value.split(/[?#]/)[0]
+      : attribute.value;
+  }
+
+  function describePickElement(element) {
+    const chain = [];
+    for (
+      let current = element;
+      isPickableElement(current) && chain.length < PICK_CHAIN_LENGTH;
+      current = current.parentElement
+    ) {
+      chain.unshift(current);
+    }
+    const attributes = Array.from(element.attributes)
+      .filter((attribute) => PICK_ATTRIBUTES.has(attribute.name))
+      .map((attribute) => ` ${attribute.name}="${pickAttributeValue(attribute).replace(/"/g, "&quot;")}"`)
+      .join("");
+    const text = (element.innerText || element.textContent || "").replace(/\s+/g, " ").trim();
+    return {
+      chain: chain.map(pickLabel),
+      html: truncate(`<${element.localName}${attributes}>`, PICK_MAX_HTML_CHARS),
+      text: text ? truncate(text, PICK_MAX_TEXT_CHARS) : undefined,
+    };
+  }
+
+  // Hover asks once per frame, and innerText on a large section forces layout,
+  // so only the rect is re-read while the pointer stays on the same element.
+  // Clicks ask for fresh details since the page may have changed the element.
+  let lastPick = null;
+
+  function describePickTarget(element, fresh) {
+    if (fresh || lastPick?.element !== element) {
+      lastPick = { element, details: describePickElement(element) };
+    }
+    const rect = element.getBoundingClientRect();
+    return {
+      rect: { x: rect.left, y: rect.top, width: rect.width, height: rect.height },
+      ...lastPick.details,
+    };
+  }
+
+  function inlineAll(original, clone) {
+    if (original.nodeType !== 1 || clone.nodeType !== 1) return;
+
+    try {
+      const computedStyle = getComputedStyle(original);
+      // cssText on a computed style is the serialized declaration in modern
+      // Chromium/Safari — a single read beats enumerating ~400 longhand
+      // properties. Firefox returns "" here, so we fall back on empty.
+      const serialized = computedStyle.cssText;
+      if (serialized) {
+        clone.style.cssText = serialized;
+      } else {
+        const parts = new Array(computedStyle.length);
+        for (let index = 0; index < computedStyle.length; index += 1) {
+          const property = computedStyle[index];
+          parts[index] = `${property}:${computedStyle.getPropertyValue(property)};`;
+        }
+        clone.style.cssText = parts.join("");
+      }
+    } catch (_error) {}
+
+    const originalChildren = original.children;
+    const clonedChildren = clone.children;
+    for (
+      let index = 0;
+      index < originalChildren.length && index < clonedChildren.length;
+      index += 1
+    ) {
+      inlineAll(originalChildren[index], clonedChildren[index]);
+    }
+  }
+
+  function extractFontUrl(srcValue) {
+    const matches = [
+      ...srcValue.matchAll(
+        /url\(["']?([^"')]+)["']?\)(?:\s*format\(["']?([^"')]+)["']?\))?/gi,
+      ),
+    ];
+    if (matches.length === 0) return null;
+    const woff2 = matches.find((m) => m[2] && m[2].toLowerCase().includes("woff2"));
+    if (woff2) return woff2[1];
+    const woff = matches.find((m) => m[2] && m[2].toLowerCase().includes("woff"));
+    if (woff) return woff[1];
+    return matches[0][1];
+  }
+
+  // Cache resolved font URL -> data URI across captures. Fonts on a page
+  // essentially never change, and a batch run emits multiple captures back to
+  // back — without this we'd refetch + re-base64 every time.
+  const fontDataUriCache = new Map();
+  const SRC_DECLARATION_RE = /src\s*:\s*[^;}]+/i;
+
+  async function fetchAsDataUri(url) {
+    if (fontDataUriCache.has(url)) return fontDataUriCache.get(url);
+    let dataUri = null;
+    try {
+      const response = await fetch(url, { mode: "cors", credentials: "omit" });
+      if (response.ok) {
+        const blob = await response.blob();
+        if (blob.size <= MAX_FONT_BYTES) {
+          dataUri = await new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onloadend = () =>
+              resolve(typeof reader.result === "string" ? reader.result : null);
+            reader.onerror = () => resolve(null);
+            reader.readAsDataURL(blob);
+          });
+        }
+      }
+    } catch (_error) {
+      dataUri = null;
+    }
+    fontDataUriCache.set(url, dataUri);
+    return dataUri;
+  }
+
+  function collectFontFaceRuleTexts() {
+    const rules = [];
+    for (const sheet of document.styleSheets) {
+      let cssRules;
+      try {
+        cssRules = sheet.cssRules;
+      } catch (_error) {
+        continue;
+      }
+      if (!cssRules) continue;
+      for (const rule of cssRules) {
+        const cssText = rule.cssText || "";
+        if (cssText.startsWith("@font-face")) rules.push(cssText);
+      }
+    }
+    return rules;
+  }
+
+  async function buildInlinedFontCss() {
+    const ruleTexts = collectFontFaceRuleTexts();
+    if (ruleTexts.length === 0) return null;
+
+    const resolved = ruleTexts.map((cssText) => {
+      if (!SRC_DECLARATION_RE.test(cssText)) return null;
+      const srcMatch = cssText.match(/src\s*:\s*([^;}]+)[;}]/i);
+      if (!srcMatch) return null;
+      const url = extractFontUrl(srcMatch[1]);
+      if (!url) return null;
+      try {
+        return { cssText, url: new URL(url, document.baseURI).href };
+      } catch (_error) {
+        return null;
+      }
+    });
+
+    const dataUris = await Promise.all(
+      resolved.map((entry) => (entry ? fetchAsDataUri(entry.url) : Promise.resolve(null))),
+    );
+
+    const inlined = [];
+    let totalBytes = 0;
+    for (let index = 0; index < resolved.length; index += 1) {
+      const entry = resolved[index];
+      const dataUri = dataUris[index];
+      if (!entry || !dataUri) continue;
+      const approxBytes = dataUri.length * 0.75;
+      if (totalBytes + approxBytes > MAX_TOTAL_FONT_BYTES) break;
+      totalBytes += approxBytes;
+      inlined.push(entry.cssText.replace(SRC_DECLARATION_RE, `src: url("${dataUri}")`));
+    }
+    return inlined.length > 0 ? inlined.join("\n") : null;
+  }
+
+  function stripExternal(clone) {
+    const images = clone.querySelectorAll("img");
+    for (let index = 0; index < images.length; index += 1) {
+      const src = images[index].getAttribute("src");
+      if (src && !src.startsWith("data:")) images[index].removeAttribute("src");
+    }
+
+    const elements = clone.querySelectorAll("*");
+    for (let index = 0; index < elements.length; index += 1) {
+      const style = elements[index].style.cssText;
+      if (style && style.includes("url(")) {
+        elements[index].style.cssText = style.replace(
+          /url\(["']?(?!data:)[^)"']*["']?\)/gi,
+          "none",
+        );
+      }
+    }
+  }
+
+  function emitScroll() {
+    scrollRaf = 0;
+    if (!scrollForwarding) return;
+    postToTrustedTop({
+      type: "INLINE_EDIT_SCROLL",
+      scrollX: window.scrollX,
+      scrollY: window.scrollY,
+      capabilities: PICK_CAPABILITIES,
+    });
+  }
+
+  window.addEventListener(
+    "scroll",
+    function () {
+      if (!scrollForwarding || scrollRaf) return;
+      scrollRaf = requestAnimationFrame(emitScroll);
+    },
+    { passive: true, capture: true },
+  );
+
+  async function handleCaptureRequest(event) {
+    const requestId = event.data.requestId;
+    const scrollX = window.scrollX;
+    const scrollY = window.scrollY;
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    function postResult(dataUrl) {
+      postToTrustedTop({
+        type: "INLINE_EDIT_SCREENSHOT_RESULT",
+        requestId,
+        dataUrl,
+        scrollX,
+        scrollY,
+      });
+    }
+
+    try {
+      // Wait for any pending web fonts to resolve so both inline metrics and
+      // the @font-face inlining below see the same loaded faces.
+      if (document.fonts && document.fonts.ready) {
+        try {
+          await document.fonts.ready;
+        } catch (_error) {}
+      }
+
+      const clone = document.documentElement.cloneNode(true);
+      inlineAll(document.documentElement, clone);
+
+      const removedNodes = clone.querySelectorAll("script,link[rel=\"stylesheet\"],style");
+      for (let index = 0; index < removedNodes.length; index += 1) {
+        removedNodes[index].remove();
+      }
+
+      stripExternal(clone);
+
+      // Re-embed web fonts as data-URI @font-face rules so the SVG rasterizer
+      // can resolve them — external font URLs aren't fetched during
+      // foreignObject rendering, which would otherwise force a fallback face
+      // and change text metrics.
+      const inlinedFontCss = await buildInlinedFontCss();
+      if (inlinedFontCss) {
+        const styleEl = document.createElement("style");
+        styleEl.textContent = inlinedFontCss;
+        const head = clone.querySelector("head");
+        if (head) head.appendChild(styleEl);
+        else clone.insertBefore(styleEl, clone.firstChild);
+      }
+
+      const html = new XMLSerializer().serializeToString(clone);
+      const svg =
+        `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">` +
+        '<foreignObject width="100%" height="100%">' +
+        `<div xmlns="http://www.w3.org/1999/xhtml" style="width:${width}px;height:${height}px;overflow:hidden">` +
+        `<div style="position:relative;left:-${scrollX}px;top:-${scrollY}px">` +
+        html +
+        "</div></div></foreignObject></svg>";
+      const svgUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+      const image = new Image();
+      image.onload = function () {
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        canvas.getContext("2d").drawImage(image, 0, 0);
+        postResult(canvas.toDataURL("image/png"));
+      };
+      image.onerror = function () {
+        postResult(null);
+      };
+      image.src = svgUrl;
+    } catch (_error) {
+      postResult(null);
+    }
+  }
+
+  window.addEventListener("message", function (event) {
+    if (!event.data) return;
+    // Only accept messages from the direct parent frame. Blocks sibling /
+    // unrelated-window postMessage senders that could otherwise reach us.
+    if (event.source !== window.parent) return;
+
+    const trustedParentOrigin = getTrustedParentOrigin(event);
+    if (!trustedParentOrigin) return;
+    trustedTopOrigin = trustedParentOrigin;
+
+    if (event.data.type === "INLINE_EDIT_PICK") {
+      const element = resolvePickTarget(event.data.x, event.data.y);
+      postToTrustedTop({
+        type: "INLINE_EDIT_PICK_RESULT",
+        seq: event.data.seq,
+        target: element ? describePickTarget(element, event.data.fresh === true) : null,
+      });
+      return;
+    }
+
+    if (event.data.type === "INLINE_EDIT_SCROLL_START") {
+      scrollForwarding = true;
+      emitScroll();
+      return;
+    }
+
+    if (event.data.type === "INLINE_EDIT_SCROLL_STOP") {
+      scrollForwarding = false;
+      if (scrollRaf) cancelAnimationFrame(scrollRaf);
+      scrollRaf = 0;
+      return;
+    }
+
+    if (event.data.type === "INLINE_EDIT_SCROLL_BY") {
+      const { deltaX, deltaY, deltaMode } = event.data;
+      if (!scrollForwarding || !Number.isFinite(deltaX) || !Number.isFinite(deltaY)) return;
+      if (deltaMode !== 0 && deltaMode !== 1 && deltaMode !== 2) return;
+      const lineHeight =
+        parseFloat(getComputedStyle(document.documentElement).lineHeight) || DEFAULT_LINE_HEIGHT;
+      const scaleX = deltaMode === 1 ? lineHeight : deltaMode === 2 ? window.innerWidth : 1;
+      const scaleY = deltaMode === 1 ? lineHeight : deltaMode === 2 ? window.innerHeight : 1;
+      // The selection overlay receives the wheel event instead of this iframe.
+      // Instant scrolling preserves trackpad deltas even on smooth-scroll sites.
+      window.scrollBy({ left: deltaX * scaleX, top: deltaY * scaleY, behavior: "instant" });
+      emitScroll();
+      return;
+    }
+
+    if (event.data.type !== "INLINE_EDIT_CAPTURE_REQUEST") return;
+
+    handleCaptureRequest(event);
+  });
+})();
+
+
+</script></body>
+</html>

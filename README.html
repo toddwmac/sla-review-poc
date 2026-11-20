@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="README for the USU–AGI SLA multi-model AI review repository: what it contains, how the documents relate, how to read them, and how to host the site.">
+<title>README · USU–AGI SLA Multi-Model AI Review</title>
+<style>
+ :root{
+   --navy:#142c44; --navy-2:#1d3c59; --ink:#1c2d3e; --muted:#4d6073; --faint:#8296a8;
+   --line:#d6dfe8; --paper:#f3f6f9; --white:#fff;
+   --accent:#17625b; --accent-bg:#eaf6f2;
+   --blue:#205987; --blue-bg:#eaf2f9;
+   --amber:#9a6d1c; --amber-bg:#fff6e3;
+   --grey:#55606e; --grey-bg:#e9edf2;
+ }
+ *{box-sizing:border-box}
+ html{scroll-behavior:smooth}
+ body{margin:0;background:var(--paper);color:var(--ink);
+      font:1rem/1.62 system-ui,-apple-system,"Segoe UI",sans-serif}
+ h1,h2,h3{color:var(--navy);line-height:1.2;margin:0}
+ p{margin:0 0 .8rem} p:last-child{margin:0}
+ a{color:var(--blue);text-decoration:none} a:hover{text-decoration:underline}
+ ul,ol{margin:.3rem 0 .8rem;padding-left:1.35rem} li{margin:.28rem 0}
+ code{font-family:ui-monospace,Consolas,monospace;font-size:.86em;background:#eef2f6;
+      border:1px solid var(--line);border-radius:4px;padding:.06em .32em;word-break:break-all}
+ strong{color:#12283d}
+
+ .topbar{position:sticky;top:0;z-index:20;background:rgba(20,44,68,.97);color:#fff;
+         padding:.8rem clamp(1rem,4vw,2.5rem);display:flex;flex-wrap:wrap;gap:.6rem 2rem;
+         align-items:baseline;justify-content:space-between;box-shadow:0 2px 12px rgba(16,36,58,.25)}
+ .topbar .brand{font-weight:800;letter-spacing:.02em}
+ .topbar .brand small{display:block;font-weight:450;color:#c5d3e0;font-size:.76rem}
+ .topbar .links{font-size:.8rem;color:#c5d3e0}
+ .topbar .links a{color:#fff;border:1px solid #ffffff42;border-radius:999px;padding:.25rem .7rem;margin-left:.35rem}
+ .topbar .links a:hover{background:#ffffff22;text-decoration:none}
+
+ .shell{max-width:56rem;margin:0 auto;padding:0 clamp(1rem,4vw,2rem) 3rem}
+
+ .hero{padding:2.4rem 0 1.4rem;border-bottom:2.5px solid var(--navy);margin-bottom:1.6rem}
+ .eyebrow{font-size:.74rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--blue)}
+ .hero h1{font-size:clamp(1.6rem,4vw,2.4rem);letter-spacing:-.02em;margin:.35rem 0 .5rem}
+ .hero .sub{font-size:1.04rem;color:var(--muted);max-width:64ch}
+ .badges{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.9rem}
+ .badges span{font-size:.72rem;border:1px solid var(--line);background:#fff;color:var(--muted);
+      border-radius:999px;padding:.22rem .7rem}
+
+ .toc{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1rem 1.25rem;margin:0 0 2rem}
+ .toc b{display:block;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-bottom:.4rem}
+ .toc ol{margin:0;padding-left:1.2rem;columns:2;column-gap:2rem;font-size:.9rem}
+ .toc li{margin:.16rem 0}
+ @media (max-width:560px){ .toc ol{columns:1} }
+
+ section{margin-bottom:2.4rem;scroll-margin-top:4.2rem}
+ h2{font-size:1.35rem;border-bottom:1.5px solid var(--line);padding-bottom:.3rem;margin-bottom:.7rem}
+ h3{font-size:1.02rem;margin:1.1rem 0 .4rem}
+
+ .callout{border-radius:0 9px 9px 0;padding:.7rem .95rem;margin:.9rem 0;border-left:4px solid var(--blue);background:var(--blue-bg);font-size:.93rem}
+ .callout.accent{border-color:var(--accent);background:var(--accent-bg)}
+ .callout.warn{border-color:var(--amber);background:var(--amber-bg)}
+ .callout .lbl{display:block;font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.2rem;color:var(--blue)}
+ .callout.accent .lbl{color:var(--accent)} .callout.warn .lbl{color:var(--amber)}
+
+ .pipe{display:flex;flex-wrap:wrap;gap:.45rem;margin:.6rem 0}
+ .pipe div{flex:1 1 9.5rem;background:#fff;border:1px solid var(--line);border-radius:10px;padding:.55rem .7rem;font-size:.8rem}
+ .pipe .st{display:block;font-size:.62rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+ .pipe b{color:var(--navy)}
+ .pipe .arr{flex:0 0 auto;align-self:center;color:var(--faint)}
+ @media (max-width:560px){ .pipe .arr{display:none} }
+
+ table{border-collapse:collapse;width:100%;font-size:.87rem;background:#fff;margin:.5rem 0}
+ th{background:#e8eef5;color:#22374c;text-align:left;padding:.45rem .55rem;border:1px solid var(--line);
+    font-size:.68rem;text-transform:uppercase;letter-spacing:.05em}
+ td{vertical-align:top;padding:.42rem .55rem;border:1px solid var(--line)}
+ tbody tr:nth-child(even){background:#f8fafc}
+ .file{font-family:ui-monospace,Consolas,monospace;font-size:.8rem;word-break:break-all}
+ .fmt{display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
+      border-radius:999px;padding:.14rem .5rem;margin-left:.35rem;vertical-align:1px}
+ .fmt.html{background:var(--blue-bg);color:var(--blue)}
+ .fmt.pdf{background:#f9ecec;color:#8c3a3a}
+ .fmt.md{background:#eef0f3;color:#4b5a6a}
+
+ .footnote{font-size:.78rem;color:var(--muted);border-top:1px solid var(--line);padding-top:1rem;margin-top:2rem}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">USU–AGI SLA Review <small>Repository readme · multi-model AI review process</small></div>
+  <div class="links"><a href="index.html">Document hub</a></div>
+</header>
+
+<div class="shell">
+
+  <div class="hero">
+    <div class="eyebrow">Readme</div>
+    <h1>USU–AGI Service Level Agreement — Multi-Model AI Review</h1>
+    <p class="sub">Working repository for the review of the USU–AGI Service Level Agreement
+       (Draft 2.0, October 14, 2026): the agreement itself, the original board-level reviewer
+       feedback that shaped it, four independent AI reviews, three comparative syntheses, a
+       three-model fusion panel, and the board-facing reports that tie the process together.</p>
+    <div class="badges">
+      <span>13 unique documents</span><span>22 files</span><span>80 review findings</span>
+      <span>GitHub Pages ready</span><span>AI-assisted analysis · not legal advice</span>
+    </div>
+  </div>
+
+  <nav class="toc" aria-label="Contents">
+    <b>Contents</b>
+    <ol>
+      <li><a href="#about">About this repository</a></li>
+      <li><a href="#process">The review process</a></li>
+      <li><a href="#contents">What’s in the repository</a></li>
+      <li><a href="#reading">Suggested reading paths</a></li>
+      <li><a href="#conventions">File and format conventions</a></li>
+      <li><a href="#hosting">Hosting on GitHub Pages</a></li>
+      <li><a href="#provenance">Provenance, caveats, and status</a></li>
+    </ol>
+  </nav>
+
+  <!-- ============ ABOUT ============ -->
+  <section id="about">
+    <h2>1 · About this repository</h2>
+    <p>United States University (USU) is a wholly-owned subsidiary of Aspen Group, Inc. (AGI), which
+       provides shared services under a Service Level Agreement. The SLA was redrafted in 2026 after a
+       board-level review (the “MOS” comments, September 12, 2026), producing Draft 2.0. That draft was
+       then examined by four AI systems working independently, compared by three syntheses, and
+       reconciled by a fusion panel into a final board brief.</p>
+    <p>This repository preserves the complete documentary record of that process so that trustees,
+       executives, counsel, and auditors can trace any conclusion back to its source. Start at the
+       <a href="index.html">document hub</a> (<code>index.html</code>) — it links exactly one canonical
+       version of every document and maps all duplicate formats in its inventory.</p>
+    <div class="callout accent">
+      <span class="lbl">Headline finding</span>
+      The four independent reviews agree the draft is a sound governance framework that is
+      <strong>not yet an executable operating agreement</strong>. Consensus recommendation:
+      <strong>endorse in principle; do not authorize signature</strong> until the pre-signature
+      worklist (metrics exhibit, employer register, system inventory, delegation schedule, commercial
+      terms) is complete.
+    </div>
+  </section>
+
+  <!-- ============ PROCESS ============ -->
+  <section id="process">
+    <h2>2 · The review process</h2>
+    <div class="pipe">
+      <div><span class="st">Sept 12, 2026</span><b>19 reviewer comments</b> on the original draft (MOS1–MOS19)</div><span class="arr">▸</span>
+      <div><span class="st">Oct 14, 2026</span><b>SLA Draft 2.0</b> issued, incorporating the comments</div><span class="arr">▸</span>
+      <div><span class="st">Nov 7, 2026</span><b>4 independent AI reviews</b> — ChatGPT, Claude, Copilot, Perplexity (80 items)</div><span class="arr">▸</span>
+      <div><span class="st">Nov 20, 2026</span><b>3 syntheses</b> of all four reviews (GPT, Gemini Pro, Claude Haiku)</div><span class="arr">▸</span>
+      <div><span class="st">Nov 20, 2026</span><b>Fusion panel</b> reconciles the syntheses → <b>final Board brief</b></div>
+    </div>
+    <p>Each stage deliberately used different models so that later stages could check and correct earlier
+       ones rather than inherit a single system’s blind spots. The fusion panel caught real errors —
+       most notably, one synthesis labeled several disputed implementation details “unanimous”; the panel
+       traced them back to direct conflicts and replaced the unanimity claims with attributed support.</p>
+    <p>The traceability from the MOS comments through Draft 2.0 to the AI findings is documented
+       item-by-item in the <a href="MOS-Feedback_vs_Draft2_vs_AI-Reviews_Comparison_DRAFT-1.html">traceability
+       report</a>; the board-level orientation is the <a href="USU-AGI_SLA_Review_Master_View.html">master
+       view</a>.</p>
+  </section>
+
+  <!-- ============ CONTENTS ============ -->
+  <section id="contents">
+    <h2>3 · What’s in the repository</h2>
+    <p>All files live in the repository root. Formats shown are the canonical linked versions; the
+       <a href="index.html#inventory">hub inventory</a> maps every alternate format.</p>
+    <table>
+      <thead><tr><th style="width:34%">Document</th><th style="width:10%">Format</th><th>What it is</th></tr></thead>
+      <tbody>
+        <tr><td><a href="USU_AGI_SLA_Revised_2026_BOT%20Review.pdf">SLA Draft 2.0 (base document)</a><span class="fmt pdf">PDF</span></td><td>PDF</td><td>The agreement under review (19 pp, eight service matrices)</td></tr>
+        <tr><td><a href="USU_original_SLA_Comments_Board_Summary.Claud.md">MOS reviewer comments — board summary</a><span class="fmt md">MD</span></td><td>MD</td><td>The 19 comments that prompted the Draft 2.0 revision</td></tr>
+        <tr><td><a href="USU_AGI_SLA_Governance_Review_ChatGPT.html">ChatGPT review</a><span class="fmt html">HTML</span></td><td rowspan="4">HTML workspaces</td><td>24 recommendations — contractual machinery, controls, risk</td></tr>
+        <tr><td><a href="USU%E2%80%93AGI%20SLA%20Draft%202.0_%20Review_Suggestions_Claude.html">Claude review</a><span class="fmt html">HTML</span></td><td>18 suggestions — legal drafting, independence, conflicts</td></tr>
+        <tr><td><a href="USU%E2%80%93AGI%20SLA%20Draft%202.0_%20Review_Suggestions_Copilot.html">Copilot review</a><span class="fmt html">HTML</span></td><td>10 recommendations — operational RACI clarity</td></tr>
+        <tr><td><a href="USU%E2%80%93AGI%20SLA%20Review%20Studio_Perplexity.html">Perplexity review</a><span class="fmt html">HTML</span></td><td>28 findings — WSCUC readiness, auditability, execution gates</td></tr>
+        <tr><td><a href="GPT-Analysis-of-all-reviews.pdf">GPT synthesis</a><span class="fmt pdf">PDF</span></td><td rowspan="3">PDF (alt: MD)</td><td>80 items grouped by topic; open decisions isolated</td></tr>
+        <tr><td><a href="Gemini-Analysis-of-all-reviews.pdf">Gemini Pro synthesis</a><span class="fmt pdf">PDF</span></td><td>Financial-risk framing and severity comparisons</td></tr>
+        <tr><td><a href="Haiku-Analysis-of-all-reviews.pdf">Claude Haiku synthesis</a><span class="fmt pdf">PDF</span></td><td>Item-level traceability to R / S / # / F source IDs</td></tr>
+        <tr><td><a href="Fusion-GPT-Claude-Haiku-Gemini-Pro.pdf">Fusion panel transcript</a><span class="fmt pdf">PDF</span></td><td>PDF (alt: MD)</td><td>Cross-model reconciliation and audit trail of corrections</td></tr>
+        <tr><td><a href="Fusion-GPT-Haiku-Gemini.HTML">Final Comparative Board Brief</a><span class="fmt html">HTML</span></td><td>HTML (alt: PDF)</td><td>The pipeline’s polished deliverable for the Board</td></tr>
+        <tr><td><a href="USU-AGI_SLA_Review_Master_View.html">Master view</a><span class="fmt html">HTML</span></td><td>HTML (alt: MD)</td><td>Orientation guide: process, inventory, findings, reading paths</td></tr>
+        <tr><td><a href="MOS-Feedback_vs_Draft2_vs_AI-Reviews_Comparison_DRAFT-1.html">Traceability report (Draft 1)</a><span class="fmt html">HTML</span></td><td>HTML (alt: PDF, MD)</td><td>19 MOS comments checked against Draft 2.0 and the AI reviews</td></tr>
+        <tr><td><a href="index.html">Document hub</a><span class="fmt html">HTML</span></td><td>HTML</td><td>Site entry point; canonical links and version inventory</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ============ READING ============ -->
+  <section id="reading">
+    <h2>4 · Suggested reading paths</h2>
+    <table>
+      <thead><tr><th style="width:16%">Time</th><th>Path</th></tr></thead>
+      <tbody>
+        <tr><td><strong>5 minutes</strong></td><td><a href="USU-AGI_SLA_Review_Master_View.html">Master view</a> §1 and §5 → <a href="Fusion-GPT-Haiku-Gemini.HTML">final Board brief</a></td></tr>
+        <tr><td><strong>20 minutes</strong></td><td>Add the three syntheses and the “Scope and Interpretation” section of the brief</td></tr>
+        <tr><td><strong>Pre-meeting</strong></td><td><a href="USU%E2%80%93AGI%20SLA%20Review%20Studio_Perplexity.html">Perplexity Review Studio</a> (most granular) and the <a href="USU_AGI_SLA_Governance_Review_ChatGPT.html">ChatGPT workspace</a></td></tr>
+        <tr><td><strong>Working session</strong></td><td>Use any Stage-1 workspace live: filter by priority, record accept / reject / discuss positions, export notes</td></tr>
+        <tr><td><strong>Audit trail</strong></td><td><a href="Fusion-GPT-Claude-Haiku-Gemini-Pro.pdf">Fusion transcript</a> → <a href="MOS-Feedback_vs_Draft2_vs_AI-Reviews_Comparison_DRAFT-1.html">traceability report</a></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ============ CONVENTIONS ============ -->
+  <section id="conventions">
+    <h2>5 · File and format conventions</h2>
+    <ul>
+      <li><strong>Canonical formats.</strong> Where a document exists in multiple formats, hubs and
+          readmes link exactly one version, preferring <strong>HTML → PDF → MD</strong>. Alternates are
+          recorded in the <a href="index.html#inventory">hub inventory</a>.</li>
+      <li><strong>Stage-1 workspaces are interactive.</strong> The four AI reviews are self-contained
+          HTML applications with filters, per-item status tracking, and note export. Notes are stored
+          in the reviewer’s browser (by design — no data leaves the page).</li>
+      <li><strong>Naming.</strong> Source documents keep their original filenames (including spaces and
+          en-dashes); generated documents use hyphenated names. Links are percent-encoded and
+          case-sensitive.</li>
+      <li><strong>Drafts are labeled.</strong> The traceability report is marked DRAFT 1 pending markup
+          of its per-item dispositions.</li>
+    </ul>
+  </section>
+
+  <!-- ============ HOSTING ============ -->
+  <section id="hosting">
+    <h2>6 · Hosting on GitHub Pages</h2>
+    <ol>
+      <li>Push this directory’s contents to the repository root (or a folder such as <code>docs/</code>).</li>
+      <li>In repository <em>Settings → Pages</em>, deploy from the branch and folder containing
+          <code>index.html</code>.</li>
+      <li>All links are relative, so the site works at the root path or any subpath with no
+          configuration.</li>
+    </ol>
+    <div class="callout">
+      <span class="lbl">Hosting notes</span>
+      GitHub Pages is <strong>case-sensitive</strong> — keep filenames exactly as committed (note the
+      uppercase extensions <code>.HTML</code> / <code>.PDF</code> / <code>.MD</code> on several source
+      files). No build step is required; there are no external assets or dependencies. A
+      <code>.nojekyll</code> file is harmless but unnecessary here.
+    </div>
+  </section>
+
+  <!-- ============ PROVENANCE ============ -->
+  <section id="provenance">
+    <h2>7 · Provenance, caveats, and status</h2>
+    <h3>What is AI-generated</h3>
+    <p>The four Stage-1 reviews, the three syntheses, the fusion transcript, and the final brief were
+       produced by AI systems (ChatGPT, Claude, Copilot, Perplexity, GPT, Gemini Pro, Claude Haiku).
+       The MOS board summary is itself an AI-prepared condensation of the reviewer’s 19 comments.
+       The master view, traceability report, hub, and this readme are AI-prepared navigation aids.</p>
+    <div class="callout warn">
+      <span class="lbl">Standing caveats</span>
+      <ul style="margin:.2rem 0 0">
+        <li><strong>Nothing was independently verified.</strong> No stage checked the SLA against the
+            2017 acquisition/intercompany agreements or external regulation (WSCUC, U.S. ED, FERPA,
+            state boards).</li>
+        <li><strong>AI output is not legal advice.</strong> External-compliance assertions in the
+            reviews must be verified with counsel before the Board relies on them.</li>
+        <li><strong>Silence ≠ agreement.</strong> Review depth varies 10–28 items; a shorter review’s
+            omissions reflect scope, not position.</li>
+        <li><strong>Priority labels mix rubrics.</strong> “Critical/High” indicates reviewer emphasis,
+            not a common severity standard.</li>
+      </ul>
+    </div>
+    <h3>Open items</h3>
+    <ul>
+      <li>Comment <strong>MOS17</strong> is not itemized in the board summary; its disposition is
+          unconfirmed (see traceability report §3.6).</li>
+      <li>The <strong>traceability report is Draft 1</strong> — dispositions await working-group markup.</li>
+      <li>The Board still owes decisions on the four open governance choices: incident-notice trigger,
+          signature-vs-effectiveness gating, materiality definition, and approval mechanics.</li>
+    </ul>
+
+    <p class="footnote">Repository prepared November 20, 2026 · part of the USU–AGI SLA review record ·
+       companion files: <span class="file">index.html</span> (document hub) and the documents it links.</p>
+  </section>
+
+</div>
+</body>
+</html>

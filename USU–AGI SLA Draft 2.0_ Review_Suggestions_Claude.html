@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>USU–AGI SLA Draft 2.0: Review &amp; Suggestions</title>
+<style>
+:root{--bg:#f6f7f9;--sf:#fff;--tx:#1b2430;--mu:#5b6675;--bd:#d9dee5;--ac:#1f5f8b;--h:#b3261e;--m:#a15c00;--l:#2e6b3a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12161c;--sf:#1b2129;--tx:#e8ecf1;--mu:#9aa6b5;--bd:#2f3844;--ac:#6fb1e0;--h:#ff8a80;--m:#f0b45a;--l:#7fcf8e;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#12161c;--sf:#1b2129;--tx:#e8ecf1;--mu:#9aa6b5;--bd:#2f3844;--ac:#6fb1e0;--h:#ff8a80;--m:#f0b45a;--l:#7fcf8e;color-scheme:dark}
+*{box-sizing:border-box}html{scroll-padding-top:70px}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{padding:18px 20px;background:var(--sf);border-bottom:1px solid var(--bd)}
+h1{margin:0 0 4px;font-size:1.35rem}header p{margin:0;color:var(--mu);max-width:900px}
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:12px}
+.stat{padding:4px 10px;border:1px solid var(--bd);border-radius:99px;font-size:.85rem}
+input,select,textarea,button{font:inherit;color:var(--tx);background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:6px 9px}
+button{cursor:pointer;background:var(--ac);color:#fff;border-color:var(--ac)}button.g{background:transparent;color:var(--ac)}
+.wrap{display:grid;grid-template-columns:270px 1fr;gap:20px;padding:20px;max-width:1250px;margin:0 auto}
+nav{position:sticky;top:10px;align-self:start;max-height:calc(100vh - 20px);overflow:auto}
+nav h2,.sub{font-size:.75rem;text-transform:uppercase;letter-spacing:.06em;color:var(--mu);margin:14px 0 6px}
+nav button.s{display:flex;justify-content:space-between;width:100%;text-align:left;margin-bottom:4px;background:var(--sf);color:var(--tx);border-color:var(--bd)}
+nav button.on{border-color:var(--ac);box-shadow:inset 3px 0 0 var(--ac)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}.chips button{background:var(--sf);color:var(--tx);border-color:var(--bd);padding:3px 10px;font-size:.85rem}.chips button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.card{background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:16px 18px;margin-bottom:16px}
+.top{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:6px}
+.id{font-weight:700;color:var(--ac)}.pri{font-weight:700;font-size:.8rem;padding:2px 8px;border-radius:4px;border:1px solid currentColor}
+.H{color:var(--h)}.M{color:var(--m)}.L{color:var(--l)}.tag{font-size:.8rem;color:var(--mu)}
+.card h3{margin:2px 0 8px;font-size:1.05rem}
+.loc{background:var(--bg);border-left:3px solid var(--ac);padding:7px 11px;margin:8px 0;font-size:.9rem}
+.lbl{font-weight:700;font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;color:var(--mu);margin-top:10px}
+.card p{margin:3px 0}.lang{background:var(--bg);border:1px dashed var(--bd);padding:8px 11px;font-size:.9rem;margin-top:6px}
+.note{margin-top:12px;padding-top:10px;border-top:1px solid var(--bd)}
+.note textarea{width:100%;min-height:64px;margin-top:6px}.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.oth{font-size:.88rem;margin-top:8px}.oth div{padding:6px 9px;border:1px solid var(--bd);border-radius:6px;margin-top:5px}
+dialog{width:min(720px,94vw);background:var(--sf);color:var(--tx);border:1px solid var(--bd);border-radius:10px}
+dialog textarea{width:100%;height:46vh}
+.fine{color:var(--mu);font-size:.85rem}
+@media(max-width:820px){.wrap{grid-template-columns:1fr;padding:12px}nav{position:static;max-height:none}}
+</style></head><body>
+<header>
+<h1>USU–AGI Service Level Agreement, Draft 2.0 (Oct 14, 2026): Review &amp; Suggestions</h1>
+<p>Prepared for the USU Board of Trustees review. Each suggestion states <b>where</b> it applies (section plus anchor text), <b>what</b> the issue is, and <b>what to change</b>. Reviewers can record a position and comments on every item. These are drafting and governance suggestions, not legal advice; counsel should confirm legal terms.</p>
+<div class="bar"><input id="nm" placeholder="Your name (required to save notes)" size="28">
+<span class="stat" id="st"></span><span class="stat" id="sv">Notes: local only</span>
+<button class="g" id="ex">Export all notes</button></div>
+</header>
+<div class="wrap"><nav>
+<h2>Document map</h2><div id="map"></div>
+<div class="sub">Priority</div><div class="chips" id="fp"></div>
+<div class="sub">Your response</div><div class="chips" id="fs"></div>
+<p class="fine">Priority: <b>High</b> = resolve before approval; <b>Medium</b> = resolve before effective date; <b>Low</b> = improves usability.</p>
+</nav><main id="list"></main></div>
+<dialog id="dg"><h3>Export of reviewer notes</h3><textarea id="ta" readonly></textarea>
+<div class="row"><button id="cp">Copy</button><button class="g" id="dl" hidden>Save as file</button><button class="g" id="cl">Close</button></div></dialog>
+<script>
+const SEC={fm:"Document Control & Approvals",let:"Executive Letters",org:"Organizational Chart",proc:"Collaborative Development Process",def:"Definitions",gov:"Governance & Monitoring",bg:"Background & Purpose",mat:"Service Matrices",perf:"Performance Standards",ca:"Corrective Action & Escalation"};
+const S=[
+{id:"S01",sec:"def",pri:"H",cat:"Governance",loc:"Definitions, paragraph 2: “USU retains responsibility and final authority for academic programs and curriculum; admissions…”",t:"Reserved authority list is academic only, and no precedence rule exists",i:"The list covers academic matters, but the matrices also reserve budget, contracts, data, hiring, regulatory submissions and public representations to USU. A reader of Definitions alone would not see these.",r:"Split into “Reserved Academic Authority” and “Reserved Institutional Authority” and add an order-of-precedence clause.",l:"Where this Agreement is unclear or inconsistent, the interpretation that better preserves USU’s reserved authority governs."},
+{id:"S02",sec:"def",pri:"H",cat:"Drafting",loc:"Definitions ¶1 (“identified in the source draft as owning 100% of USU”); Background ¶2 (“source framework”) and ¶3 (“listed in the source draft”)",t:"Drafting residue and open items sit inside operative text",i:"References to a “source draft” are working-copy language. The sentence on undefined names like CNS is a to-do, not an obligation.",r:"State ownership as a dated fact (“AGI has owned 100% of USU since December 1, 2017”). Cite WSCUC policy by name only. Move open items into a pre-execution checklist (see S17)."},
+{id:"S03",sec:"fm",pri:"H",cat:"Legal / Risk",loc:"Document Control and Approvals (absent terms); Document Control row “Effective date: Pending approval and execution”",t:"Core commercial and legal terms are missing",i:"No term, renewal, fees or cost basis, termination, confidentiality, liability, insurance, subcontractor, dispute-resolution, governing-law or conflict-of-interest provisions. The reader cannot tell what the agreement costs or how it ends.",r:"Add a Terms section (or companion master services agreement) covering each item; cross-reference Shared Costs in Business Office. Counsel to confirm."},
+{id:"S04",sec:"gov",pri:"H",cat:"Governance",loc:"Service Agreement and Operating Reviews: “The Audit Committee reviews service performance… biannually”",t:"“Biannually” is ambiguous; Audit Committee role is undefined",i:"“Biannually” can mean twice a year or every two years. The Committee’s composition, charter and reporting deadline to the Board are not stated.",r:"Use “semi-annually.” Define committee composition (excluding AGI officers), a calendar, a standard report template, and delivery to the Board within a set number of days of each review."},
+{id:"S05",sec:"gov",pri:"H",cat:"Governance",loc:"Governance and Monitoring (both Board paragraphs); Organizational Chart reporting lines",t:"No related-party or independence safeguards",i:"AGI owns USU and performs services for it, so oversight depends on USU independence. On the chart, several roles the matrices assign as USU validators or approvers (e.g., regulatory, institutional research) appear to connect to the AGI CEO line. Please verify; the image is small.",r:"Add annual conflict-of-interest disclosure and recusal rules for trustees and officers with AGI roles or equity. Confirm and state the reporting line for every role that validates AGI work, and require USU-line validation of IPEDS, Title IV and accreditation submissions."},
+{id:"S06",sec:"perf",pri:"H",cat:"Performance",loc:"Performance Standards, paragraph 1 (“Targets below remain pending approval”) and the measures table",t:"No numeric targets exist; the table repeats evidence names only",i:"The matrices say what evidence is kept, but nothing defines success, so ratings cannot be applied consistently.",r:"Add Exhibit A, a metric table completed before the effective date, one row per recurring service, with a unique ID cited from each matrix row.",l:"Columns: Metric ID | Matrix row | Definition | Target | Frequency | Data source | USU owner | AGI owner | Exception criteria | Rating rule"},
+{id:"S07",sec:"gov",pri:"H",cat:"Performance",loc:"Service Agreement and Operating Reviews: “rated met, needs improvement, or did not meet”",t:"Ratings have no definitions or consequences",i:"The three ratings are not tied to any action, so a “did not meet” can pass without follow-up.",r:"Define each rating and set triggers (thresholds for USU to decide): any “did not meet” opens a corrective plan; repeated “needs improvement” escalates to the President; material or repeated failures go to the Audit Committee."},
+{id:"S08",sec:"ca",pri:"H",cat:"Risk",loc:"Corrective Action and Escalation, paragraphs 1–3 (“if applicable”, “reported promptly”, “responsible AGI executive”)",t:"Escalation has no clocks, severity levels or named contacts",i:"“Promptly,” “material,” and an unnamed AGI executive leave room for delay, especially for security or compliance incidents.",r:"Add severity levels (e.g., S1 immediate risk to students, security, accreditation or compliance; S2 material; S3 routine) with acknowledgement, plan and closure deadlines set by USU, plus a named contact roster (see S14). Remove “if applicable.”"},
+{id:"S09",sec:"mat",pri:"M",cat:"Clarity",loc:"All matrices, e.g., Business Office “material commitments… expenditure thresholds”; MIS “material system changes”; Approvals “financial delegation parameters”",t:"Key qualifiers are undefined",i:"“Material,” “timely,” “prompt,” “approved” and “threshold” drive who may act, yet carry no values.",r:"Add defined terms and a Delegation of Authority schedule (Exhibit D) listing dollar limits and approvers for spending, contracts, bank signatories, write-offs and system changes."},
+{id:"S10",sec:"mat",pri:"H",cat:"Data / Transition",loc:"Management Information Systems and Security matrix: rows “Institutional data” and “Contracts and transition”",t:"Data return and exit are tied to “when authorized,” not to a timeline",i:"Student records live partly in AGI-operated proprietary systems. The matrix lacks timelines, formats, record continuity, FERPA designation, breach-notice deadlines and subcontractor flow-down.",r:"Add: export timelines and formats; continuity of official student records; school-official status under FERPA; breach notice within a fixed number of hours; flow-down to vendors; an exit plan tested annually, including accreditor and state notification duties. Counsel to confirm."},
+{id:"S11",sec:"bg",pri:"M",cat:"Technology",loc:"Background and Purpose ¶3 (“Undefined internal system names such as CNS”) and the “Systems and tools” line above each matrix",t:"Systems are named inconsistently and never inventoried",i:"“Blue SIS,” “SIS including CNS,” and “CNS” appear in different matrices. Ownership, data classes and approval authority per system are not shown.",r:"Add Exhibit B, a system inventory: system, purpose, vendor, USU owner, AGI owner, data classes, USU approval authority and the matrices that use it. Use one name per system."},
+{id:"S12",sec:"mat",pri:"M",cat:"Technology / AI",loc:"MIS matrix “Platforms and support”; Academic Operations “Instruction and assessment”; Marketing “Content and social media”",t:"The agreement is silent on AI tools",i:"AI can touch instruction, assessment, advising, admissions messaging and student data, all areas USU reserves. Without a rule, deployment could be an “operational” change.",r:"Add an AI use standard to the MIS matrix with a cross-reference in each academic row. Add AI tools to the system inventory and review annually through faculty governance.",l:"AGI shall not deploy AI in instruction, assessment, advising, admissions, aid decisions or student-facing communications without USU approval; human review is required for decisions affecting students; student data shall not train external models without written USU approval; AI incidents are reported under Corrective Action."},
+{id:"S13",sec:"mat",pri:"M",cat:"Drafting",loc:"Regulatory Compliance matrix, row “Regulatory administration” (AGI cell); Marketing matrix, row “Content and social media” (evidence ends “publication log;”; USU “manage posting”)",t:"Run-on and truncated cells blur ownership",i:"The regulatory cell merges federal, state, VA, DoD, NCSARA and boards of nursing items into one sentence. The content row ends mid-list and does not say who publishes.",r:"Replace with a filing-by-filing list (agency, preparer, USU approver, due date). Complete the truncated evidence and state who posts content."},
+{id:"S14",sec:"org",pri:"M",cat:"Clarity",loc:"Organizational Chart (as of Sept 23, 2026)",t:"Chart is hard to read and not linked to service owners",i:"Text is too small, dotted lines have no legend, the President/Provost role appears twice, the AGI Director of Finance is an open position, and the chart predates the Oct 14 draft.",r:"Add a legend and entity colors. Add Exhibit C, a roster: service area | USU owner | AGI owner | reviewer | backup | escalation contact. Name interim coverage for open roles."},
+{id:"S15",sec:"proc",pri:"M",cat:"Process",loc:"Collaborative Development Process, six-step graphic (“Support Agreement”, “AGI Review”…) and final paragraph",t:"Change control lacks classes, owners and timing",i:"“Support Agreement” is undefined and steps have no owners or durations. The text bars reserved changes from operational change but gives no path for each type.",r:"Define three classes: Operational (service owners, logged), Material (President and AGI executive, documented), Reserved (Board or faculty governance). Add owners and review windows per step and a change log."},
+{id:"S16",sec:"let",pri:"M",cat:"Risk",loc:"Executive Letters: CEO letter (“industry low” enrollments; “lower or even eliminate the need to utilize federal financial aid”); President letter (“approximately 45 states”)",t:"Promotional and factual claims inside a governance document",i:"Marketing claims in an accreditation-facing document invite scrutiny, and the letters’ status (contractual or not) is unstated. Figures need a source.",r:"Mark letters as informational and non-contractual. Have regulatory counsel and Institutional Research verify or remove claims. Keep letters short and focused on roles."},
+{id:"S17",sec:"fm",pri:"M",cat:"Governance",loc:"Document Control (“MOS review comments”; “Approval date: Pending”); Approvals block (signatures for CEO and President only)",t:"Approval record is incomplete",i:"“MOS” is undefined, comment dispositions are not recorded, and the Board, which retains oversight, has no approval line. Employer assignments and delegations are left for “before execution.”",r:"Define MOS, append a comment-disposition log, add Board approval (resolution date and signatory) and Audit Committee review lines, and add a pre-execution checklist with owners and due dates: approval dates, employer register, targets, delegations, system inventory."},
+{id:"S18",sec:"fm",pri:"L",cat:"Usability",loc:"Front of document (before Executive Letters); every matrix row",t:"No at-a-glance summary and no row identifiers",i:"Reviewers must read about twenty pages to find obligations, owners and the review calendar, and cannot cite a specific row.",r:"Add a one-page summary (purpose, reserved authority, service areas, review calendar, escalation roster) and number matrix rows (e.g., MKT-1, FIN-2) so evidence, metrics and corrective actions can cite them."}
+];
+const PR={H:"High",M:"Medium",L:"Low"},ST=["Agree","Agree with changes","Discuss","Disagree"];
+const $=id=>document.getElementById(id),esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+let fSec="all",fPri="all",fSt="all",uid="local",db=null,col=null,all={},mine={};
+try{mine=JSON.parse(localStorage.getItem("slaNotes")||"{}")}catch(e){}
+try{$("nm").value=localStorage.getItem("slaName")||""}catch(e){}
+function chips(el,opts,get,set){el.innerHTML=opts.map(([v,l])=>`<button class="${get()===v?"on":""}" data-v="${v}">${esc(l)}</button>`).join("");el.onclick=e=>{const b=e.target.closest("button");if(b){set(b.dataset.v);draw()}}}
+function vis(s){return(fSec==="all"||s.sec===fSec)&&(fPri==="all"||s.pri===fPri)&&(fSt==="all"||(fSt==="done"?!!(mine[s.id]&&(mine[s.id].status||mine[s.id].text)):!(mine[s.id]&&(mine[s.id].status||mine[s.id].text))))}
+function nav(){const n={};S.forEach(s=>n[s.sec]=(n[s.sec]||0)+1);
+$("map").innerHTML=`<button class="s ${fSec==="all"?"on":""}" data-v="all"><span>All sections</span><b>${S.length}</b></button>`+Object.keys(SEC).map(k=>`<button class="s ${fSec===k?"on":""}" data-v="${k}"><span>${esc(SEC[k])}</span><b>${n[k]||0}</b></button>`).join("");
+$("map").onclick=e=>{const b=e.target.closest("button");if(b){fSec=b.dataset.v;draw()}};
+chips($("fp"),[["all","All"],["H","High"],["M","Medium"],["L","Low"]],()=>fPri,v=>fPri=v);
+chips($("fs"),[["all","All"],["open","No response yet"],["done","Responded"]],()=>fSt,v=>fSt=v)}
+function card(s){const m=mine[s.id]||{};return`<article class="card" id="${s.id}"><div class="top"><span class="id">${s.id}</span><span class="pri ${s.pri}">${PR[s.pri]} priority</span><span class="tag">${esc(s.cat)} · ${esc(SEC[s.sec])}</span></div>
+<h3>${esc(s.t)}</h3><div class="lbl">Where it applies</div><div class="loc">${esc(s.loc)}</div>
+<div class="lbl">Issue</div><p>${esc(s.i)}</p><div class="lbl">Suggested change</div><p>${esc(s.r)}</p>
+${s.l?`<div class="lbl">Sample language / structure</div><div class="lang">${esc(s.l)}</div>`:""}
+<div class="note"><div class="row"><b>Your response</b><select data-s="${s.id}" class="sel"><option value="">Select…</option>${ST.map(x=>`<option ${m.status===x?"selected":""}>${x}</option>`).join("")}</select></div>
+<textarea data-s="${s.id}" class="txt" placeholder="Comments on ${s.id}…">${esc(m.text||"")}</textarea><div class="oth" id="o-${s.id}"></div></div></article>`}
+function others(){S.forEach(s=>{const el=$("o-"+s.id);if(!el)return;const o=Object.values(all).filter(x=>x.sid===s.id&&x.uid!==uid&&(x.status||x.text));
+el.innerHTML=o.length?`<div class="sub">Other reviewers</div>`+o.map(x=>`<div><b>${esc(x.name||"Reviewer")}</b>${x.status?` · ${esc(x.status)}`:""}${x.text?`<br>${esc(x.text)}`:""}</div>`).join(""):""})}
+function count(){const n=Object.values(mine).filter(x=>x.status||x.text).length;$("st").textContent=`${S.length} suggestions · ${S.filter(s=>s.pri==="H").length} high · ${n} responded`}
+function draw(){nav();const v=S.filter(vis);$("list").innerHTML=v.length?v.map(card).join(""):`<p class="fine">No suggestions match these filters.</p>`;others();count()}
+let tm={};
+function save(sid){const m=mine[sid];try{localStorage.setItem("slaNotes",JSON.stringify(mine))}catch(e){}
+clearTimeout(tm[sid]);tm[sid]=setTimeout(()=>{if(col){col.doc(uid+"__"+sid).set({sid,uid,name:$("nm").value||"Reviewer",status:m.status||"",text:m.text||"",ts:Date.now()}).catch(()=>{$("sv").textContent="Shared save failed; kept locally"})}},600);count()}
+function chg(e){const t=e.target,sid=t.dataset.s;if(!sid)return;if(!$("nm").value.trim()){$("nm").focus();$("sv").textContent="Enter your name first"}
+mine[sid]=mine[sid]||{};mine[sid][t.classList.contains("sel")?"status":"text"]=t.value;save(sid)}
+$("list").addEventListener("input",chg);$("list").addEventListener("change",chg);
+$("nm").addEventListener("input",()=>{try{localStorage.setItem("slaName",$("nm").value)}catch(e){}});
+function report(){const rows=Object.values(all);Object.keys(mine).forEach(k=>{if(!rows.some(x=>x.uid===uid&&x.sid===k))rows.push({sid:k,uid,name:$("nm").value||"Reviewer",...mine[k]})});
+return S.map(s=>{const r=rows.filter(x=>x.sid===s.id&&(x.status||x.text));return`${s.id} [${PR[s.pri]}] ${s.t}\nApplies to: ${s.loc}\n`+(r.length?r.map(x=>`  - ${x.name||"Reviewer"}: ${x.status||"(no position)"}${x.text?" | "+x.text:""}`).join("\n"):"  - no responses")}).join("\n\n")}
+$("ex").onclick=async()=>{$("ta").value=report();$("dg").showModal();try{const d=await claude.use("downloads");if(d){$("dl").hidden=false;$("dl").onclick=()=>d.save({filename:"sla-review-notes.txt",data:$("ta").value}).catch(()=>{})}}catch(e){}};
+$("cp").onclick=async()=>{try{await navigator.clipboard.writeText($("ta").value)}catch(e){$("ta").select();document.execCommand("copy")}};
+$("cl").onclick=()=>$("dg").close();
+draw();
+(async()=>{try{const u=await claude.use("user");if(u)uid=await u.id();db=await claude.use("db");if(db){col=db.collection("notes");
+$("sv").textContent="Notes shared with reviewers";col.onSnapshot(sn=>{sn.docs.forEach(d=>all[d.id]=d.data());others()},()=>{$("sv").textContent="Notes: local only"})}}catch(e){}})();
+</script></body></html>

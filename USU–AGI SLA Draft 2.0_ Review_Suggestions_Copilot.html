@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>USU / AGI SLA Review & Recommendations</title>
+
+<style>
+:root{
+    --bg:#f5f7fb;
+    --card:#ffffff;
+    --text:#1f2937;
+    --muted:#6b7280;
+    --border:#d1d5db;
+    --primary:#1d4ed8;
+    --danger:#dc2626;
+    --warning:#d97706;
+    --success:#059669;
+}
+
+[data-theme="dark"]{
+    --bg:#0f172a;
+    --card:#1e293b;
+    --text:#f1f5f9;
+    --muted:#94a3b8;
+    --border:#334155;
+    --primary:#60a5fa;
+    --danger:#f87171;
+    --warning:#fbbf24;
+    --success:#34d399;
+}
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Segoe UI, Arial, sans-serif;
+    background:var(--bg);
+    color:var(--text);
+}
+
+.container{
+    display:grid;
+    grid-template-columns:300px 1fr;
+    min-height:100vh;
+}
+
+.sidebar{
+    background:var(--card);
+    border-right:1px solid var(--border);
+    padding:20px;
+    position:sticky;
+    top:0;
+    height:100vh;
+    overflow:auto;
+}
+
+.sidebar h2{
+    margin-top:0;
+}
+
+.sidebar a{
+    display:block;
+    text-decoration:none;
+    margin:8px 0;
+    color:var(--primary);
+}
+
+.content{
+    padding:24px;
+}
+
+.card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:18px;
+    margin-bottom:18px;
+}
+
+.dashboard{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:15px;
+}
+
+.metric{
+    padding:20px;
+    border-radius:12px;
+    text-align:center;
+    background:var(--card);
+    border:1px solid var(--border);
+}
+
+.metric h3{
+    margin:0;
+    font-size:32px;
+}
+
+.badge{
+    display:inline-block;
+    padding:4px 10px;
+    border-radius:999px;
+    font-size:12px;
+    margin-right:5px;
+    margin-bottom:5px;
+}
+
+.high{
+    background:#fee2e2;
+    color:#991b1b;
+}
+
+.medium{
+    background:#fef3c7;
+    color:#92400e;
+}
+
+.low{
+    background:#dcfce7;
+    color:#166534;
+}
+
+textarea{
+    width:100%;
+    min-height:120px;
+    padding:10px;
+    border-radius:8px;
+    border:1px solid var(--border);
+    background:var(--bg);
+    color:var(--text);
+}
+
+select{
+    padding:8px;
+    border-radius:6px;
+}
+
+button{
+    padding:10px 16px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    margin-right:8px;
+    margin-top:8px;
+}
+
+.primary{
+    background:var(--primary);
+    color:white;
+}
+
+.success{
+    background:var(--success);
+    color:white;
+}
+
+.warning{
+    background:var(--warning);
+    color:white;
+}
+
+.row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    align-items:center;
+}
+
+.section-title{
+    margin-top:40px;
+}
+
+.hidden{
+    display:none;
+}
+
+.footer-tools{
+    position:sticky;
+    bottom:0;
+    background:var(--bg);
+    padding:14px 0;
+}
+
+@media(max-width:900px){
+    .container{
+        grid-template-columns:1fr;
+    }
+
+    .sidebar{
+        position:relative;
+        height:auto;
+    }
+}
+
+@media print{
+    .sidebar,
+    .footer-tools{
+        display:none;
+    }
+
+    .content{
+        padding:0;
+    }
+
+    body{
+        background:white;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="sidebar">
+
+<h2>USU / AGI SLA Review</h2>
+
+<button onclick="toggleTheme()" class="primary">
+Toggle Theme
+</button>
+
+<hr>
+
+<a href="#summary">Executive Summary</a>
+<a href="#recommendations">Recommendations</a>
+<a href="#authority">Authority Matrix</a>
+<a href="#metrics">Performance Metrics</a>
+<a href="#changecontrol">Change Control</a>
+<a href="#dataownership">Data Ownership</a>
+<a href="#vendors">Vendor Governance</a>
+<a href="#employment">Employment Clarity</a>
+<a href="#escalation">Escalation Process</a>
+<a href="#appendices">Appendices</a>
+
+<hr>
+
+<strong>Filter Severity</strong>
+
+<select id="severityFilter" onchange="filterCards()">
+    <option value="all">All</option>
+    <option value="high">High</option>
+    <option value="medium">Medium</option>
+    <option value="low">Low</option>
+</select>
+
+</div>
+
+<div class="content">
+
+<section id="summary">
+
+<h1>USU / AGI Service Level Agreement Review</h1>
+
+<div class="card">
+<h2>Executive Assessment</h2>
+
+<p>
+The agreement is fundamentally well designed and appears intended
+to demonstrate institutional independence while preserving
+operational efficiency through AGI shared services.
+</p>
+
+<p>
+The document effectively protects academic authority,
+accreditation responsibilities, and Board governance.
+Most remaining risks relate to operational precision rather
+than structural deficiencies.
+</p>
+
+<p>
+Primary concerns identified:
+</p>
+
+<ul>
+<li>Undefined approval authority terminology</li>
+<li>Incomplete service-level metrics</li>
+<li>Ambiguous change-control requirements</li>
+<li>Insufficiently detailed data-transition obligations</li>
+<li>Lack of escalation timing requirements</li>
+<li>Limited vendor governance requirements</li>
+</ul>
+
+</div>
+
+<div class="dashboard">
+
+<div class="metric">
+<h3>10</h3>
+<div>Recommendations</div>
+</div>
+
+<div class="metric">
+<h3>4</h3>
+<div>High Priority</div>
+</div>
+
+<div class="metric">
+<h3>3</h3>
+<div>Medium Priority</div>
+</div>
+
+<div class="metric">
+<h3>3</h3>
+<div>Low Priority</div>
+</div>
+
+</div>
+
+</section>
+
+<section id="recommendations">
+
+<h2 class="section-title">Recommendations</h2>
+
+<div class="card recommendation high-card" data-severity="high">
+
+<span class="badge high">HIGH</span>
+
+<h3>1. Formal Authority Matrix</h3>
+
+<p><strong>SLA Sections:</strong>
+Definitions, Governance & Monitoring, Service Matrices
+</p>
+
+<p><strong>Observation</strong></p>
+
+<p>
+Terms such as Approve, Validate, Review, Authorize, Monitor,
+and Oversee are used extensively but lack formal definitions.
+</p>
+
+<p><strong>Recommendation</strong></p>
+
+<p>
+Create a Decision Rights Appendix that explicitly defines
+each action and assigns authority.
+</p>
+
+<p><strong>Proposed Enhancement</strong></p>
+
+<p>
+Introduce a governance appendix where every service area
+contains Responsible, Accountable, Consulted, and Informed
+parties together with approval requirements.
+</p>
+
+<select class="status">
+<option>Needs Discussion</option>
+<option>Accept</option>
+<option>Reject</option>
+</select>
+
+<textarea placeholder="Reviewer comments"></textarea>
+
+</div>
+
+<div class="card recommendation high-card" data-severity="high">
+
+<span class="badge high">HIGH</span>
+
+<h3>2. Service Level Metrics Appendix</h3>
+
+<p><strong>SLA Sections:</strong>
+Performance Standards
+</p>
+
+<p>
+Metrics exist but enforceable targets are deferred.
+</p>
+
+<p>
+Add mandatory targets, owner, formula, reporting frequency,
+measurement source, tolerance band, and escalation point.
+</p>
+
+<select class="status">
+<option>Needs Discussion</option>
+<option>Accept</option>
+<option>Reject</option>
+</select>
+
+<textarea></textarea>
+
+</div>
+
+<div class="card recommendation high-card" data-severity="high">
+
+<span class="badge high">HIGH</span>
+
+<h3>3. Material Change Definition</h3>
+
+<p><strong>SLA Sections:</strong>
+MIS, Monitoring, Governance
+</p>
+
+<p>
+The term "material change" appears repeatedly but remains undefined.
+</p>
+
+<p>
+Define technology, finance, outsourcing, compliance,
+and student-facing changes requiring institutional approval.
+</p>
+
+<select class="status">
+<option>Needs Discussion</option>
+<option>Accept</option>
+<option>Reject</option>
+</select>
+
+<textarea></textarea>
+
+</div>
+
+<div class="card recommendation high-card" data-severity="high">
+
+<span class="badge high">HIGH</span>
+
+<h3>4. Data Ownership & Exit Rights</h3>
+
+<p><strong>SLA Sections:</strong>
+MIS, Contracts and Transition
+</p>
+
+<p>
+Provide mandatory export formats, transition timelines,
+assistance obligations, conversion support, validation testing,
+and destruction certification requirements.
+</p>
+
+<select class="status">
+<option>Needs Discussion</option>
+<option>Accept</option>
+<option>Reject</option>
+</select>
+
+<textarea></textarea>
+
+</div>
+
+<div class="card recommendation medium-card" data-severity="medium">
+
+<span class="badge medium">MEDIUM</span>
+
+<h3>5. Vendor Governance Program</h3>
+
+<p>
+Require annual vendor assessments, risk categorization,
+continuity reviews, contract ownership, and dependency analysis.
+</p>
+
+<select class="status">
+<option>Needs Discussion</option>
+<option>Accept</option>
+<option>Reject</option>
+</select>
+
+<textarea></textarea>
+
+</div>
+
+<div class="card recommendation medium-card" data-severity="medium">
+
+<span class="badge medium">MEDIUM</span>
+
+<h3>6. Employer of Record Schedule</h3>
+
+<p>
+Maintain an authoritative workforce appendix clearly listing
+employment relationships and authority boundaries.
+</p>
+
+<select class="status">
+<option>Needs Discussion</option>
+<option>Accept</option>
+<option>Reject</option>
+</select>
+
+<textarea></textarea>
+
+</div>
+
+<div class="card recommendation medium-card" data-severity="medium">
+
+<span class="badge medium">MEDIUM</span>
+
+<h3>7. Escalation Timelines</h3>
+
+<p>
+Specify maximum escalation windows for compliance,
+security, accreditation, and financial events.
+</p>
+
+<select class="status">
+<option>Needs Discussion</option>
+<option>Accept</option>
+<option>Reject</option>
+</select>
+
+<textarea></textarea>
+
+</div>
+
+<div class="card recommendation low-card" data-severity="low">
+
+<span class="badge low">LOW</span>
+
+<h3>8. RACI Summary Appendix</h3>
+
+<p>
+Produce a one-page accountability map for trustees,
+executives, auditors, and accreditors.
+</p>
+
+<select class="status">
+<option>Needs Discussion</option>
+<option>Accept</option>
+<option>Reject</option>
+</select>
+
+<textarea></textarea>
+
+</div>
+
+<div class="card recommendation low-card" data-severity="low">
+
+<span class="badge low">LOW</span>
+
+<h3>9. System Inventory Registry</h3>
+
+<p>
+Define all system names including CNS and identify
+system owners and authoritative records.
+</p>
+
+<select class="status">
+<option>Needs Discussion</option>
+<option>Accept</option>
+<option>Reject</option>
+</select>
+
+<textarea></textarea>
+
+</div>
+
+<div class="card recommendation low-card" data-severity="low">
+
+<span class="badge low">LOW</span>
+
+<h3>10. Accreditation Protection Clause</h3>
+
+<p>
+When institutional obligations conflict with efficiency,
+institutional and accreditation requirements prevail.
+</p>
+
+<select class="status">
+<option>Needs Discussion</option>
+<option>Accept</option>
+<option>Reject</option>
+</select>
+
+<textarea></textarea>
+
+</div>
+
+</section>
+
+<section id="authority" class="card">
+<h2>Authority Matrix Enhancement</h2>
+<p>
+Recommended new appendix defining:
+Approve, Validate, Review, Authorize, Monitor, Oversee,
+Consult, Recommend and Notify.
+</p>
+</section>
+
+<section id="metrics" class="card">
+<h2>Performance Standards Enhancement</h2>
+<p>
+Each metric should include:
+Target, Formula, Owner, Reporting Frequency,
+Exception Criteria and Escalation Trigger.
+</p>
+</section>
+
+<section id="changecontrol" class="card">
+<h2>Change Control Enhancement</h2>
+<p>
+Define categories requiring University approval.
+</p>
+</section>
+
+<section id="dataownership" class="card">
+<h2>Data Governance Enhancement</h2>
+<p>
+Add export, retention, recovery, and exit requirements.
+</p>
+</section>
+
+<section id="vendors" class="card">
+<h2>Vendor Governance Enhancement</h2>
+<p>
+Establish annual vendor review procedures.
+</p>
+</section>
+
+<section id="employment" class="card">
+<h2>Employment Governance Enhancement</h2>
+<p>
+Clarify legal employer assignment for all workforce categories.
+</p>
+</section>
+
+<section id="escalation" class="card">
+<h2>Escalation Enhancement</h2>
+
+<table border="1" cellpadding="8" cellspacing="0">
+<tr>
+<th>Risk Type</th>
+<th>Recommended Escalation</th>
+</tr>
+
+<tr>
+<td>Student Safety</td>
+<td>Immediate</td>
+</tr>
+
+<tr>
+<td>Security Incident</td>
+<td>24 Hours</td>
+</tr>
+
+<tr>
+<td>Accreditation Impact</td>
+<td>48 Hours</td>
+</tr>
+
+<tr>
+<td>Material Compliance Issue</td>
+<td>48 Hours</td>
+</tr>
+
+<tr>
+<td>Service Failure</td>
+<td>5 Business Days</td>
+</tr>
+
+</table>
+
+</section>
+
+<section id="appendices" class="card">
+
+<h2>Export Review Comments</h2>
+
+<div class="row">
+<button class="primary" onclick="saveReview()">
+Save Review
+</button>
+
+<button class="success" onclick="exportMarkdown()">
+Export Markdown
+</button>
+
+<button class="warning" onclick="exportJSON()">
+Export JSON
+</button>
+
+<button onclick="window.print()">
+Print Report
+</button>
+</div>
+
+</section>
+
+</div>
+</div>
+
+<script>
+
+function toggleTheme(){
+
+    const current=document.documentElement.getAttribute('data-theme');
+
+    if(current==='dark'){
+        document.documentElement.removeAttribute('data-theme');
+    }else{
+        document.documentElement.setAttribute('data-theme','dark');
+    }
+}
+
+function filterCards(){
+
+    const selected=document.getElementById('severityFilter').value;
+
+    document.querySelectorAll('.recommendation').forEach(card=>{
+
+        if(selected==='all'){
+            card.style.display='';
+            return;
+        }
+
+        card.style.display=
+            card.dataset.severity===selected
+            ? ''
+            : 'none';
+    });
+
+}
+
+function saveReview(){
+
+    const data=[];
+
+    document.querySelectorAll('.recommendation').forEach(card=>{
+
+        data.push({
+            title:card.querySelector('h3').innerText,
+            status:card.querySelector('select').value,
+            notes:card.querySelector('textarea').value
+        });
+
+    });
+
+    localStorage.setItem('slaReview',JSON.stringify(data));
+
+    alert('Review Saved');
+}
+
+function loadReview(){
+
+    const data=JSON.parse(
+        localStorage.getItem('slaReview') || '[]'
+    );
+
+    document.querySelectorAll('.recommendation').forEach((card,index)=>{
+
+        if(!data[index]) return;
+
+        card.querySelector('select').value=data[index].status;
+        card.querySelector('textarea').value=data[index].notes;
+
+    });
+
+}
+
+function exportJSON(){
+
+    const result=[];
+
+    document.querySelectorAll('.recommendation').forEach(card=>{
+
+        result.push({
+            recommendation:card.querySelector('h3').innerText,
+            status:card.querySelector('select').value,
+            notes:card.querySelector('textarea').value
+        });
+
+    });
+
+    downloadFile(
+        "SLA_Review.json",
+        JSON.stringify(result,null,2)
+    );
+}
+
+function exportMarkdown(){
+
+    let md="# USU AGI SLA Review Notes\n\n";
+
+    document.querySelectorAll('.recommendation').forEach(card=>{
+
+        md += "## " + card.querySelector('h3').innerText + "\n";
+        md += "Status: "
+            + card.querySelector('select').value + "\n\n";
+
+        md += card.querySelector('textarea').value + "\n\n";
+    });
+
+    downloadFile(
+        "SLA_Review.md",
+        md
+    );
+}
+
+function downloadFile(name,content){
+
+    const a=document.createElement('a');
+
+    a.href=
+    URL.createObjectURL(
+        new Blob([content],{type:'text/plain'})
+    );
+
+    a.download=name;
+
+    a.click();
+}
+
+loadReview();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>USU–AGI SLA | Governance & Execution Review</title>
+<style>
+:root{
+ --ink:#182638;--muted:#5d6b7b;--line:#dbe2e9;--paper:#f5f7fa;--white:#fff;
+ --navy:#142d49;--blue:#2d6595;--teal:#247a78;--gold:#a96f18;--red:#a54444;
+ --softblue:#eaf2f9;--softteal:#e9f4f2;--softgold:#fbf3e5;--softred:#f9eded;
+ --shadow:0 8px 24px rgba(22,42,64,.07);--radius:13px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.55 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+button,input,textarea,select{font:inherit}
+a{color:var(--blue)}
+.topbar{position:sticky;top:0;z-index:10;background:rgba(20,45,73,.97);color:#fff;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;box-shadow:0 2px 14px #10243a30}
+.brand{font-weight:750;letter-spacing:.02em}.brand small{display:block;font-weight:450;color:#c5d3e0;font-size:12px}
+.top-actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:1px solid #cbd6e1;background:#fff;color:var(--navy);padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:650;font-size:13px}
+.btn.primary{background:#dceaf5;border-color:#dceaf5}.btn.dark{background:transparent;color:white;border-color:#7890a8}
+.btn:hover{filter:brightness(.96)}
+.layout{display:grid;grid-template-columns:280px minmax(0,1fr);max-width:1540px;margin:auto;min-height:calc(100vh - 60px)}
+.sidebar{background:#fff;border-right:1px solid var(--line);padding:22px 16px;position:sticky;top:60px;height:calc(100vh - 60px);overflow:auto}
+.sidebar h3{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin:20px 9px 8px}
+.navlink{display:block;text-decoration:none;color:#33465a;padding:8px 10px;border-radius:8px;font-size:13px;margin:2px 0}
+.navlink:hover,.navlink.active{background:var(--softblue);color:var(--navy);font-weight:700}
+.navlink .num{display:inline-block;width:25px;color:#7a8998;font-variant-numeric:tabular-nums}
+.side-note{font-size:12px;color:var(--muted);padding:12px 10px;border-top:1px solid var(--line);margin-top:18px}
+main{padding:30px clamp(18px,4vw,58px) 80px;max-width:1200px}
+.hero{background:linear-gradient(120deg,#142d49,#24577b);color:white;border-radius:18px;padding:32px;box-shadow:var(--shadow);margin-bottom:22px}
+.eyebrow{text-transform:uppercase;letter-spacing:.14em;font-size:11px;color:#c3d8e8;font-weight:750}
+h1{font-size:clamp(27px,4vw,40px);line-height:1.12;margin:10px 0 12px;letter-spacing:-.03em}
+.hero p{max-width:850px;color:#e1eaf1;margin:0}
+.meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.meta span{font-size:12px;border:1px solid #ffffff40;border-radius:99px;padding:5px 10px;color:#e5eef5}
+.card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:22px;margin:18px 0;box-shadow:var(--shadow)}
+h2{font-size:23px;letter-spacing:-.02em;margin:0 0 12px;color:var(--navy)}
+h3{font-size:17px;margin:0 0 8px;color:var(--navy)}
+p{margin:8px 0 12px}
+.lead{font-size:17px;color:#33485d}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.metric{background:#f7f9fb;border:1px solid var(--line);border-radius:10px;padding:15px}
+.metric strong{display:block;font-size:24px;color:var(--navy)}
+.metric span{font-size:12px;color:var(--muted)}
+.callout{border-left:4px solid var(--blue);background:var(--softblue);padding:13px 16px;border-radius:0 9px 9px 0;margin:14px 0}
+.callout.warn{border-color:var(--gold);background:var(--softgold)}
+.callout.risk{border-color:var(--red);background:var(--softred)}
+.pill{display:inline-block;font-size:11px;text-transform:uppercase;letter-spacing:.06em;font-weight:800;padding:4px 8px;border-radius:99px;background:#edf1f5;color:#45586a;margin:0 5px 5px 0}
+.pill.high{background:var(--softred);color:#8e3535}.pill.med{background:var(--softgold);color:#815512}.pill.low{background:var(--softteal);color:#236763}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:14px 0}
+.toolbar input,.toolbar select{border:1px solid var(--line);border-radius:8px;background:#fff;padding:9px 11px;color:var(--ink)}
+.toolbar input{min-width:220px;flex:1}
+.suggestion{border:1px solid var(--line);border-radius:12px;background:#fff;margin:14px 0;overflow:hidden;scroll-margin-top:82px}
+.s-head{padding:16px 18px;background:#fbfcfd;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:15px;align-items:flex-start}
+.s-head h3{margin:3px 0 4px}.s-id{font-size:12px;color:var(--muted);font-weight:800}
+.s-body{padding:17px 18px}
+.loc{font-size:12px;color:var(--blue);font-weight:750;margin-bottom:8px}
+.s-body .why{color:#45576a}
+.proposal{background:#f5f8fb;border:1px solid #e0e8ef;padding:12px 14px;border-radius:9px;margin:12px 0}
+.proposal b{color:var(--navy)}
+.s-body ul{padding-left:20px;margin:7px 0}
+.s-body li{margin:4px 0}
+.note-area{border-top:1px solid var(--line);padding:15px 18px;background:#fcfdfe}
+.note-grid{display:grid;grid-template-columns:1.3fr .8fr .8fr;gap:10px}
+.note-area label{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:750;display:block;margin-bottom:5px}
+.note-area textarea,.note-area input,.note-area select{width:100%;border:1px solid var(--line);border-radius:8px;padding:9px;background:white;color:var(--ink)}
+.note-area textarea{min-height:76px;resize:vertical}
+.status{font-size:11px;border-radius:99px;padding:4px 8px;font-weight:750;white-space:nowrap;background:#edf1f5;color:#45586a}
+.status.open{background:var(--softgold);color:#815512}.status.accepted{background:var(--softteal);color:#236763}.status.rejected{background:var(--softred);color:#8e3535}.status.discuss{background:var(--softblue);color:#285b83}
+table{border-collapse:collapse;width:100%;font-size:13px;margin:12px 0}
+th,td{text-align:left;padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:#f2f5f8;color:#33485d}
+.small{font-size:12px;color:var(--muted)}
+.checklist{list-style:none;padding:0}.checklist li{padding:8px 0;border-bottom:1px solid #edf0f3}
+.checklist input{margin-right:8px}
+.footer{color:var(--muted);font-size:12px;padding:20px 4px}
+.hidden{display:none!important}
+@media(max-width:900px){.layout{grid-template-columns:1fr}.sidebar{position:relative;top:auto;height:auto;border-right:0;border-bottom:1px solid var(--line);display:flex;gap:4px;overflow:auto;padding:10px}.sidebar h3,.side-note{display:none}.navlink{white-space:nowrap}.grid3{grid-template-columns:1fr}.grid2{grid-template-columns:1fr}}
+@media(max-width:600px){.topbar{padding:11px 14px;align-items:flex-start}.brand small{max-width:180px}.top-actions .btn{font-size:11px;padding:7px}.hero{padding:23px}.s-head{display:block}.note-grid{grid-template-columns:1fr}main{padding:18px 13px 55px}}
+@media print{
+ body{background:#fff;font-size:11pt}.topbar,.sidebar,.toolbar,.top-actions,.note-area .savehint{display:none!important}
+ .layout{display:block}.hero{background:#fff;color:#111;border:2px solid #234}.hero p,.eyebrow{color:#333}
+ main{padding:0;max-width:none}.card,.suggestion{box-shadow:none;break-inside:avoid}
+ .suggestion{break-inside:avoid}.note-area textarea{min-height:50px}
+ a{color:#111;text-decoration:none}
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+ <div class="brand">USU × AGI <small>Service Level Agreement | Governance & Execution Review</small></div>
+ <div class="top-actions">
+  <button class="btn dark" onclick="window.print()">Print report</button>
+  <button class="btn dark" onclick="exportNotes()">Export reviewer notes</button>
+  <button class="btn primary" onclick="resetNotes()">Clear notes</button>
+ </div>
+</header>
+<div class="layout">
+<aside class="sidebar" aria-label="Report navigation">
+ <h3>Review guide</h3>
+ <a class="navlink active" href="#overview"><span class="num">00</span> Executive overview</a>
+ <a class="navlink" href="#intent"><span class="num">01</span> Document intention</a>
+ <a class="navlink" href="#architecture"><span class="num">02</span> What works / what is missing</a>
+ <h3>Recommendations</h3>
+ <a class="navlink" href="#recommendations"><span class="num">03</span> All recommendations</a>
+ <a class="navlink" href="#priority"><span class="num">04</span> Priority action plan</a>
+ <a class="navlink" href="#decisions"><span class="num">05</span> Decisions before execution</a>
+ <a class="navlink" href="#reviewer-guide"><span class="num">06</span> How to use this review</a>
+ <div class="side-note">Reviewer notes are saved in this browser on this device. Export notes before sharing or changing devices.</div>
+</aside>
+<main>
+<section class="hero" id="overview">
+ <div class="eyebrow">Independent document review · Board / executive working paper</div>
+ <h1>From responsibility map<br>to executable agreement</h1>
+ <p>A practical review of the October 14, 2026 Draft 2.0 Service Level Agreement between Aspen Group, Inc. and United States University. The focus is whether the agreement makes decision rights, service expectations, evidence, escalation, and institutional safeguards clear enough for both organizations to act consistently.</p>
+ <div class="meta"><span>Source: 19-page SLA Draft 2.0</span><span>Review basis: supplied document only</span><span>For discussion, not legal advice</span></div>
+</section>
+
+<section class="card">
+ <h2>Executive assessment</h2>
+ <p class="lead">The draft has a sound governance direction and a useful service-matrix structure. Its main weakness is that several important commitments remain principles or future work rather than fully specified operating obligations.</p>
+ <div class="grid3">
+  <div class="metric"><strong>Good foundation</strong><span>Retained USU authority is stated repeatedly and service areas are organized.</span></div>
+  <div class="metric"><strong>Execution gap</strong><span>Metrics, owners, targets, service levels, and evidence are often deferred until after approval.</span></div>
+  <div class="metric"><strong>Control gap</strong><span>Several contractual protections and decision protocols are absent or not sufficiently explicit.</span></div>
+ </div>
+ <div class="callout warn"><b>Primary recommendation:</b> Do not treat the matrices alone as a complete SLA. Add a short set of binding schedules that specify service definitions, measurable standards, approval thresholds, data/security controls, financial arrangements, and exit/continuity obligations. Complete the critical schedules before the effective date, not as an indefinite post-signature exercise.</div>
+ <p><b>Bottom line:</b> The document is strongest as a governance framework. It needs additional operational and contractual machinery to function reliably as an agreement between a university and its parent-company service provider.</p>
+</section>
+
+<section class="card" id="intent">
+ <h2>1. What the document is trying to accomplish</h2>
+ <p>The SLA appears intended to do five things:</p>
+ <ol>
+  <li><b>Describe the shared-services model.</b> AGI supplies centralized corporate and operational services that support USU.</li>
+  <li><b>Preserve institutional authority.</b> USU, through its Board, President, faculty governance, and designated officials, retains final authority for academic and institutional matters.</li>
+  <li><b>Make the division of work visible.</b> Service matrices identify AGI responsibilities, USU responsibilities, shared coordination, and evidence.</li>
+  <li><b>Create oversight and correction mechanisms.</b> The Audit Committee, service owners, performance reviews, and escalation process are intended to identify and resolve deficiencies.</li>
+  <li><b>Support accreditation and institutional accountability.</b> The draft references WSCUC policy and emphasizes that USU remains responsible for activities conducted in its name.</li>
+ </ol>
+ <div class="callout"><b>Interpretive point:</b> The document is not simply an outsourcing inventory. It is also a boundary-setting instrument: AGI may operate services, but operational support must not quietly become institutional decision-making.</div>
+ <p><b>What success should look like:</b> A USU leader can identify the accountable AGI owner, the USU decision-maker, the required approval, the service standard, the evidence to inspect, and the route to intervene when performance or institutional risk is unacceptable.</p>
+</section>
+
+<section class="card" id="architecture">
+ <h2>2. What is working, and what needs strengthening</h2>
+ <div class="grid2">
+  <div>
+   <h3>Strengths to preserve</h3>
+   <ul>
+    <li>Clear statement that corporate ownership does not transfer reserved academic authority (pp. 5–6).</li>
+    <li>Board and President roles are acknowledged, with Audit Committee review (pp. 5–6).</li>
+    <li>Service matrices separate AGI, USU, and shared coordination (pp. 7–16).</li>
+    <li>Performance standards require metric definitions, targets, frequency, source, owner, and exception criteria (p. 17).</li>
+    <li>Corrective action includes root cause, approved plans, verification, and escalation (p. 18).</li>
+    <li>Employer register and legal-employer confirmation are recognized as pre-execution items (p. 12).</li>
+   </ul>
+  </div>
+  <div>
+   <h3>Gaps to close</h3>
+   <ul>
+    <li>Many metrics have no actual target, service window, severity level, or remedy.</li>
+    <li>Decision rights are stated broadly, but thresholds and approval workflows are not consistently defined.</li>
+    <li>Shared coordination can be mistaken for joint authority unless the boundary is made operational.</li>
+    <li>Data, cybersecurity, privacy, vendor, incident, and transition provisions need more detailed controls.</li>
+    <li>Fees, cost allocation mechanics, term, termination rights, dispute resolution, liability, and indemnity are not developed in the supplied draft.</li>
+    <li>There is no complete schedule of service owners, named delegates, contact routes, or reporting templates.</li>
+   </ul>
+  </div>
+ </div>
+ <p class="small">These are document-review observations, not conclusions that a topic is absent from every related contract or University policy. Confirm whether separate agreements or policies already cover any apparent gap, and cross-reference them explicitly.</p>
+</section>
+
+<section class="card" id="recommendations">
+ <h2>3. Recommendations mapped to the draft</h2>
+ <p>Each item identifies the location, the issue, the proposed improvement, and why it matters. Use the note fields to record reviewer feedback and disposition. Search by topic or filter by priority.</p>
+ <div class="toolbar">
+  <input id="search" type="search" placeholder="Search recommendations, topics, or page references…" oninput="filterItems()">
+  <select id="priorityFilter" onchange="filterItems()"><option value="">All priorities</option><option>Critical</option><option>High</option><option>Medium</option></select>
+  <select id="statusFilter" onchange="filterItems()"><option value="">All dispositions</option><option>Open</option><option>Discuss</option><option>Accepted</option><option>Rejected</option></select>
+ </div>
+ <div id="recommendationList"></div>
+</section>
+
+<section class="card" id="priority">
+ <h2>4. Suggested order of work</h2>
+ <p>Resolve the items in this sequence so the parties do not polish reporting details while foundational authority and contract mechanics remain unsettled.</p>
+ <table>
+  <thead><tr><th>Sequence</th><th>Workstream</th><th>Expected output</th><th>Suggested lead</th></tr></thead>
+  <tbody>
+   <tr><td>1</td><td>Authority and governance</td><td>Decision-rights schedule, approval matrix, reserved-matters list, named delegates.</td><td>USU President / BOT counsel or governance lead</td></tr>
+   <tr><td>2</td><td>Service definition and standards</td><td>Completed service catalogue, service owners, targets, severity definitions, reporting templates.</td><td>USU and AGI service owners</td></tr>
+   <tr><td>3</td><td>Risk and compliance controls</td><td>Data/security schedule, incident protocol, audit access, regulatory notification and records controls.</td><td>USU compliance / security / legal with AGI counterparts</td></tr>
+   <tr><td>4</td><td>Commercial and legal terms</td><td>Fees and allocations, term, termination, liability, indemnity, insurance, dispute and change mechanisms.</td><td>Authorized USU and AGI legal / finance leads</td></tr>
+   <tr><td>5</td><td>Readiness and approval</td><td>Evidence that all preconditions are met; Board and authorized-party approvals; signed schedules.</td><td>USU President / BOT as applicable and AGI authorized officer</td></tr>
+  </tbody>
+ </table>
+ <div class="callout risk"><b>Execution gate:</b> The current draft says targets, employer assignments, and financial delegation parameters must be confirmed before execution (p. 18). Make this a formal checklist with a named verifier. Do not allow the effective date to arrive with critical schedules marked “to be determined.”</div>
+</section>
+
+<section class="card" id="decisions">
+ <h2>5. Decisions that should be explicit before approval</h2>
+ <ul class="checklist" id="decisionChecklist">
+  <li><label><input type="checkbox"> Has USU approved a complete reserved-matters and decision-rights schedule?</label></li>
+  <li><label><input type="checkbox"> Is every service area assigned one accountable USU owner and one accountable AGI owner, with alternates?</label></li>
+  <li><label><input type="checkbox"> Are the service definitions, targets, reporting frequencies, data sources, and exceptions complete?</label></li>
+  <li><label><input type="checkbox"> Are severity levels, incident notice deadlines, escalation contacts, and interim safeguards specified?</label></li>
+  <li><label><input type="checkbox"> Are the employer-of-record assignments and employment-file responsibilities verified?</label></li>
+  <li><label><input type="checkbox"> Are intercompany charges, allocation methods, supporting records, and dispute routes approved?</label></li>
+  <li><label><input type="checkbox"> Are privacy, security, data access, retention, audit, subcontracting, and breach obligations covered?</label></li>
+  <li><label><input type="checkbox"> Are term, renewal, termination, transition assistance, data return, and continuity obligations defined?</label></li>
+  <li><label><input type="checkbox"> Have related contracts and policies been identified and incorporated by precise reference?</label></li>
+  <li><label><input type="checkbox"> Have authorized representatives and required Board approvals been confirmed and documented?</label></li>
+ </ul>
+ <p class="small">Checklist ticks are local to this browser and are not included in the reviewer-notes export.</p>
+</section>
+
+<section class="card" id="reviewer-guide">
+ <h2>6. How to use this review workspace</h2>
+ <ol>
+  <li>Navigate by the left-hand contents list, or search/filter the recommendations.</li>
+  <li>For each recommendation, record the reviewer’s comment, disposition, and responsible follow-up owner.</li>
+  <li>Use <b>Export reviewer notes</b> to download a JSON file containing the recorded comments and dispositions.</li>
+  <li>Use <b>Print report</b> for a print/PDF copy. Notes entered in the browser appear in the print view.</li>
+  <li>Share exported notes through the institution’s approved document-control process. This page does not transmit comments to other reviewers.</li>
+ </ol>
+ <div class="callout warn"><b>Collaboration limitation:</b> Notes are stored in this browser’s local storage. They are not a shared multi-user commenting system. Reviewers should export their notes and consolidate them through an agreed owner or document-control repository.</div>
+ <h3>Review boundary</h3>
+ <p>This report is based on the supplied 19-page Draft 2.0 only. It does not verify WSCUC requirements, applicable law, the organizational chart, the parties’ other contracts, or actual operating practices. Items involving accreditation, corporate/university governance, employment, Title IV, privacy, cybersecurity, tax, and financial controls should be validated by qualified institutional and legal personnel.</p>
+</section>
+<div class="footer">Prepared as a working review aid for USU and AGI stakeholders. Source document: “USU AGI SLA Revised 2026 BOT Review”, Draft 2.0, October 14, 2026. Page references refer to the supplied PDF pagination.</div>
+</main>
+</div>
+<script>
+const recommendations = [
+{id:"R01",p:"Critical",area:"Governance",loc:"Pages 5–6, Definitions; Governance and Monitoring; page 18, Approvals",title:"Attach a decision-rights and reserved-matters schedule",issue:"The draft identifies broad areas retained by USU, but does not provide a single operational schedule showing who may recommend, approve, execute, and monitor each material decision.",proposal:"Add a Reserved Matters and Decision Rights Schedule. For each decision, identify the accountable USU authority, AGI role (if any), required consultation, evidence of approval, and emergency route. Include academic programs, curriculum, admissions standards and exceptions, faculty appointments and evaluation, student complaints and appeals, accreditation representations, institutional policy, budget, debt/financing, material contracts, data use, and public disclosures.",why:"This converts the principle that USU retains final authority into a usable control. It reduces the risk that operational convenience or parent-company practice is mistaken for University authorization.",action:"USU governance lead with AGI legal and operating leadership",draft:"For each reserved matter, AGI may provide analysis or administrative support only within written University authorization. No AGI employee may approve, amend, or represent a University decision unless expressly delegated in writing by an authorized University official, subject to applicable governing documents."},
+{id:"R02",p:"Critical",area:"Agreement structure",loc:"Pages 1, 6, 17–18, Document Control; Background; Performance Standards; Approvals",title:"Make completion of critical schedules a condition to effectiveness",issue:"The draft says numeric targets and other parameters will be documented before effectiveness, but does not list the required schedules or state what happens if they are incomplete.",proposal:"Add an execution-readiness schedule listing every required attachment, owner, approval authority, completion date, and evidence. Make completion and approval of critical schedules an express condition precedent to the effective date. Identify any permitted interim arrangements and their expiry.",why:"Without a formal gate, the parties could execute a framework whose most important service and control commitments remain undefined.",action:"USU President’s office and AGI contract owner",draft:"This Agreement shall not become effective until the schedules identified as mandatory for execution have been completed, approved by the authorized representatives, and attached or incorporated by reference."},
+{id:"R03",p:"Critical",area:"Performance",loc:"Page 17, Performance Standards; pages 7–16, service matrices",title:"Complete measurable service levels before signing",issue:"The document requires targets, definitions, frequency, data source, owner, and exception criteria, but the supplied draft mostly lists categories of evidence rather than actual service levels.",proposal:"For every recurring service, specify (1) service definition and scope, (2) operating hours and coverage, (3) target and calculation, (4) measurement window, (5) exclusions, (6) source system, (7) reporting owner, (8) threshold for escalation, and (9) remedy or recovery expectation. Distinguish leading indicators from outcomes.",why:"A metric such as “response time” or “accuracy” is not actionable until the parties agree what is counted, how it is measured, and what result is acceptable.",action:"USU and AGI service owners; Audit Committee reviews the framework",draft:"Each service-level schedule shall state the service, metric definition, target, measurement method, reporting frequency, source of record, accountable owner, permitted exclusions, escalation threshold, and required response when the target is missed."},
+{id:"R04",p:"Critical",area:"Risk and incident management",loc:"Pages 8–9, Data Protection; Security and Access; Continuity and Recovery; page 18, Corrective Action",title:"Add a unified incident classification and notification protocol",issue:"The draft refers to prompt incident notification and immediate reporting of material risks, but does not define incident categories, deadlines, initial content, escalation contacts, or update cadence.",proposal:"Create an incident schedule covering security/privacy events, student safety, Title IX/ADA/Section 504, financial integrity, academic disruption, regulatory deadlines, and service outages. Set severity levels and clock-based notification requirements; require immediate protective action, evidence preservation, named incident commander, status updates, root-cause review, and closure approval.",why:"“Promptly” and “immediate” can mean different things to different teams. A common protocol is essential when AGI staff operate systems or processes on which USU remains accountable.",action:"USU compliance, security, and risk owners with AGI counterparts",draft:"AGI shall notify the designated USU incident contact within the time specified for the applicable severity level, without waiting for full investigation or confirmation. Initial notice shall include known facts, affected services/data, containment steps, and next update time."},
+{id:"R05",p:"Critical",area:"Data and technology",loc:"Pages 8–9, Data Protection; Security and Access; Institutional Data; Contracts and Transition",title:"Create a detailed data governance and security schedule",issue:"The draft addresses access, data ownership/control, export, retention, and destruction at a high level. It does not define data classifications, permitted uses, safeguards, subprocessor controls, audit evidence, or technical standards.",proposal:"Attach a data processing and security schedule covering data categories, permitted purpose, minimum necessary access, encryption, MFA, logging, vulnerability management, secure development/change control, backups, data location, subcontractors, incident response, legal holds, retention, return/deletion, and independent assurance reports. Identify USU’s right to inspect evidence and require remediation.",why:"The University needs enough control and visibility to oversee student, employee, financial, academic, and regulated information handled by AGI or its vendors.",action:"USU CIO/security and privacy leads with AGI security/legal",draft:"AGI shall access and process University data only for documented services and authorized purposes, apply the agreed security controls, ensure equivalent obligations flow down to approved subcontractors, and provide evidence of compliance upon reasonable University request."},
+{id:"R06",p:"High",area:"Commercial terms",loc:"Pages 1–19; especially page 10, Shared Costs; page 18, Approvals",title:"Define fees, cost allocation, and financial transparency",issue:"The matrix calls for shared-cost agreements, allocation methodology, schedules, and review records, but the SLA does not set out the commercial model or its approval controls.",proposal:"Attach a cost schedule identifying each service, direct and allocated cost, allocation driver, calculation method, frequency, supporting documentation, treatment of one-time costs, markup (if any), budget variance threshold, reconciliation, audit rights, dispute window, and approval of changes. Clarify whether any services are provided without charge.",why:"Cost allocation is a central parent-subsidiary relationship issue. Transparency and consistent approval help the Board assess value, affordability, and institutional independence.",action:"USU CFO/finance committee and AGI finance",draft:"No new or materially revised intercompany charge or allocation methodology shall be applied to USU without prior written approval by the University official authorized under its governing documents and approved budget."},
+{id:"R07",p:"High",area:"Contract lifecycle",loc:"Pages 6, 9, 18–19, Background; Contracts and Transition; Corrective Action; Approvals",title:"Add term, renewal, termination, and transition mechanics",issue:"The draft mentions transition assistance on service change or termination, but does not establish term, renewal, termination triggers, notice periods, step-in rights, transition duration, or cost treatment.",proposal:"Add a lifecycle section covering initial term, renewal, termination for cause, persistent service failure, regulatory/accreditation risk, convenience if appropriate, insolvency, and material security events. Define transition assistance, continued service, data portability, knowledge transfer, access to records, cooperation with replacement providers, and reasonable transition fees.",why:"A service agreement must explain how USU protects students and institutional operations if a service becomes unacceptable or the relationship changes.",action:"USU and AGI legal; operational owners contribute transition requirements",draft:"Upon expiration or termination, AGI shall provide the agreed transition services for the specified period, maintain continuity of critical services, return University data in the agreed format, and certify disposition of remaining copies subject to legal holds."},
+{id:"R08",p:"High",area:"Governance",loc:"Pages 5–6, Board oversight; Service Agreement and Operating Reviews; Continuous Monitoring",title:"Specify the Board’s information and intervention rights",issue:"The Audit Committee reviews performance biannually and reports to the Board, but the draft does not define the minimum reporting package, direct access to AGI evidence, or how urgent matters reach trustees between meetings.",proposal:"Define a quarterly management dashboard and biannual Board/Audit Committee package. Include service-level results, trends, exceptions, complaints, incidents, regulatory findings, cost allocations, vendor risks, open corrective actions, and forecasted material changes. Preserve the Board’s ability to request information and convene special review where appropriate.",why:"Oversight is only as effective as the information and timing available to the governing body.",action:"USU Board Chair/Audit Committee and President",draft:"AGI shall provide the University and its designated governing bodies timely access to records and reports reasonably necessary to oversee services, subject to applicable confidentiality, privilege, and legal restrictions."},
+{id:"R09",p:"High",area:"Accountability",loc:"Pages 6–16, all service matrices; page 17, Performance Standards",title:"Name one accountable owner and a backup for every service",issue:"The draft requires owners to be designated but does not identify them in the document or require a complete owner register.",proposal:"Attach an owner register with service area, accountable AGI owner, accountable USU owner, delegated operational contacts, backup, escalation contact, authority limits, and review frequency. Use role titles where personnel turnover is likely, with a controlled contact appendix for names.",why:"A matrix can assign work to an organization without making any individual accountable for delivery and follow-through.",action:"USU President designates University owners; AGI CEO/designate names AGI owners",draft:"Each service shall have one accountable owner designated by each party. Owners shall maintain current contacts, evidence, performance reviews, and open-action registers, and shall appoint a qualified alternate."},
+{id:"R10",p:"High",area:"Service operations",loc:"Pages 7–16, service matrices",title:"Define what is included, excluded, and change-controlled in each service",issue:"Service rows describe broad activities, but not volumes, deliverables, boundaries, assumptions, dependencies, or excluded work.",proposal:"For each service, add a concise service description, deliverables, service hours, volume assumptions, dependencies, excluded activities, required USU inputs, and change-control trigger. Clarify whether support is advisory, administrative, transactional, or decision-making.",why:"Ambiguous scope produces recurring disagreement about whether work is included, who must supply inputs, and whether a change requires approval or added funding.",action:"AGI service owners and USU service owners",draft:"The service catalogue shall define included services, deliverables, exclusions, dependencies, operating coverage, and material scope-change criteria. No material change shall take effect without the approvals specified in the change-control schedule."},
+{id:"R11",p:"High",area:"Regulatory compliance",loc:"Pages 8, 15–16, Financial Aid; Regulatory Compliance and Institutional Research",title:"Map regulatory obligations to the actual responsible institutional official",issue:"The draft lists a wide range of regulatory support activities, but does not consistently identify the designated USU official, filing approver, source-of-truth owner, or deadline for escalation when data are incomplete or disputed.",proposal:"Create a compliance responsibility calendar/matrix listing obligation, regulator, legal deadline, preparer, institutional owner, approver, source data, evidence retained, and escalation route. Explicitly identify which AGI tasks are preparation/administration and which USU official validates and authorizes the institutional submission or representation.",why:"A service provider can prepare a filing, but the institution needs a reliable mechanism to validate what is submitted in its name.",action:"USU compliance lead and designated officials with AGI compliance",draft:"AGI preparation or transmission of a regulatory filing shall not constitute institutional approval. The designated USU official shall validate and authorize each submission or representation where University approval is required."},
+{id:"R12",p:"High",area:"Financial aid and student finance",loc:"Page 8, Student Finance and Financial Aid",title:"Clarify controls over Title IV, aid exceptions, refunds, and student communications",issue:"The draft covers packaging, awarding, disbursement, aid counseling, VA processes, payment plans, collections, and reporting, but does not detail exception approval, reconciliation, segregation of duties, refund deadlines, or quality review.",proposal:"Add controls for eligibility/award exceptions, disbursement authorization, return-of-funds processing, reconciliations, account adjustments, refund timing, collection-vendor scripts, complaint escalation, student communication approval, and segregation of duties. Identify who can change a student account and who independently reviews the change.",why:"These processes affect student finances and regulatory exposure. The SLA should make high-risk transaction controls visible and testable.",action:"USU financial aid director/CFO and AGI finance operations",draft:"AGI shall process aid and student-finance transactions only under approved procedures and documented authority limits. Exceptions, adjustments, and high-risk transactions shall be logged, independently reviewed, and escalated under the agreed control matrix."},
+{id:"R13",p:"High",area:"Human resources",loc:"Page 12, Human Resources",title:"Resolve employer identity and employment authority before execution",issue:"The draft appropriately flags the need to confirm legal employers for corporate staff, USU staff, core faculty, and adjunct faculty, but the register is not included and some roles may span both organizations.",proposal:"Attach a verified employer register by position category and individual where needed. Reconcile offer letters, payroll entity, benefits, personnel files, supervision, evaluation, discipline, workers’ compensation, and authority to terminate. Include a process for disputed or misclassified roles and changes to employer assignments.",why:"Administrative processing by AGI does not itself identify the legal employer. Ambiguity can affect employment rights, institutional control, and accountability.",action:"USU and AGI HR/legal; USU President approves University-position register",draft:"The employer register shall identify the employing legal entity and responsible decision-maker for each covered position. No change to a University position’s employer or material employment terms shall occur without required University approval."},
+{id:"R14",p:"High",area:"Academic authority",loc:"Pages 5–6 and 13–15, Definitions; Academic Support; Academic Operations; Compliance",title:"Make the academic decision boundary concrete in service workflows",issue:"The draft clearly reserves academic decisions to USU, but operational workflows for advising, early alerts, clinical placements, assessment, course production, and student complaints could still blur who decides.",proposal:"Add workflow examples or decision tables for admissions exceptions, academic standing/progression, advising interventions, clinical site/preceptor approval, course/curriculum revisions, assessment findings, faculty performance, grading, and student appeals. State what AGI may recommend or administer and what requires a documented USU decision.",why:"The most consequential boundary is often crossed through a workflow or system setting, not through a formal policy vote.",action:"Provost/academic leadership and AGI academic-support leaders",draft:"Where a workflow may affect academic judgment, student progression, faculty authority, or institutional policy, AGI shall route the matter to the designated USU decision-maker and shall not implement a substantive decision without documented authorization."},
+{id:"R15",p:"High",area:"Technology governance",loc:"Pages 6 and 9, System names; Platforms and Support; Contracts and Transition",title:"Create an authoritative system and vendor inventory",issue:"The draft lists many systems and notes that undefined “CNS” must be confirmed, but does not identify system owners, purpose, data classification, vendor, contract owner, integrations, or criticality.",proposal:"Attach a controlled inventory for each system: approved name, business purpose, system owner, data types, vendor/subprocessors, hosting/location, integrations, access approver, criticality, recovery objective, contract owner, renewal date, and export method. Resolve CNS before execution and standardize system names/acronyms.",why:"Without a reliable inventory, access reviews, risk reviews, incident response, change control, and exit planning are difficult to perform.",action:"USU CIO/technology governance and AGI IT",draft:"Only systems listed in the approved University system inventory may be used to perform services involving University data or operations. The inventory shall be reviewed at least annually and upon material change."},
+{id:"R16",p:"High",area:"Vendor oversight",loc:"Pages 8–9, Financial Data Protection; Security and Access; Contracts and Transition",title:"Clarify subcontractor and third-party vendor controls",issue:"Vendor risk reviews are mentioned, but the draft does not clearly state whether AGI may appoint subcontractors, what approval is required, or how obligations and audit rights flow down.",proposal:"Require advance notice and, for material or sensitive services, University approval before a subcontractor receives University data or performs a critical service. Require due diligence, written flow-down terms, breach notification, audit/evidence access, location disclosure, and AGI accountability for subcontractor performance.",why:"USU remains responsible for institutional outcomes while some services may be performed several contractual layers away.",action:"USU procurement/security/legal with AGI vendor management",draft:"AGI remains responsible for services performed by its subcontractors and shall ensure that each approved subcontractor is bound by obligations at least as protective as those in this Agreement and applicable schedules."},
+{id:"R17",p:"Medium",area:"Performance and remedies",loc:"Pages 6, 17–18, Operating Reviews; Performance Standards; Corrective Action",title:"Define service credits, remediation, and persistent-failure consequences",issue:"The draft provides corrective-action steps but does not define consequences for repeated missed targets or distinguish operational remediation from contractual remedies.",proposal:"Define graduated responses: service recovery plan, enhanced monitoring, executive review, independent assessment, temporary alternate arrangements, service credits or fee adjustment where appropriate, and termination/transition rights for persistent material failure. Ensure remedies do not limit urgent University protective action.",why:"A corrective-action process needs a predictable consequence ladder to avoid repeated issues being documented but never resolved.",action:"USU/AGI legal and service owners; Board oversight for material matters",draft:"Repeated or material service-level failures shall trigger the remedies and escalation steps in the applicable service schedule, without limiting the University’s authority to protect students, academic quality, compliance, or institutional operations."},
+{id:"R18",p:"Medium",area:"Dispute and change control",loc:"Pages 4, 6, 18, Collaborative Development; Continuous Monitoring; Corrective Action",title:"Add a formal change-control and dispute-resolution path",issue:"The draft says changes require documented review and approval, but does not define request content, impact analysis, review deadlines, dispute escalation, or what happens while a dispute is pending.",proposal:"Specify change request fields, impact assessment (academic, regulatory, financial, security, staffing, student), consultation period, approval authority, implementation date, version control, and emergency change rules. Add an escalation ladder for service/interpretation disputes, preserving the Board’s reserved authority and required external reporting.",why:"A shared-services model changes continuously. A formal process prevents informal operational decisions from becoming de facto amendments.",action:"USU President’s office and AGI contract owner",draft:"No operational practice, system configuration, or service change shall amend this Agreement or alter reserved University authority unless approved and documented through the applicable change-control process."},
+{id:"R19",p:"Medium",area:"Legal protections",loc:"Agreement-wide; not addressed expressly in supplied draft",title:"Confirm the core legal terms or cross-reference the governing agreement",issue:"The supplied draft does not set out governing law, dispute forum, confidentiality, representations, indemnity, limitation of liability, insurance, force majeure, notices, waiver, assignment, or order of precedence.",proposal:"Determine whether these provisions belong in this SLA or a master services/intercompany agreement. If covered elsewhere, identify that agreement by exact title/date and state the order of precedence. If not covered, have counsel draft fit-for-purpose provisions, including appropriate carve-outs for confidentiality, data/security, fraud, willful misconduct, and regulatory obligations.",why:"Operational schedules do not replace the legal terms needed to allocate risk and resolve disputes. Related agreements should not be left implicit.",action:"USU and AGI legal counsel",draft:"This Agreement shall be read together with the identified governing intercompany agreement(s). The parties shall specify the order of precedence and the provisions that govern in the event of conflict."},
+{id:"R20",p:"Medium",area:"Quality and student experience",loc:"Pages 7–8, 13, 16–17, Recruitment; Student Finance; Academic Support; Quality Assurance; Performance Standards",title:"Add student-impact measures and a common complaint taxonomy",issue:"The matrices mention complaint trends, satisfaction, response times, and service quality, but do not define a common student-impact view or how complaints are categorized and routed.",proposal:"Use a shared taxonomy for complaint type, severity, affected population, root cause, owner, aging, resolution, recurrence, and student impact. Include measures such as first-response time, resolution time, reopened cases, unresolved aged cases, accessibility barriers, and complaint recurrence. Keep academic appeals and protected-process matters under designated USU officials.",why:"A service can meet an internal processing target while creating a poor or inequitable student experience. Measures should reveal the student consequence, not just transaction throughput.",action:"USU student affairs/quality lead and AGI service owners",draft:"Service reporting shall include student-impact measures and complaint trends, with protected or academic matters routed to the designated University official and reported in a manner that preserves confidentiality."},
+{id:"R21",p:"Medium",area:"Business continuity",loc:"Page 9, Continuity and Recovery; page 18, Corrective Action",title:"Specify recovery objectives and test requirements",issue:"The draft requires backups and restoration tests but does not define recovery time objectives, recovery point objectives, test scope, participation, or acceptable results.",proposal:"For each critical system/service, set RTO/RPO, maximum tolerable outage, backup frequency, restoration test frequency, evidence, dependency mapping, manual workarounds, and student/faculty communications. Include a remediation deadline after failed tests.",why:"A successful backup is not proof that a critical university service can be restored within an acceptable period.",action:"USU technology owner and AGI infrastructure owner",draft:"Critical services shall have approved recovery objectives and documented test results. Failed tests shall trigger an approved remediation plan and retest before the deficiency is considered closed."},
+{id:"R22",p:"Medium",area:"Document clarity",loc:"Pages 2–4, Executive Letters; page 6, Background and Purpose; throughout",title:"Separate persuasive narrative from binding commitments",issue:"The CEO and President letters provide useful context, but the document does not clearly distinguish introductory statements from operative terms, and some aspirational language could be read as a performance promise.",proposal:"Label letters and background as non-operative context. Add a short interpretation clause stating that the service matrices and schedules define the actual scope and that no narrative statement overrides an approved policy, governing document, or reserved University authority.",why:"A reader should be able to tell which statements create an obligation and which explain the relationship or its philosophy.",action:"Document owner and legal counsel",draft:"The executive letters and background are explanatory only. The operative obligations of the parties are set out in the body of this Agreement and its approved schedules."},
+{id:"R23",p:"Medium",area:"Document control",loc:"Pages 1, 4–6, 18–19, Document Control; Collaborative Development; Approvals",title:"Improve version control, attachments, and signature completeness",issue:"The draft has version history and signature lines, but the supplied approval page appears to provide signature blocks only for the AGI CEO and USU President. The status of the schedules, Board approval evidence, and incorporated documents should be traceable.",proposal:"Add a schedule index with title, version, date, owner, and approval status; a change log identifying substantive changes; a list of governing documents incorporated by reference; and a Board resolution/minute reference where required. Confirm whether the Board approves the SLA itself or delegates execution subject to specified conditions.",why:"The parties need to know exactly which version and attachments were approved and which authority approved them.",action:"USU document owner / Board secretary and AGI contract administrator",draft:"The executed Agreement shall include a complete schedule index and approval record. No schedule shall be incorporated unless its title, version, date, and approval status are recorded."},
+{id:"R24",p:"Medium",area:"Institutional data and analytics",loc:"Pages 2, 6, 9, 15, CEO letter; system names; Institutional Data; Institutional Research",title:"Govern the use of algorithms, analytics, and automated recommendations",issue:"The CEO letter describes a CRM algorithm that recommends next-best actions to enrollment advisors, and the matrices reference institutional research and analytics. The operative sections do not define controls for algorithmic recommendations, data use, monitoring, or human review.",proposal:"Add an AI/algorithmic systems schedule for any system that influences recruitment, advising, student support, risk scoring, or institutional decisions. Document purpose, data inputs, system owner, vendor/model, validation, bias and disparate-impact review, explainability appropriate to use, human override, monitoring, change notification, retention, and prohibited autonomous decisions. Preserve USU authority over admissions and academic judgments.",why:"A system recommendation can shape a human decision even when the system has no formal approval authority. Governance should address influence, not only formal decision rights.",action:"USU academic/compliance/technology leadership with AGI product and data owners",draft:"Automated recommendations shall be advisory unless expressly approved otherwise by the University. The University shall retain human decision authority for admissions, academic standing, student discipline, faculty matters, and other reserved decisions. Material model or logic changes shall be documented and reviewed under the approved change-control process."}
+];
+
+function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function render(){
+ const root=document.getElementById("recommendationList");
+ root.innerHTML=recommendations.map(r=>`
+ <article class="suggestion" id="${r.id}" data-id="${r.id}" data-priority="${r.p}" data-search="${esc((r.id+' '+r.area+' '+r.loc+' '+r.title+' '+r.issue+' '+r.proposal).toLowerCase())}">
+  <div class="s-head"><div><div class="s-id">${r.id} · ${r.area}</div><h3>${r.title}</h3><div class="small">${r.loc}</div></div><div><span class="pill ${r.p.toLowerCase()}">${r.p}</span><span class="status" id="badge-${r.id}">Open</span></div></div>
+  <div class="s-body">
+   <div class="loc">WHERE IT APPLIES · ${r.loc}</div>
+   <p><b>What the draft currently says / leaves unclear</b><br>${r.issue}</p>
+   <p class="why"><b>Why this matters</b><br>${r.why}</p>
+   <div class="proposal"><b>Recommended change</b><br>${r.proposal}</div>
+   <p><b>Suggested accountable lead:</b> ${r.action}</p>
+   <details><summary><b>Illustrative drafting direction</b> <span class="small">(starting point for counsel, not final legal language)</span></summary><p>${r.draft}</p></details>
+  </div>
+  <div class="note-area">
+   <div class="note-grid">
+    <div><label for="comment-${r.id}">Reviewer comment / proposed disposition</label><textarea id="comment-${r.id}" placeholder="What should change? What needs clarification? Record rationale or alternative wording."></textarea></div>
+    <div><label for="status-${r.id}">Disposition</label><select id="status-${r.id}"><option>Open</option><option>Discuss</option><option>Accepted</option><option>Rejected</option></select><label for="owner-${r.id}" style="margin-top:9px">Follow-up owner</label><input id="owner-${r.id}" placeholder="Name or role"></div>
+    <div><label for="due-${r.id}">Target date / meeting</label><input id="due-${r.id}" placeholder="e.g. BOT review / date"><label for="decision-${r.id}" style="margin-top:9px">Decision / reference</label><input id="decision-${r.id}" placeholder="Minutes, action ID, etc."></div>
+   </div><div class="small savehint" style="margin-top:8px">Notes save automatically in this browser.</div>
+  </div>
+ </article>`).join("");
+ recommendations.forEach(r=>{
+  ["comment","status","owner","due","decision"].forEach(k=>{
+   const el=document.getElementById(k+"-"+r.id), key="usuagi-"+r.id+"-"+k;
+   el.value=localStorage.getItem(key)||"";
+   el.addEventListener("input",()=>{localStorage.setItem(key,el.value);updateBadge(r.id)});
+   el.addEventListener("change",()=>{localStorage.setItem(key,el.value);updateBadge(r.id)});
+  });updateBadge(r.id);
+ });
+}
+function updateBadge(id){
+ const s=document.getElementById("status-"+id).value,b=document.getElementById("badge-"+id);
+ b.textContent=s;b.className="status "+s.toLowerCase();
+}
+function filterItems(){
+ const q=document.getElementById("search").value.toLowerCase(),p=document.getElementById("priorityFilter").value,s=document.getElementById("statusFilter").value;
+ recommendations.forEach(r=>{
+  const el=document.getElementById(r.id),status=document.getElementById("status-"+r.id).value;
+  const match=el.dataset.search.includes(q)&&(!p||r.p===p)&&(!s||status===s);
+  el.classList.toggle("hidden",!match);
+ });
+}
+function exportNotes(){
+ const data={document:"USU–AGI Service Level Agreement Draft 2.0",exportedAt:new Date().toISOString(),notes:recommendations.map(r=>({
+  id:r.id,priority:r.p,topic:r.area,location:r.loc,recommendation:r.title,
+  comment:document.getElementById("comment-"+r.id).value,
+  disposition:document.getElementById("status-"+r.id).value,
+  followUpOwner:document.getElementById("owner-"+r.id).value,
+  targetDateOrMeeting:document.getElementById("due-"+r.id).value,
+  decisionReference:document.getElementById("decision-"+r.id).value
+ }))};
+ const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
+ const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="USU-AGI-SLA-reviewer-notes.json";a.click();URL.revokeObjectURL(url);
+}
+function resetNotes(){
+ if(!confirm("Clear all reviewer notes and dispositions saved by this report in this browser? This cannot be undone."))return;
+ recommendations.forEach(r=>["comment","status","owner","due","decision"].forEach(k=>localStorage.removeItem("usuagi-"+r.id+"-"+k)));
+ render();filterItems();
+}
+render();
+const links=[...document.querySelectorAll(".navlink")];
+const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){links.forEach(a=>a.classList.toggle("active",a.getAttribute("href")==="#"+e.target.id));}}),{rootMargin:"-20% 0px -70% 0px"});
+document.querySelectorAll("main section[id]").forEach(s=>observer.observe(s));
+</script>
+</body>
+</html>

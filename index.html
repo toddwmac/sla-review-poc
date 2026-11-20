@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Document hub for the USU–AGI SLA multi-model AI review: one canonical link per unique document across the SLA, four AI reviews, syntheses, fusion outputs, and board reports.">
+<title>USU–AGI SLA Review · Document Hub</title>
+<style>
+ :root{
+   --navy:#142c44; --navy-2:#1d3c59; --ink:#1c2d3e; --muted:#4d6073; --faint:#8296a8;
+   --line:#d6dfe8; --paper:#f3f6f9; --white:#fff;
+   --accent:#17625b; --accent-bg:#eaf6f2;
+   --amber:#9a6d1c; --amber-bg:#fff6e3;
+   --blue:#205987; --blue-bg:#eaf2f9;
+   --grey:#55606e; --grey-bg:#e9edf2;
+ }
+ *{box-sizing:border-box}
+ html{scroll-behavior:smooth}
+ body{margin:0;background:var(--paper);color:var(--ink);
+      font:1rem/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
+ h1,h2,h3{color:var(--navy);line-height:1.2;margin:0}
+ a{color:var(--blue);text-decoration:none} a:hover{text-decoration:underline}
+ p{margin:0 0 .8rem} p:last-child{margin:0}
+
+ /* ---------- top bar ---------- */
+ .topbar{position:sticky;top:0;z-index:20;background:rgba(20,44,68,.97);color:#fff;
+         padding:.8rem clamp(1rem,4vw,2.5rem);display:flex;flex-wrap:wrap;gap:.6rem 2rem;
+         align-items:baseline;justify-content:space-between;box-shadow:0 2px 12px rgba(16,36,58,.25)}
+ .topbar .brand{font-weight:800;letter-spacing:.02em}
+ .topbar .brand small{display:block;font-weight:450;color:#c5d3e0;font-size:.76rem}
+ .topbar .tagline{font-size:.78rem;color:#9fb8cd}
+ .shell{max-width:74rem;margin:0 auto;padding:0 clamp(1rem,4vw,2.5rem)}
+
+ /* ---------- hero ---------- */
+ .hero{padding:2.4rem 0 1rem}
+ .hero h1{font-size:clamp(1.6rem,4vw,2.5rem);letter-spacing:-.02em;margin-bottom:.5rem}
+ .hero .sub{font-size:1.05rem;color:var(--muted);max-width:68ch}
+ .legend{display:flex;flex-wrap:wrap;gap:.5rem .9rem;align-items:center;margin:1rem 0 0;
+         font-size:.82rem;color:var(--muted)}
+ .legend .chip{display:inline-flex;align-items:center;gap:.35rem;background:#fff;
+         border:1px solid var(--line);border-radius:999px;padding:.25rem .7rem;color:var(--ink)}
+ .chip b{color:var(--navy)}
+
+ /* ---------- pipeline strip ---------- */
+ .pipe{display:flex;flex-wrap:wrap;gap:.45rem;align-items:stretch;margin:1.4rem 0 0}
+ .pipe a{flex:1 1 9.5rem;background:#fff;border:1px solid var(--line);border-radius:11px;
+         padding:.6rem .75rem;font-size:.8rem;color:var(--ink);display:block}
+ .pipe a:hover{border-color:var(--blue);text-decoration:none;background:#f6fafd}
+ .pipe .st{display:block;font-size:.64rem;font-weight:800;letter-spacing:.1em;
+           text-transform:uppercase;color:var(--faint)}
+ .pipe b{color:var(--navy)}
+ .pipe .arr{flex:0 0 auto;align-self:center;color:var(--faint)}
+
+ /* ---------- sections & cards ---------- */
+ section{padding:1.9rem 0 .4rem}
+ .sechead{display:flex;align-items:baseline;gap:.8rem;flex-wrap:wrap;margin-bottom:.2rem}
+ .stagechip{display:inline-block;background:var(--navy);color:#fff;border-radius:7px;
+            padding:.18rem .6rem;font-size:.68rem;font-weight:800;letter-spacing:.08em;
+            text-transform:uppercase}
+ h2{font-size:clamp(1.25rem,2.4vw,1.6rem)}
+ .secsub{color:var(--muted);font-size:.92rem;max-width:75ch;margin:.15rem 0 1rem}
+ .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(21rem,1fr));gap:.9rem}
+ .card{background:#fff;border:1px solid var(--line);border-radius:13px;padding:1.05rem 1.15rem;
+       box-shadow:0 4px 14px rgba(22,42,64,.05);display:flex;flex-direction:column;gap:.45rem}
+ .card:hover{border-color:#b9c9d8}
+ .doc-title{font-size:1.02rem;font-weight:750;color:var(--navy)}
+ .doc-title a{color:inherit}
+ .doc-title a:hover{color:var(--blue)}
+ .fmt{display:inline-block;font-size:.64rem;font-weight:800;letter-spacing:.07em;
+      text-transform:uppercase;border-radius:999px;padding:.16rem .55rem;margin-left:.4rem;
+      vertical-align:2px}
+ .fmt.html{background:var(--blue-bg);color:var(--blue)}
+ .fmt.pdf{background:#f9ecec;color:#8c3a3a}
+ .fmt.md{background:#eef0f3;color:#4b5a6a}
+ .fmt.doc{background:var(--accent-bg);color:var(--accent)}
+ .desc{font-size:.88rem;color:var(--muted);flex:1}
+ .meta{font-size:.74rem;color:var(--faint);border-top:1px dashed var(--line);padding-top:.5rem;
+       display:flex;flex-wrap:wrap;gap:.3rem 1rem}
+
+ /* ---------- inventory ---------- */
+ table{border-collapse:collapse;width:100%;font-size:.84rem;background:#fff;margin:.6rem 0}
+ th{background:#e8eef5;color:#22374c;text-align:left;padding:.45rem .55rem;border:1px solid var(--line);
+    font-size:.68rem;text-transform:uppercase;letter-spacing:.05em}
+ td{vertical-align:top;padding:.4rem .55rem;border:1px solid var(--line)}
+ tbody tr:nth-child(even){background:#f8fafc}
+ .file{font-family:ui-monospace,Consolas,monospace;font-size:.78rem;word-break:break-all}
+ .role{display:inline-block;font-size:.64rem;font-weight:800;letter-spacing:.05em;
+       text-transform:uppercase;border-radius:999px;padding:.12rem .5rem;white-space:nowrap}
+ .role.can{background:var(--accent-bg);color:var(--accent)}
+ .role.alt{background:var(--grey-bg);color:var(--grey)}
+ .role.hub{background:var(--blue-bg);color:var(--blue)}
+ .grp td{background:#eef3f8;color:#2b4157;font-weight:750;font-size:.76rem;
+         text-transform:uppercase;letter-spacing:.06em}
+
+ .note{background:var(--blue-bg);border-left:4px solid var(--blue);border-radius:0 9px 9px 0;
+       padding:.7rem .95rem;margin:1rem 0;font-size:.86rem}
+ .footnote{font-size:.78rem;color:var(--muted);border-top:1px solid var(--line);
+           margin-top:2rem;padding:1rem 0 2.5rem}
+ @media (max-width:640px){ .pipe .arr{display:none} }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">USU–AGI SLA Review <small>Document hub · multi-model AI review process</small></div>
+  <div class="tagline">13 unique documents · 23 files · one canonical link each</div>
+</header>
+
+<div class="shell">
+
+  <div class="hero">
+    <h1>Document Hub</h1>
+    <p class="sub">Every unique document in the USU–AGI SLA review process, from the original
+       September 2026 reviewer comments through the four independent AI reviews, the comparative
+       syntheses, the fusion panel, and the board-facing reports. Each document is linked exactly
+       once, in its best available format.</p>
+    <div class="legend">
+      <span class="chip"><b>Link policy</b></span>
+      <span class="chip">1st choice · <b class="fmt html" style="margin:0">HTML</b></span>
+      <span class="chip">2nd · <b class="fmt pdf" style="margin:0">PDF</b></span>
+      <span class="chip">3rd · <b class="fmt md" style="margin:0">MD</b></span>
+      <span class="chip">Duplicate formats of the same document are mapped in the <a href="#inventory">inventory</a></span>
+    </div>
+    <nav class="pipe" aria-label="Process stages">
+      <a href="#stage0"><span class="st">Stage 0</span><b>SLA &amp; MOS feedback</b></a><span class="arr">▸</span>
+      <a href="#stage1"><span class="st">Stage 1</span><b>4 independent reviews</b></a><span class="arr">▸</span>
+      <a href="#stage2"><span class="st">Stage 2</span><b>3 syntheses</b></a><span class="arr">▸</span>
+      <a href="#stage3"><span class="st">Stage 3</span><b>Fusion &amp; brief</b></a><span class="arr">▸</span>
+      <a href="#reports"><span class="st">Working docs</span><b>Hubs &amp; reports</b></a>
+    </nav>
+  </div>
+
+  <!-- ============ STAGE 0 ============ -->
+  <section id="stage0">
+    <div class="sechead"><span class="stagechip">Stage 0</span><h2>The Agreement and the Original Feedback</h2></div>
+    <p class="secsub">The subject document and the board-level reviewer comments that prompted its revision.</p>
+    <div class="cards">
+      <div class="card">
+        <div class="doc-title"><a href="USU_AGI_SLA_Revised_2026_BOT%20Review.pdf">USU–AGI Service Level Agreement — Draft 2.0</a><span class="fmt doc">base doc</span><span class="fmt pdf">PDF</span></div>
+        <div class="desc">The revised SLA (Executive Edition, Oct 14, 2026, 19 pp): governance, eight service
+             matrices, performance standards, corrective action, approvals. The subject of every other
+             document in this hub.</div>
+        <div class="meta"><span>Oct 14, 2026</span><span>19 pages</span><span>PDF only</span></div>
+      </div>
+      <div class="card">
+        <div class="doc-title"><a href="USU_original_SLA_Comments_Board_Summary.Claud.md">Original Reviewer Comments — Board Summary (MOS1–MOS19)</a><span class="fmt md">MD</span></div>
+        <div class="desc">Board-level summary of the 19 reviewer comments on the Sept 12, 2026 draft —
+             governance boundaries, accreditation control, and drafting discipline. This feedback drove
+             the Draft 2.0 revision; the traceability report (below) checks each comment against v2.</div>
+        <div class="meta"><span>Sept 2026</span><span>19 comments</span><span>MD only</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ STAGE 1 ============ -->
+  <section id="stage1">
+    <div class="sechead"><span class="stagechip">Stage 1</span><h2>Four Independent AI Reviews</h2></div>
+    <p class="secsub">Interactive review workspaces — filters, per-item status tracking, and note export.
+       Open in a browser. 80 findings total.</p>
+    <div class="cards">
+      <div class="card">
+        <div class="doc-title"><a href="USU_AGI_SLA_Governance_Review_ChatGPT.html">ChatGPT — Governance &amp; Execution Review</a><span class="fmt html">HTML</span></div>
+        <div class="desc">Contractual machinery, internal controls, risk allocation. 24 recommendations
+             (R01–R24); priority action plan and pre-execution decision checklist.</div>
+        <div class="meta"><span>Nov 7, 2026</span><span>24 items</span></div>
+      </div>
+      <div class="card">
+        <div class="doc-title"><a href="USU%E2%80%93AGI%20SLA%20Draft%202.0_%20Review_Suggestions_Claude.html">Claude — Review &amp; Suggestions</a><span class="fmt html">HTML</span></div>
+        <div class="desc">Legal drafting precision, independence safeguards, conflict-of-interest.
+             18 suggestions (S01–S18), each with location, issue, and recommended language.</div>
+        <div class="meta"><span>Nov 7, 2026</span><span>18 items</span></div>
+      </div>
+      <div class="card">
+        <div class="doc-title"><a href="USU%E2%80%93AGI%20SLA%20Draft%202.0_%20Review_Suggestions_Copilot.html">Copilot — Review &amp; Recommendations</a><span class="fmt html">HTML</span></div>
+        <div class="desc">Operational clarity: authority matrix (RACI), process standardization.
+             10 recommendations — the compressed scan whose silence is not agreement.</div>
+        <div class="meta"><span>Nov 7, 2026</span><span>10 items</span></div>
+      </div>
+      <div class="card">
+        <div class="doc-title"><a href="USU%E2%80%93AGI%20SLA%20Review%20Studio_Perplexity.html">Perplexity — SLA Review Studio</a><span class="fmt html">HTML</span></div>
+        <div class="desc">WSCUC accreditation readiness, auditability, execution gates. 28 findings
+             (F-01–F-28) with the most page-level citations of the four reviews.</div>
+        <div class="meta"><span>Nov 7, 2026</span><span>28 items</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ STAGE 2 ============ -->
+  <section id="stage2">
+    <div class="sechead"><span class="stagechip">Stage 2</span><h2>Comparative Syntheses of All Four Reviews</h2></div>
+    <p class="secsub">One synthesis per model, comparing the 80 review items. PDF is the linked format;
+       plain-text sources are listed in the inventory.</p>
+    <div class="cards">
+      <div class="card">
+        <div class="doc-title"><a href="GPT-Analysis-of-all-reviews.pdf">GPT — Analysis of All Reviews</a><span class="fmt pdf">PDF</span></div>
+        <div class="desc">Groups the 80 items by topic; clearest on which decisions remain open
+             (gating, incident clocks, materiality, Board evidence).</div>
+        <div class="meta"><span>Nov 20, 2026</span><span>alt: MD</span></div>
+      </div>
+      <div class="card">
+        <div class="doc-title"><a href="Gemini-Analysis-of-all-reviews.pdf">Gemini Pro — Analysis of All Reviews</a><span class="fmt pdf">PDF</span></div>
+        <div class="desc">Strongest financial-risk and severity framing with “advisor assessments”
+             on each disagreement; consensus labels later corrected by the fusion panel.</div>
+        <div class="meta"><span>Nov 20, 2026</span><span>alt: MD</span></div>
+      </div>
+      <div class="card">
+        <div class="doc-title"><a href="Haiku-Analysis-of-all-reviews.pdf">Claude Haiku — Analysis of All Reviews</a><span class="fmt pdf">PDF</span></div>
+        <div class="desc">Item-level traceability: every theme mapped to specific R / S / # / F source
+             IDs, plus single-reviewer issues worth considering.</div>
+        <div class="meta"><span>Nov 20, 2026</span><span>alt: MD</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ STAGE 3 ============ -->
+  <section id="stage3">
+    <div class="sechead"><span class="stagechip">Stage 3</span><h2>Fusion Panel and Final Board Brief</h2></div>
+    <p class="secsub">The three synthesis models cross-checked each other; the corrected output became the
+       Board brief. <strong>Recommendation: endorse the framework in principle; complete the pre-signature
+       worklist before signature.</strong></p>
+    <div class="cards">
+      <div class="card">
+        <div class="doc-title"><a href="Fusion-GPT-Claude-Haiku-Gemini-Pro.pdf">Fusion Panel Transcript — GPT + Claude Haiku + Gemini Pro</a><span class="fmt pdf">PDF</span></div>
+        <div class="desc">Full transcript: each model’s critique of the draft comparative report, the
+             structured reconciliation (consensus / partial coverage / unique insights / blind spots),
+             and the concise comparative summary. Audit trail for every correction.</div>
+        <div class="meta"><span>Nov 20, 2026 · 13:30 UTC</span><span>alt: MD</span></div>
+      </div>
+      <div class="card">
+        <div class="doc-title"><a href="Fusion-GPT-Haiku-Gemini.HTML">Final Comparative Board Brief</a><span class="fmt doc">final</span><span class="fmt html">HTML</span></div>
+        <div class="desc">The polished deliverable of the pipeline: decision summary, broad alignment,
+             disagreements and open choices, recommended actions before signing, scope and interpretation.</div>
+        <div class="meta"><span>Nov 20, 2026</span><span>alt: PDF</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WORKING DOCS ============ -->
+  <section id="reports">
+    <div class="sechead"><span class="stagechip">Working Docs</span><h2>Hubs and Reports</h2></div>
+    <p class="secsub">Documents produced to navigate and trace the process itself.</p>
+    <div class="cards">
+      <div class="card">
+        <div class="doc-title"><a href="USU-AGI_SLA_Review_Master_View.html">Master View — Process, Artifacts, and Findings</a><span class="fmt html">HTML</span></div>
+        <div class="desc">Board-facing orientation guide: the review pipeline stage by stage, the document
+             inventory, findings at board altitude, reading paths, caveats, and glossary.</div>
+        <div class="meta"><span>Nov 20, 2026</span><span>alt: MD</span></div>
+      </div>
+      <div class="card">
+        <div class="doc-title"><a href="MOS-Feedback_vs_Draft2_vs_AI-Reviews_Comparison_DRAFT-1.html">MOS Feedback → Draft 2.0 → AI Reviews — Traceability Report (Draft 1)</a><span class="fmt html">HTML</span></div>
+        <div class="desc">Item-by-item check of all 19 original reviewer comments against Draft 2.0’s actual
+             text, cross-referenced to the AI review items that re-flag them. Paged report with
+             vertical navigation.</div>
+        <div class="meta"><span>Nov 20, 2026 · DRAFT 1</span><span>alt: PDF · MD</span></div>
+      </div>
+      <div class="card">
+        <div class="doc-title"><a href="README.html">README — About this Repository</a><span class="fmt html">HTML</span></div>
+        <div class="desc">What the repository contains, how the documents relate, reading paths,
+             format conventions, GitHub Pages hosting steps, and standing provenance and caveats.</div>
+        <div class="meta"><span>Nov 20, 2026</span></div>
+      </div>
+      <div class="card" style="border-style:dashed">
+        <div class="doc-title">This hub <span class="fmt hub" style="background:var(--blue-bg);color:var(--blue)">index</span><span class="fmt html">HTML</span></div>
+        <div class="desc">You are here — <span class="file">index.html</span>. The single entry point for
+             hosted deployment; links one canonical version of every unique document.</div>
+        <div class="meta"><span>Nov 20, 2026</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ INVENTORY ============ -->
+  <section id="inventory">
+    <div class="sechead"><span class="stagechip">Inventory</span><h2>All Files and Their Related Versions</h2></div>
+    <p class="secsub">Every file in the repository. Where a document exists in multiple formats, the
+       <span class="role can">canonical</span> row is the version this hub links; other formats of the same
+       document are marked <span class="role alt">alternate</span>. “Effectively the same” was judged by
+       content comparison, not filename.</p>
+
+    <table>
+      <thead><tr><th style="width:36%">File</th><th style="width:8%">Format</th><th style="width:22%">Document</th><th style="width:12%">Status</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr class="grp"><td colspan="5">Stage 0 — The agreement and original feedback</td></tr>
+        <tr><td class="file"><a href="USU_AGI_SLA_Revised_2026_BOT%20Review.pdf">USU_AGI_SLA_Revised_2026_BOT Review.pdf</a></td><td>PDF</td><td>SLA Draft 2.0 (base document)</td><td><span class="role can">canonical</span></td><td>Only version</td></tr>
+        <tr><td class="file"><a href="USU_original_SLA_Comments_Board_Summary.Claud.md">USU_original_SLA_Comments_Board_Summary.Claud.md</a></td><td>MD</td><td>MOS reviewer comments (board summary)</td><td><span class="role can">canonical</span></td><td>Only version</td></tr>
+
+        <tr class="grp"><td colspan="5">Stage 1 — Four independent AI reviews</td></tr>
+        <tr><td class="file"><a href="USU_AGI_SLA_Governance_Review_ChatGPT.html">USU_AGI_SLA_Governance_Review_ChatGPT.html</a></td><td>HTML</td><td>ChatGPT review</td><td><span class="role can">canonical</span></td><td>Only version · interactive workspace</td></tr>
+        <tr><td class="file"><a href="USU%E2%80%93AGI%20SLA%20Draft%202.0_%20Review_Suggestions_Claude.html">USU–AGI SLA Draft 2.0_ Review_Suggestions_Claude.html</a></td><td>HTML</td><td>Claude review</td><td><span class="role can">canonical</span></td><td>Only version · interactive workspace</td></tr>
+        <tr><td class="file"><a href="USU%E2%80%93AGI%20SLA%20Draft%202.0_%20Review_Suggestions_Copilot.html">USU–AGI SLA Draft 2.0_ Review_Suggestions_Copilot.html</a></td><td>HTML</td><td>Copilot review</td><td><span class="role can">canonical</span></td><td>Only version · interactive workspace</td></tr>
+        <tr><td class="file"><a href="USU%E2%80%93AGI%20SLA%20Review%20Studio_Perplexity.html">USU–AGI SLA Review Studio_Perplexity.html</a></td><td>HTML</td><td>Perplexity review</td><td><span class="role can">canonical</span></td><td>Only version · interactive workspace</td></tr>
+
+        <tr class="grp"><td colspan="5">Stage 2 — Comparative syntheses (MD source + PDF export of each)</td></tr>
+        <tr><td class="file"><a href="GPT-Analysis-of-all-reviews.pdf">GPT-Analysis-of-all-reviews.pdf</a></td><td>PDF</td><td rowspan="2">GPT synthesis</td><td><span class="role can">canonical</span></td><td rowspan="2">Same document; PDF linked per format policy</td></tr>
+        <tr><td class="file"><a href="GPT-Analysis-of-all-reviews.MD">GPT-Analysis-of-all-reviews.MD</a></td><td>MD</td><td><span class="role alt">alternate</span></td></tr>
+        <tr><td class="file"><a href="Gemini-Analysis-of-all-reviews.pdf">Gemini-Analysis-of-all-reviews.pdf</a></td><td>PDF</td><td rowspan="2">Gemini Pro synthesis</td><td><span class="role can">canonical</span></td><td rowspan="2">Same document; PDF linked per format policy</td></tr>
+        <tr><td class="file"><a href="Gemini-Analysis-of-all-reviews.MD">Gemini-Analysis-of-all-reviews.MD</a></td><td>MD</td><td><span class="role alt">alternate</span></td></tr>
+        <tr><td class="file"><a href="Haiku-Analysis-of-all-reviews.pdf">Haiku-Analysis-of-all-reviews.pdf</a></td><td>PDF</td><td rowspan="2">Claude Haiku synthesis</td><td><span class="role can">canonical</span></td><td rowspan="2">Same document; PDF linked per format policy</td></tr>
+        <tr><td class="file"><a href="Haiku-Analysis-of-all-reviews.MD">Haiku-Analysis-of-all-reviews.MD</a></td><td>MD</td><td><span class="role alt">alternate</span></td></tr>
+
+        <tr class="grp"><td colspan="5">Stage 3 — Fusion panel and final Board brief</td></tr>
+        <tr><td class="file"><a href="Fusion-GPT-Claude-Haiku-Gemini-Pro.pdf">Fusion-GPT-Claude-Haiku-Gemini-Pro.pdf</a></td><td>PDF</td><td rowspan="2">Fusion panel transcript</td><td><span class="role can">canonical</span></td><td rowspan="2">Same document; PDF linked per format policy</td></tr>
+        <tr><td class="file"><a href="Fusion-GPT-Latest-Claude-Haiku-Latest-Gemini-Pro-Latest-2026-11-20T13-30-15-958Z.md">Fusion-GPT-Latest-Claude-Haiku-Latest-Gemini-Pro-Latest-2026-11-20T13-30-15-958Z.md</a></td><td>MD</td><td><span class="role alt">alternate</span></td></tr>
+        <tr><td class="file"><a href="Fusion-GPT-Haiku-Gemini.HTML">Fusion-GPT-Haiku-Gemini.HTML</a></td><td>HTML</td><td rowspan="2">Final Comparative Board Brief</td><td><span class="role can">canonical</span></td><td rowspan="2">Same document; HTML linked per format policy</td></tr>
+        <tr><td class="file"><a href="Fusion-GPT-Haiku-Gemini.PDF">Fusion-GPT-Haiku-Gemini.PDF</a></td><td>PDF</td><td><span class="role alt">alternate</span></td></tr>
+
+        <tr class="grp"><td colspan="5">Working documents — hubs and reports</td></tr>
+        <tr><td class="file"><a href="USU-AGI_SLA_Review_Master_View.html">USU-AGI_SLA_Review_Master_View.html</a></td><td>HTML</td><td rowspan="2">Master View</td><td><span class="role can">canonical</span></td><td rowspan="2">Same document; HTML linked per format policy</td></tr>
+        <tr><td class="file"><a href="USU-AGI_SLA_Review_Master_View.md">USU-AGI_SLA_Review_Master_View.md</a></td><td>MD</td><td><span class="role alt">alternate</span></td></tr>
+        <tr><td class="file"><a href="MOS-Feedback_vs_Draft2_vs_AI-Reviews_Comparison_DRAFT-1.html">MOS-Feedback_vs_Draft2_vs_AI-Reviews_Comparison_DRAFT-1.html</a></td><td>HTML</td><td rowspan="3">Traceability report (Draft 1)</td><td><span class="role can">canonical</span></td><td rowspan="3">Same document; HTML (paged, with nav) linked per format policy; PDF is an identical 9-page render; MD is the source</td></tr>
+        <tr><td class="file"><a href="MOS-Feedback_vs_Draft2_vs_AI-Reviews_Comparison_DRAFT-1.pdf">MOS-Feedback_vs_Draft2_vs_AI-Reviews_Comparison_DRAFT-1.pdf</a></td><td>PDF</td><td><span class="role alt">alternate</span></td></tr>
+        <tr><td class="file"><a href="MOS-Feedback_vs_Draft2_vs_AI-Reviews_Comparison_DRAFT-1.md">MOS-Feedback_vs_Draft2_vs_AI-Reviews_Comparison_DRAFT-1.md</a></td><td>MD</td><td><span class="role alt">alternate</span></td></tr>
+        <tr><td class="file"><a href="README.html">README.html</a></td><td>HTML</td><td>Repository readme</td><td><span class="role hub">hub</span></td><td>About, conventions, hosting, provenance</td></tr>
+        <tr><td class="file"><a href="index.html">index.html</a></td><td>HTML</td><td>Document hub (this page)</td><td><span class="role hub">hub</span></td><td>Entry point for hosted deployment</td></tr>
+      </tbody>
+    </table>
+
+    <div class="note">
+      <strong>Hosting note (GitHub Pages):</strong> this page uses only relative links and no external
+      assets, so it works at any subpath. Ensure the repository serves these exact filenames — links are
+      case-sensitive and percent-encoded where names contain spaces or en-dashes. Markdown alternates will
+      open as plain text unless your setup renders them.
+    </div>
+
+    <p class="footnote">USU–AGI SLA multi-model AI review · document hub generated Nov 20, 2026.
+       Canonical-format policy: HTML → PDF → MD. Content-equivalence for the fusion transcript, syntheses,
+       Board brief, and working reports was verified by text comparison before mapping versions.</p>
+  </section>
+
+</div>
+</body>
+</html>

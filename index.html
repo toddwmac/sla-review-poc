@@ -97,6 +97,17 @@
        padding:.7rem .95rem;margin:1rem 0;font-size:.86rem}
  .footnote{font-size:.78rem;color:var(--muted);border-top:1px solid var(--line);
            margin-top:2rem;padding:1rem 0 2.5rem}
+ /* workflow graphic lightbox */
+ .wfmini{float:right;width:260px;max-width:45%;margin:0 0 .5rem 1rem;border:1px solid var(--line);border-radius:8px;display:block}
+ .wfmini:hover{border-color:var(--blue)}
+ .wflink{display:block;line-height:0}
+ .wflbox{position:fixed;inset:0;z-index:100;display:flex;flex-direction:column;align-items:center;justify-content:center;
+         background:rgba(10,20,32,.93);visibility:hidden;opacity:0;transition:opacity .15s;padding:2rem}
+ .wflbox:target{visibility:visible;opacity:1}
+ .wflbox img{max-width:min(1400px,92vw);max-height:76vh;border-radius:8px;box-shadow:0 12px 60px rgba(0,0,0,.55);display:block}
+ .wflbar{display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;align-items:center;justify-content:center;margin-top:.9rem;font-size:.85rem;color:#dbe7f2}
+ .wflbar a{color:#fff}
+ .wflclose{position:absolute;top:.7rem;right:1.2rem;font-size:1.9rem;color:#fff;text-decoration:none;line-height:1}
  @media (max-width:640px){ .pipe .arr{display:none} }
 </style>
 </head>
@@ -104,7 +115,7 @@
 
 <header class="topbar">
   <div class="brand">USU–AGI SLA Review <small>Document hub · AI-enhanced review workflow POC</small></div>
-  <div class="tagline">15 unique documents · 28 files · one canonical link each</div>
+  <div class="tagline">15 unique documents · 31 files · one canonical link each</div>
 </header>
 
 <div class="shell">
@@ -130,6 +141,7 @@
   </div>
 
   <div class="note" style="margin-top:1.4rem">
+    <a class="wflink" href="#wfbox" title="Click to enlarge the workflow diagram"><img class="wfmini" src="AI-Enhanced_Document_Review_Workflow.mini.jpg" alt="Diagram of the AI-enhanced, multi-participant document review and assessment workflow" loading="lazy"></a>
     <strong>The workflow in brief.</strong> SLA v2 — the only document used — was assessed
     independently by four AI models, producing 80 findings; each assessment also shipped as an
     interactive, reviewer-ready document. The four assessments then went to three different
@@ -336,6 +348,10 @@
         <tr class="grp"><td colspan="5">Working documents — hubs and reports</td></tr>
         <tr><td class="file"><a href="Review-Process-Roadmap.html">Review-Process-Roadmap.html</a></td><td>HTML</td><td>Review roadmap</td><td><span class="role can">canonical</span></td><td>Only version · AI-prepared navigation aid</td></tr>
         <tr><td class="file"><a href="Workflow-Narrative.html">Workflow-Narrative.html</a></td><td>HTML</td><td>Workflow narrative</td><td><span class="role can">canonical</span></td><td>Only version · AI-prepared navigation aid</td></tr>
+        <tr class="grp"><td colspan="5">Asset — workflow diagram (mini and view derivatives generated from the PNG)</td></tr>
+        <tr><td class="file"><a href="AI-Enhanced_Document_Review_Workflow.png">AI-Enhanced_Document_Review_Workflow.png</a></td><td>PNG</td><td rowspan="3">Workflow diagram</td><td><span class="role can">canonical</span></td><td rowspan="3">Full-resolution original; .mini.jpg and .view.jpg derivatives generated from it for embedding</td></tr>
+        <tr><td class="file"><a href="AI-Enhanced_Document_Review_Workflow.mini.jpg">AI-Enhanced_Document_Review_Workflow.mini.jpg</a></td><td>JPG</td><td><span class="role alt">alternate</span></td></tr>
+        <tr><td class="file"><a href="AI-Enhanced_Document_Review_Workflow.view.jpg">AI-Enhanced_Document_Review_Workflow.view.jpg</a></td><td>JPG</td><td><span class="role alt">alternate</span></td></tr>
         <tr><td class="file"><a href="USU-AGI_SLA_Review_Master_View.html">USU-AGI_SLA_Review_Master_View.html</a></td><td>HTML</td><td rowspan="2">Master View</td><td><span class="role can">canonical</span></td><td rowspan="2">Same document; HTML linked per format policy</td></tr>
         <tr><td class="file"><a href="USU-AGI_SLA_Review_Master_View.md">USU-AGI_SLA_Review_Master_View.md</a></td><td>MD</td><td><span class="role alt">alternate</span></td></tr>
         <tr><td class="file"><a href="MOS-Feedback_vs_Draft2_vs_AI-Reviews_Comparison_DRAFT-1.html">MOS-Feedback_vs_Draft2_vs_AI-Reviews_Comparison_DRAFT-1.html</a></td><td>HTML</td><td rowspan="3">Traceability report (Draft 1)</td><td><span class="role can">canonical</span></td><td rowspan="3">Same document; HTML (paged, with nav) linked per format policy; PDF is an identical 9-page render; MD is the source</td></tr>
@@ -358,6 +374,16 @@
        Board brief, and working reports was verified by text comparison before mapping versions.</p>
   </section>
 
+</div>
+
+<div class="wflbox" id="wfbox">
+  <a class="wflclose" href="#" aria-label="Close">&#215;</a>
+  <img src="AI-Enhanced_Document_Review_Workflow.view.jpg" alt="Enlarged diagram of the AI-enhanced review workflow">
+  <div class="wflbar">
+    <span>AI-enhanced, multi-participant document review &amp; assessment workflow</span>
+    <a href="AI-Enhanced_Document_Review_Workflow.png" download>Download full resolution (PNG)</a>
+    <a href="#">Close</a>
+  </div>
 </div>
 </body>
 </html>

@@ -53,6 +53,19 @@
  .md td{vertical-align:top;padding:.42rem .55rem;border:1px solid var(--line)}
  .md tbody tr:nth-child(even){background:#f8fafc}
 
+ /* workflow graphic figure + lightbox */
+ .wffig{margin:0 0 1.2rem}
+ .wffig .wflink{display:block;line-height:0}
+ .wffig img{width:100%;max-width:860px;border:1px solid var(--line);border-radius:8px;display:block}
+ .wffig figcaption{font-size:.78rem;color:var(--muted);margin-top:.45rem}
+ .wflbox{position:fixed;inset:0;z-index:100;display:flex;flex-direction:column;align-items:center;justify-content:center;
+         background:rgba(10,20,32,.93);visibility:hidden;opacity:0;transition:opacity .15s;padding:2rem}
+ .wflbox:target{visibility:visible;opacity:1}
+ .wflbox img{max-width:min(1400px,92vw);max-height:76vh;border-radius:8px;box-shadow:0 12px 60px rgba(0,0,0,.55);display:block}
+ .wflbar{display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;align-items:center;justify-content:center;margin-top:.9rem;font-size:.85rem;color:#dbe7f2}
+ .wflbar a{color:#fff}
+ .wflclose{position:absolute;top:.7rem;right:1.2rem;font-size:1.9rem;color:#fff;text-decoration:none;line-height:1}
+
  .footnote{font-size:.78rem;color:var(--muted);border-top:1px solid var(--line);
       padding-top:1rem;margin-top:2rem}
 </style>
@@ -79,7 +92,19 @@
   </div>
 
   <div class="md">
-  <!-- Optional: workflow graphic (e.g., exported from NotebookLM) can be embedded here -->
+  <figure class="wffig">
+    <a class="wflink" href="#wfbox" title="Click to enlarge"><img src="AI-Enhanced_Document_Review_Workflow.mini.jpg" alt="Diagram of the AI-enhanced, multi-participant document review and assessment workflow" loading="lazy"></a>
+    <figcaption><strong>Figure 1</strong> — The AI-enhanced review workflow: SLA v2 → four independent assessments → three cross-model comparison reports (12 lenses) → fusion engine → MOS loop-closure. Human review of AI output: none in this run. <a href="#wfbox">Click to enlarge</a>.</figcaption>
+  </figure>
+  <div class="wflbox" id="wfbox">
+    <a class="wflclose" href="#" aria-label="Close">&#215;</a>
+    <img src="AI-Enhanced_Document_Review_Workflow.view.jpg" alt="Enlarged diagram of the AI-enhanced review workflow">
+    <div class="wflbar">
+      <span>AI-enhanced, multi-participant document review &amp; assessment workflow</span>
+      <a href="AI-Enhanced_Document_Review_Workflow.png" download>Download full resolution (PNG)</a>
+      <a href="#">Close</a>
+    </div>
+  </div>
 <p><em>Single reference version of the project story, cleaned up for consistency and clarity.
 Prepared for review; to be incorporated into the document set once approved.</em></p>
 <hr />

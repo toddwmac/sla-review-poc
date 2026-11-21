@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Consolidated review with item-level traceability by Claude Haiku — AI comparative synthesis of the four independent reviews of the USU–AGI SLA Draft 2.0 (80 findings).">
+<title>Claude Haiku — Analysis of All Reviews · USU–AGI SLA Review</title>
+<style>
+ :root{
+   --navy:#142c44; --navy-2:#1d3c59; --ink:#1c2d3e; --muted:#4d6073; --faint:#8296a8;
+   --line:#d6dfe8; --paper:#f3f6f9; --white:#fff;
+   --accent:#17625b; --accent-bg:#eaf6f2;
+   --blue:#205987; --blue-bg:#eaf2f9;
+ }
+ *{box-sizing:border-box}
+ html{scroll-behavior:smooth}
+ body{margin:0;background:var(--paper);color:var(--ink);
+      font:1rem/1.62 system-ui,-apple-system,"Segoe UI",sans-serif}
+ h1,h2,h3,h4{color:var(--navy);line-height:1.25;margin:0}
+ p{margin:0 0 .8rem} p:last-child{margin:0}
+ a{color:var(--blue);text-decoration:underline} a:hover{text-decoration:underline}
+ ul,ol{margin:.3rem 0 .9rem;padding-left:1.35rem} li{margin:.32rem 0}
+ strong{color:#12283d}
+ code{font-family:ui-monospace,Consolas,monospace;font-size:.86em;background:#eef2f6;
+      border:1px solid var(--line);border-radius:4px;padding:.06em .32em;word-break:break-all}
+
+ .topbar{position:sticky;top:0;z-index:20;background:rgba(20,44,68,.97);color:#fff;
+         padding:.8rem clamp(1rem,4vw,2.5rem);display:flex;flex-wrap:wrap;gap:.6rem 2rem;
+         align-items:baseline;justify-content:space-between;box-shadow:0 2px 12px rgba(16,36,58,.25)}
+ .topbar .brand{font-weight:800;letter-spacing:.02em}
+ .topbar .brand small{display:block;font-weight:450;color:#c5d3e0;font-size:.76rem}
+ .topbar .links{font-size:.8rem}
+ .topbar .links a{color:#fff;border:1px solid #ffffff42;border-radius:999px;padding:.25rem .7rem;
+   margin-left:.35rem;text-decoration:none}
+ .topbar .links a:hover{background:#ffffff22}
+
+ .shell{max-width:72rem;margin:0 auto;padding:0 clamp(1rem,4vw,2rem) 3rem}
+
+ .hero{padding:2.2rem 0 1.3rem;border-bottom:2.5px solid var(--navy);margin-bottom:1.6rem}
+ .eyebrow{font-size:.74rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--blue)}
+ .hero h1{font-size:clamp(1.55rem,3.6vw,2.2rem);letter-spacing:-.02em;margin:.35rem 0 .45rem}
+ .hero .sub{font-size:1.03rem;color:var(--muted);max-width:70ch}
+ .badges{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.85rem}
+ .badges span{font-size:.72rem;border:1px solid var(--line);background:#fff;color:var(--muted);
+      border-radius:999px;padding:.22rem .7rem}
+
+ .md{font-size:.98rem}
+ .md h2{font-size:1.3rem;border-bottom:1.5px solid var(--line);padding-bottom:.3rem;margin:2rem 0 .7rem}
+ .md h3{font-size:1.06rem;margin:1.5rem 0 .45rem}
+ .md h4{font-size:.98rem;margin:1.2rem 0 .4rem}
+ .md hr{border:0;border-top:1.5px solid var(--line);margin:1.6rem 0}
+ .md table{border-collapse:collapse;width:100%;font-size:.86rem;background:#fff;margin:.6rem 0;
+      display:block;overflow-x:auto}
+ .md th{background:#e8eef5;color:#22374c;text-align:left;padding:.45rem .55rem;border:1px solid var(--line);
+    font-size:.68rem;text-transform:uppercase;letter-spacing:.05em}
+ .md td{vertical-align:top;padding:.42rem .55rem;border:1px solid var(--line)}
+ .md tbody tr:nth-child(even){background:#f8fafc}
+ .md blockquote{margin:.9rem 0;padding:.6rem .95rem;border-left:4px solid var(--blue);
+      background:var(--blue-bg);border-radius:0 9px 9px 0;color:var(--muted)}
+
+ .footnote{font-size:.78rem;color:var(--muted);border-top:1px solid var(--line);
+      padding-top:1rem;margin-top:2rem}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">USU–AGI SLA Review <small>Comparative synthesis · Claude Haiku</small></div>
+  <div class="links"><a href="index.html">Document hub</a><a href="README.html">README</a></div>
+</header>
+
+<div class="shell">
+
+  <div class="hero">
+    <div class="eyebrow">Stage 2 · Cross-model consistency assessment</div>
+    <h1>Claude Haiku — Analysis of All Reviews</h1>
+    <p class="sub">Consolidated Review: USU–AGI SLA Draft 2.0</p>
+    <div class="badges">
+      <span>Generated Nov 20, 2026 · 12:53 UTC</span><span>Sources: ChatGPT · Claude · Copilot · Perplexity (80 items)</span>
+    </div>
+  </div>
+
+  <div class="md">
+<p><strong>Sources:</strong> Four review files: ChatGPT (24 recommendations), Claude (18 suggestions), Perplexity (28 findings), and Copilot (10 recommendations). I did not have the SLA itself, so page references are as the reviewers reported them.</p>
+<p><strong>Overall:</strong> The four reviews agree that the governance design is sound but the agreement is not yet operational. They differ on how serious the gaps are. Perplexity's review is the most thorough and cites the most pages. Copilot's is the least specific.</p>
+<hr />
+<h2>1. Strong Agreement (3–4 reviews, same direction)</h2>
+<table>
+<thead>
+<tr>
+<th>Theme</th>
+<th>ChatGPT</th>
+<th>Claude</th>
+<th>Copilot</th>
+<th>Perplexity</th>
+<th>Shared position</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Numeric targets missing</strong></td>
+<td>R03 (Critical)</td>
+<td>S06 (High)</td>
+<td>#2 (High)</td>
+<td>F-02 (Critical), F-09</td>
+<td>Define targets, owners, and measurement before signing</td>
+</tr>
+<tr>
+<td><strong>Undefined key terms</strong> ("material," "prompt," "timely")</td>
+<td>R04</td>
+<td>S09</td>
+<td>#1, #3</td>
+<td>F-03 (Critical), F-12</td>
+<td>Central definitions with numeric or objective thresholds</td>
+</tr>
+<tr>
+<td><strong>Escalation and incident clocks</strong></td>
+<td>R04 (Critical)</td>
+<td>S08 (High)</td>
+<td>#7 (Medium)</td>
+<td>F-12, F-20</td>
+<td>Severity levels with fixed notification windows</td>
+</tr>
+<tr>
+<td><strong>Systems inventory / "CNS" undefined</strong></td>
+<td>R15 (High)</td>
+<td>S11 (Medium)</td>
+<td>#9 (Low)</td>
+<td>F-07 (High), F-28</td>
+<td>Controlled system appendix; resolve CNS before execution</td>
+</tr>
+<tr>
+<td><strong>Data return, exit, and transition</strong></td>
+<td>R05, R07 (High)</td>
+<td>S10 (High)</td>
+<td>#4 (High)</td>
+<td>F-14 (High)</td>
+<td>Export formats, timelines, and a tested exit plan</td>
+</tr>
+<tr>
+<td><strong>Decision rights / reserved authority</strong></td>
+<td>R01 (Critical)</td>
+<td>S01 (High)</td>
+<td>#1 (High)</td>
+<td>F-06, F-17 (High)</td>
+<td>Operational decision-rights schedule and precedence rule</td>
+</tr>
+<tr>
+<td><strong>Schedules must be complete before execution</strong></td>
+<td>R02 (Critical)</td>
+<td>S17 (Medium)</td>
+<td>—</td>
+<td>F-02, F-04 (Critical)</td>
+<td>Pre-execution gate with named owners and dates</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Interpretation:</strong> These items are the core of the review. Reviewers rank them differently, but none disputes that they are needed.</p>
+<hr />
+<h2>2. Medium Agreement (2–3 reviews, or same concern with different remedies)</h2>
+<ul>
+<li><strong>Employer of record and HR approvals:</strong> ChatGPT R13 (High), Copilot #6 (Medium), Perplexity F-04 (Critical) and F-17 (High). Priority ranges from Medium to Critical.</li>
+<li><strong>Legal and commercial terms</strong> (term, termination, liability, governing law): ChatGPT R07 and R19, Claude S03, Perplexity F-01 (Critical). Copilot does not address them.</li>
+<li><strong>Vendor and subcontractor oversight:</strong> ChatGPT R16, Copilot #5, Perplexity F-15 and F-22.</li>
+<li><strong>Shared-cost allocation:</strong> ChatGPT R06 and Perplexity F-11. Both flag it as the classic parent-subsidiary risk.</li>
+<li><strong>Regulatory and Title IV controls:</strong> ChatGPT R11 and R12, Perplexity F-16 and F-18, Claude S13.</li>
+<li><strong>Named owner roster:</strong> ChatGPT R09, Claude S14, Perplexity F-10.</li>
+<li><strong>Biannual review cadence and rating definitions:</strong> Claude S04 and S07, Perplexity F-08 and F-09, ChatGPT R08.</li>
+<li><strong>Approval record and Board sign-off:</strong> ChatGPT R23, Claude S17, Perplexity F-05 and F-19.</li>
+<li><strong>Change control:</strong> ChatGPT R18, Claude S15, Copilot #3, Perplexity F-21.</li>
+<li><strong>Org chart reporting lines:</strong> Claude S05 and S14, Perplexity F-06. Both flag that the chart appears to place USU roles under the AGI CEO.</li>
+<li><strong>AI and algorithmic tools:</strong> ChatGPT R24 and Claude S12 are the only detailed treatments. Copilot and Perplexity do not address AI, even though the CEO letter describes a CRM recommendation algorithm.</li>
+</ul>
+<hr />
+<h2>3. Direct Disagreement</h2>
+<ol>
+<li>
+<p><strong>Overall severity.</strong> Copilot states that the design is "fundamentally well designed" and that most risks concern "operational precision rather than structural deficiencies." Perplexity calls the missing term and exit provisions "the single largest structural omission," and ChatGPT says the draft "needs additional operational and contractual machinery to function reliably." <strong>The Board should treat the missing term, exit, and legal provisions as structural.</strong></p>
+</li>
+<li>
+<p><strong>Where legal terms belong.</strong> ChatGPT (R19) suggests cross-referencing an existing master or intercompany agreement. Claude (S03) accepts either an SLA section or a companion MSA. Perplexity (F-01) requires a Term section inside this document. <strong>Resolve this by first checking what the 2017 acquisition and intercompany agreements already cover.</strong></p>
+</li>
+<li>
+<p><strong>Timing of the execution gate.</strong> ChatGPT (R02) makes completed schedules a condition precedent to <em>effectiveness</em>, which allows signing with time-limited interim arrangements. Perplexity (F-02) says <em>no signature</em> until the metrics exhibit is approved. These are materially different sequencing rules.</p>
+</li>
+<li>
+<p><strong>Priority of the systems inventory and accreditation clauses.</strong> Copilot rates the systems inventory and the accreditation-protection clause as Low. ChatGPT and Perplexity rate them High or Critical. The inventory supports incident response, access control, and exit planning, so the higher rating is more defensible.</p>
+</li>
+<li>
+<p><strong>Escalation windows.</strong> Copilot offers specific deadlines (security 24 hours, accreditation 48 hours, service failure 5 business days). Perplexity proposes 24 hours for initial notice and 72 hours for a written report. ChatGPT leaves the clocks for the parties to define, and Claude leaves them for USU to set. <strong>Copilot's figures are the only concrete proposals for accreditation and compliance events, so they are a useful starting point.</strong></p>
+</li>
+<li>
+<p><strong>Confidence in external requirements.</strong> ChatGPT explicitly declines to verify WSCUC requirements or legal obligations. Perplexity states external expectations as fact (e.g., "WSCUC reviewers also expect a documented exit plan," the 30% CDR threshold, and specifics about the 2017 agreements) without flagging them for verification. Claude repeatedly defers to counsel. <strong>Do not adopt external-compliance claims from any review without verification.</strong></p>
+</li>
+<li>
+<p><strong>Board role in approval.</strong> Perplexity asks for a Board Chair signature. ChatGPT asks the Board to confirm whether it approves the SLA or delegates execution. These are compatible, but the Board should decide which it wants.</p>
+</li>
+</ol>
+<hr />
+<h2>4. Single-Reviewer Issues Worth Considering</h2>
+<ul>
+<li><strong>Conflict-of-interest and recusal rules</strong> for trustees or officers with AGI roles (Claude S05 only). This is important because AGI owns USU.</li>
+<li><strong>Promotional claims</strong> in the CEO and President letters, such as the federal aid statement and the "approximately 45 states" figure (Claude S16 only).</li>
+<li><strong>Privilege, independent counsel, and whistleblower routing</strong> (Perplexity F-13 only).</li>
+<li><strong>Marketing data-use limits</strong> and approved lead vendors (Perplexity F-15 only).</li>
+<li><strong>Insurance minimums</strong> (Perplexity F-25 only).</li>
+<li><strong>Recovery time and recovery point objectives</strong> (ChatGPT R21, with Perplexity F-21 covering availability targets).</li>
+</ul>
+<hr />
+<h2>5. Recommended Next Steps</h2>
+<ol>
+<li><strong>Adopt a shared pre-execution gate list:</strong> metrics exhibit, employer register, systems inventory, delegation schedule, and term and exit provisions.</li>
+<li><strong>Settle the location of legal terms</strong> by reviewing the existing 2017 agreements.</li>
+<li><strong>Have the Board set the definition of "material"</strong> and approve the escalation clocks.</li>
+<li><strong>Verify all external-regulatory assertions</strong> with counsel and compliance before the draft is adopted.</li>
+<li><strong>Add AI-tool governance and conflict-of-interest rules,</strong> which only one or two reviews addressed but which bear directly on the risks described.</li>
+</ol>
+  </div>
+
+  <p class="footnote">AI-generated analysis (Nov 20, 2026) — part of the USU–AGI SLA review record;
+     not legal advice, and external-compliance assertions should be verified with counsel. Sibling
+     syntheses: <a href="GPT-Analysis-of-all-reviews.html">GPT</a> ·
+     <a href="Gemini-Analysis-of-all-reviews.html">Gemini Pro</a> ·
+     <a href="Haiku-Analysis-of-all-reviews.html">Claude Haiku</a>. Format alternates (PDF, MD) are
+     mapped in the hub <a href="index.html#inventory">inventory</a>.</p>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Comparative Review of USU–AGI SLA Draft 2.0 by GPT — AI comparative synthesis of the four independent reviews of the USU–AGI SLA Draft 2.0 (80 findings).">
+<title>GPT — Analysis of All Reviews · USU–AGI SLA Review</title>
+<style>
+ :root{
+   --navy:#142c44; --navy-2:#1d3c59; --ink:#1c2d3e; --muted:#4d6073; --faint:#8296a8;
+   --line:#d6dfe8; --paper:#f3f6f9; --white:#fff;
+   --accent:#17625b; --accent-bg:#eaf6f2;
+   --blue:#205987; --blue-bg:#eaf2f9;
+ }
+ *{box-sizing:border-box}
+ html{scroll-behavior:smooth}
+ body{margin:0;background:var(--paper);color:var(--ink);
+      font:1rem/1.62 system-ui,-apple-system,"Segoe UI",sans-serif}
+ h1,h2,h3,h4{color:var(--navy);line-height:1.25;margin:0}
+ p{margin:0 0 .8rem} p:last-child{margin:0}
+ a{color:var(--blue);text-decoration:underline} a:hover{text-decoration:underline}
+ ul,ol{margin:.3rem 0 .9rem;padding-left:1.35rem} li{margin:.32rem 0}
+ strong{color:#12283d}
+ code{font-family:ui-monospace,Consolas,monospace;font-size:.86em;background:#eef2f6;
+      border:1px solid var(--line);border-radius:4px;padding:.06em .32em;word-break:break-all}
+
+ .topbar{position:sticky;top:0;z-index:20;background:rgba(20,44,68,.97);color:#fff;
+         padding:.8rem clamp(1rem,4vw,2.5rem);display:flex;flex-wrap:wrap;gap:.6rem 2rem;
+         align-items:baseline;justify-content:space-between;box-shadow:0 2px 12px rgba(16,36,58,.25)}
+ .topbar .brand{font-weight:800;letter-spacing:.02em}
+ .topbar .brand small{display:block;font-weight:450;color:#c5d3e0;font-size:.76rem}
+ .topbar .links{font-size:.8rem}
+ .topbar .links a{color:#fff;border:1px solid #ffffff42;border-radius:999px;padding:.25rem .7rem;
+   margin-left:.35rem;text-decoration:none}
+ .topbar .links a:hover{background:#ffffff22}
+
+ .shell{max-width:72rem;margin:0 auto;padding:0 clamp(1rem,4vw,2rem) 3rem}
+
+ .hero{padding:2.2rem 0 1.3rem;border-bottom:2.5px solid var(--navy);margin-bottom:1.6rem}
+ .eyebrow{font-size:.74rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--blue)}
+ .hero h1{font-size:clamp(1.55rem,3.6vw,2.2rem);letter-spacing:-.02em;margin:.35rem 0 .45rem}
+ .hero .sub{font-size:1.03rem;color:var(--muted);max-width:70ch}
+ .badges{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.85rem}
+ .badges span{font-size:.72rem;border:1px solid var(--line);background:#fff;color:var(--muted);
+      border-radius:999px;padding:.22rem .7rem}
+
+ .md{font-size:.98rem}
+ .md h2{font-size:1.3rem;border-bottom:1.5px solid var(--line);padding-bottom:.3rem;margin:2rem 0 .7rem}
+ .md h3{font-size:1.06rem;margin:1.5rem 0 .45rem}
+ .md h4{font-size:.98rem;margin:1.2rem 0 .4rem}
+ .md hr{border:0;border-top:1.5px solid var(--line);margin:1.6rem 0}
+ .md table{border-collapse:collapse;width:100%;font-size:.86rem;background:#fff;margin:.6rem 0;
+      display:block;overflow-x:auto}
+ .md th{background:#e8eef5;color:#22374c;text-align:left;padding:.45rem .55rem;border:1px solid var(--line);
+    font-size:.68rem;text-transform:uppercase;letter-spacing:.05em}
+ .md td{vertical-align:top;padding:.42rem .55rem;border:1px solid var(--line)}
+ .md tbody tr:nth-child(even){background:#f8fafc}
+ .md blockquote{margin:.9rem 0;padding:.6rem .95rem;border-left:4px solid var(--blue);
+      background:var(--blue-bg);border-radius:0 9px 9px 0;color:var(--muted)}
+
+ .footnote{font-size:.78rem;color:var(--muted);border-top:1px solid var(--line);
+      padding-top:1rem;margin-top:2rem}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">USU–AGI SLA Review <small>Comparative synthesis · GPT</small></div>
+  <div class="links"><a href="index.html">Document hub</a><a href="README.html">README</a></div>
+</header>
+
+<div class="shell">
+
+  <div class="hero">
+    <div class="eyebrow">Stage 2 · Cross-model consistency assessment</div>
+    <h1>GPT — Analysis of All Reviews</h1>
+    <p class="sub">USU–AGI SLA Draft 2.0: Comparative Review</p>
+    <div class="badges">
+      <span>Generated Nov 20, 2026 · 12:52 UTC</span><span>Sources: ChatGPT · Claude · Copilot · Perplexity (80 items)</span>
+    </div>
+  </div>
+
+  <div class="md">
+<p><strong>Bottom line:</strong> The four reviews agree that the draft is a useful governance framework, but its service matrices are not yet sufficient to run an enforceable SLA. The strongest consensus is to make USU’s decision rights operational, approve measurable service standards, and specify how AGI must respond when services fail or need to be transferred.</p>
+<p>This report compares the <strong>80 suggestions across the four reviews</strong>, grouping overlapping recommendations by topic. It does not independently verify the underlying SLA, related agreements, or regulatory requirements.</p>
+<h2>Strong agreement</h2>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Shared recommendation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>USU authority and accountability</strong></td>
+<td>Specify who approves, validates, executes, and monitors material decisions. Preserve USU’s reserved authority, document delegations and thresholds, and identify accountable USU and AGI service owners.</td>
+</tr>
+<tr>
+<td><strong>Measurable service standards</strong></td>
+<td>Complete a service-level exhibit with numeric targets, formulas, data sources, reporting frequency, owners, exceptions, and escalation triggers. Evidence that work occurred is not the same as a standard for acceptable performance.</td>
+</tr>
+<tr>
+<td><strong>Change control and escalation</strong></td>
+<td>Define what constitutes a material change or deficiency, who must approve or be notified, and when. Connect missed targets and serious incidents to corrective action and escalation.</td>
+</tr>
+<tr>
+<td><strong>Data access, continuity, and exit</strong></td>
+<td>Make data return and transition obligations testable: specify formats, timelines, assistance, and secure disposition. The reviews also converge on a system inventory, including resolution of “CNS,” and stronger vendor oversight, although they differ on priority and detail.</td>
+</tr>
+<tr>
+<td><strong>Employer-of-record clarity</strong></td>
+<td>Verify the legal employer for covered positions and distinguish AGI’s administrative role from authority over University personnel decisions.</td>
+</tr>
+</tbody>
+</table>
+<h2>Medium agreement</h2>
+<ul>
+<li><strong>Commercial and legal terms.</strong> Three reviews call for explicit term, renewal, termination, and shared-cost provisions; the fourth focuses on operational controls and data exit. There is meaningful support for documented allocation drivers, prior USU approval of material changes, and audit access. Independent external validation and its frequency are less broadly supported.</li>
+<li><strong>Board oversight and independence.</strong> Several reviews favor a fixed twice-yearly Audit Committee calendar, a standard reporting package, and clearer evidence of approval. Conflict disclosures and recusals, independent counsel and hotline routing, and changes to reporting lines are more targeted proposals.</li>
+<li><strong>Service-specific safeguards and drafting.</strong> Several reviews support clearer regulatory filing ownership, stronger student-finance controls, and better document control. AI and automated decision safeguards appear explicitly in two reviews. Specific marketing, advising, tutoring, and recovery targets are useful drafting inputs, not consensus thresholds.</li>
+</ul>
+<h2>Direct disagreements and material differences</h2>
+<table>
+<thead>
+<tr>
+<th>Issue</th>
+<th>Where the reviews diverge</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>When to gate the agreement</strong></td>
+<td>One review explicitly says <strong>do not sign</strong> until USU approves the metrics exhibit. Others frame the gate mainly as <strong>no effectiveness</strong> until mandatory schedules are complete, although some also recommend pre-signing completion. Distinguish approval in principle, signature, and effectiveness in the next draft.</td>
+</tr>
+<tr>
+<td><strong>When the incident clock starts</strong></td>
+<td>One review proposes notice within 24 hours of a <strong>confirmed</strong> security incident; another explicitly says <strong>not to wait for confirmation</strong>. A third gives a 24-hour example without defining the trigger, and the fourth leaves timing to USU by severity. Use a severity-based clock that starts on awareness of a qualifying suspected incident.</td>
+</tr>
+<tr>
+<td><strong>How to define materiality</strong></td>
+<td>One review proposes a single agreement-wide definition; others favor thresholds and approval rules tailored to spending, technology, outsourcing, and other domains. A common baseline with domain-specific triggers would retain consistency without forcing unlike risks into one threshold.</td>
+</tr>
+<tr>
+<td><strong>How the Board evidences approval</strong></td>
+<td>Some reviews recommend a Board signature or secretary attestation; another leaves open whether a resolution and delegated execution are sufficient. Confirm the required approval and signature path under USU’s governing documents rather than assuming a trustee must sign.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommended disposition:</strong> Approve the framework in principle only. Before signing, settle decision rights, measurable service standards, incident and exit obligations, the employer register, financial delegations, and the commercial terms or precise references to agreements that already govern them. Record the required approvals and any remaining conditions to effectiveness in a single execution checklist.</p>
+  </div>
+
+  <p class="footnote">AI-generated analysis (Nov 20, 2026) — part of the USU–AGI SLA review record;
+     not legal advice, and external-compliance assertions should be verified with counsel. Sibling
+     syntheses: <a href="GPT-Analysis-of-all-reviews.html">GPT</a> ·
+     <a href="Gemini-Analysis-of-all-reviews.html">Gemini Pro</a> ·
+     <a href="Haiku-Analysis-of-all-reviews.html">Claude Haiku</a>. Format alternates (PDF, MD) are
+     mapped in the hub <a href="index.html#inventory">inventory</a>.</p>
+
+</div>
+</body>
+</html>

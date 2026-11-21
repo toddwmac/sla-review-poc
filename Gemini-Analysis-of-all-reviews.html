@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Executive summary and risk-framed analysis by Gemini Pro — AI comparative synthesis of the four independent reviews of the USU–AGI SLA Draft 2.0 (80 findings).">
+<title>Gemini Pro — Analysis of All Reviews · USU–AGI SLA Review</title>
+<style>
+ :root{
+   --navy:#142c44; --navy-2:#1d3c59; --ink:#1c2d3e; --muted:#4d6073; --faint:#8296a8;
+   --line:#d6dfe8; --paper:#f3f6f9; --white:#fff;
+   --accent:#17625b; --accent-bg:#eaf6f2;
+   --blue:#205987; --blue-bg:#eaf2f9;
+ }
+ *{box-sizing:border-box}
+ html{scroll-behavior:smooth}
+ body{margin:0;background:var(--paper);color:var(--ink);
+      font:1rem/1.62 system-ui,-apple-system,"Segoe UI",sans-serif}
+ h1,h2,h3,h4{color:var(--navy);line-height:1.25;margin:0}
+ p{margin:0 0 .8rem} p:last-child{margin:0}
+ a{color:var(--blue);text-decoration:underline} a:hover{text-decoration:underline}
+ ul,ol{margin:.3rem 0 .9rem;padding-left:1.35rem} li{margin:.32rem 0}
+ strong{color:#12283d}
+ code{font-family:ui-monospace,Consolas,monospace;font-size:.86em;background:#eef2f6;
+      border:1px solid var(--line);border-radius:4px;padding:.06em .32em;word-break:break-all}
+
+ .topbar{position:sticky;top:0;z-index:20;background:rgba(20,44,68,.97);color:#fff;
+         padding:.8rem clamp(1rem,4vw,2.5rem);display:flex;flex-wrap:wrap;gap:.6rem 2rem;
+         align-items:baseline;justify-content:space-between;box-shadow:0 2px 12px rgba(16,36,58,.25)}
+ .topbar .brand{font-weight:800;letter-spacing:.02em}
+ .topbar .brand small{display:block;font-weight:450;color:#c5d3e0;font-size:.76rem}
+ .topbar .links{font-size:.8rem}
+ .topbar .links a{color:#fff;border:1px solid #ffffff42;border-radius:999px;padding:.25rem .7rem;
+   margin-left:.35rem;text-decoration:none}
+ .topbar .links a:hover{background:#ffffff22}
+
+ .shell{max-width:72rem;margin:0 auto;padding:0 clamp(1rem,4vw,2rem) 3rem}
+
+ .hero{padding:2.2rem 0 1.3rem;border-bottom:2.5px solid var(--navy);margin-bottom:1.6rem}
+ .eyebrow{font-size:.74rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--blue)}
+ .hero h1{font-size:clamp(1.55rem,3.6vw,2.2rem);letter-spacing:-.02em;margin:.35rem 0 .45rem}
+ .hero .sub{font-size:1.03rem;color:var(--muted);max-width:70ch}
+ .badges{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.85rem}
+ .badges span{font-size:.72rem;border:1px solid var(--line);background:#fff;color:var(--muted);
+      border-radius:999px;padding:.22rem .7rem}
+
+ .md{font-size:.98rem}
+ .md h2{font-size:1.3rem;border-bottom:1.5px solid var(--line);padding-bottom:.3rem;margin:2rem 0 .7rem}
+ .md h3{font-size:1.06rem;margin:1.5rem 0 .45rem}
+ .md h4{font-size:.98rem;margin:1.2rem 0 .4rem}
+ .md hr{border:0;border-top:1.5px solid var(--line);margin:1.6rem 0}
+ .md table{border-collapse:collapse;width:100%;font-size:.86rem;background:#fff;margin:.6rem 0;
+      display:block;overflow-x:auto}
+ .md th{background:#e8eef5;color:#22374c;text-align:left;padding:.45rem .55rem;border:1px solid var(--line);
+    font-size:.68rem;text-transform:uppercase;letter-spacing:.05em}
+ .md td{vertical-align:top;padding:.42rem .55rem;border:1px solid var(--line)}
+ .md tbody tr:nth-child(even){background:#f8fafc}
+ .md blockquote{margin:.9rem 0;padding:.6rem .95rem;border-left:4px solid var(--blue);
+      background:var(--blue-bg);border-radius:0 9px 9px 0;color:var(--muted)}
+
+ .footnote{font-size:.78rem;color:var(--muted);border-top:1px solid var(--line);
+      padding-top:1rem;margin-top:2rem}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">USU–AGI SLA Review <small>Comparative synthesis · Gemini Pro</small></div>
+  <div class="links"><a href="index.html">Document hub</a><a href="README.html">README</a></div>
+</header>
+
+<div class="shell">
+
+  <div class="hero">
+    <div class="eyebrow">Stage 2 · Cross-model consistency assessment</div>
+    <h1>Gemini Pro — Analysis of All Reviews</h1>
+    <p class="sub">Comparative analysis of the 80 findings across the four independent AI reviews, with a financial- and institutional-risk lens.</p>
+    <div class="badges">
+      <span>Generated Nov 20, 2026 · 12:53 UTC</span><span>Sources: ChatGPT · Claude · Copilot · Perplexity (80 items)</span>
+    </div>
+  </div>
+
+  <div class="md">
+<h3>Executive Summary</h3>
+<p>An analysis of the four independent reviews of the <strong>USU–AGI Service Level Agreement (Draft 2.0)</strong>—comprising <strong>80 total findings</strong> across ChatGPT (24), Perplexity (28), Claude (18), and Copilot (10)—reveals high alignment on operational risk and regulatory compliance. All four reviews agree that while the draft establishes a solid WSCUC-aligned governance framework, <strong>it is currently an unexecutable responsibility map rather than an enforceable contract.</strong></p>
+<p>From a financial and institutional risk perspective, the primary exposure lies in deferred performance baselines, unverified intercompany cost allocations, undefined materiality thresholds, and absent exit/termination mechanics.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Review Source</th>
+<th style="text-align: center;">Total Items</th>
+<th style="text-align: center;">Critical / High</th>
+<th style="text-align: center;">Medium</th>
+<th style="text-align: center;">Low</th>
+<th style="text-align: left;">Primary Analytical Lens</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>ChatGPT</strong></td>
+<td style="text-align: center;">24</td>
+<td style="text-align: center;">16</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: left;">Contractual machinery, internal controls &amp; risk allocation</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Perplexity</strong></td>
+<td style="text-align: center;">28</td>
+<td style="text-align: center;">18</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;">WSCUC accreditation readiness, auditability &amp; execution gates</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Claude</strong></td>
+<td style="text-align: center;">18</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: left;">Legal drafting precision, independence &amp; conflict-of-interest</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Copilot</strong></td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;">Operational RACI clarity &amp; high-level process standardization</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>1. Areas of Strong Agreement (Unanimous 4/4 Consensus)</h3>
+<p>All four reviews independently identified six foundational gaps that should act as <strong>mandatory conditions precedent</strong> before executing the agreement:</p>
+<ul>
+<li><strong>Completion of Quantifiable SLA Metrics Pre-Signing:</strong> Every review flagged that Section 17 (<em>Performance Standards</em>) lists evidence categories rather than actual numeric targets, baselines, formulas, and tolerance bands. Executing the SLA with targets marked "pending" renders biannual oversight unenforceable.</li>
+<li><strong>Defining "Material" and Formalizing Decision Rights:</strong> Terms such as <em>material</em>, <em>approve</em>, <em>validate</em>, and <em>timely</em> appear throughout the matrices without quantitative definitions. All four recommend a <strong>Delegation of Authority / Decision Rights Schedule</strong> establishing hard dollar thresholds (e.g., $X or Y% of budget) and risk triggers.</li>
+<li><strong>Hard Clocks for Incident &amp; Risk Escalation:</strong> All reviews reject vague qualifiers like <em>"prompt"</em> or <em>"immediate"</em> notification for security breaches, Title IV issues, or student safety risks. They unanimously recommend tiered severity levels tied to strict clock-based SLAs (e.g., 24-hour initial notice, 72-hour written report).</li>
+<li><strong>Data Portability, Exit Timelines &amp; Destruction Verification:</strong> While the MIS matrix promises data return, all four note the absence of binding export formats, transition durations, conversion support, and certified destruction timelines to protect USU if services are terminated.</li>
+<li><strong>Pre-Execution Verification of the Employer Register:</strong> All four emphasize finalizing and attaching the legal Employer-of-Record schedule (distinguishing AGI corporate staff from USU staff, core faculty, and adjuncts) prior to signing to prevent wage, benefit, and supervisory liability blur.</li>
+<li><strong>Authoritative System Inventory (Resolving "CNS"):</strong> Every review caught the undefined system acronym <strong>"CNS"</strong> and inconsistent platform naming (<em>"SIS"</em> vs. <em>"Blue SIS"</em>), recommending a controlled System Inventory appendix mapping system owners, vendors, and FERPA/financial data classifications.</li>
+</ul>
+<hr />
+<h3>2. Areas of Medium Agreement (2–3 Reviews Aligned)</h3>
+<p>Three of the four substantive reviews (ChatGPT, Claude, Perplexity)—and occasionally Copilot—converged on critical commercial, legal, and governance blind spots:</p>
+<ul>
+<li><strong>Missing Commercial, Financial &amp; Legal Architecture (3/4 — ChatGPT, Claude, Perplexity):</strong> The draft lacks a Term, Renewal, and Termination clause, dispute resolution, governing law, indemnification, limitation of liability, and insurance minimums. Furthermore, <strong>intercompany shared-cost allocations</strong> lack a documented methodology exhibit, advance notice for fee changes, and periodic independent audit rights.</li>
+<li><strong>Organizational Chart &amp; Independence Conflicts (3/4 — ChatGPT, Claude, Perplexity):</strong> Reviewers noted the Sept 23, 2026 org chart is low-resolution/illegible and visually depicts the USU President and key USU compliance validators reporting beneath the AGI CEO—directly undermining the narrative of Board independence. Claude also called for formal related-party recusal and conflict-of-interest rules.</li>
+<li><strong>Board Sign-Off, Rating Rules &amp; Named Rosters (3/4 — ChatGPT, Claude, Perplexity):</strong><ul>
+<li><em>Approvals:</em> Signature blocks only include the AGI CEO and USU President; reviewers advise adding Board of Trustees Chair sign-off/attestation.</li>
+<li><em>Ratings:</em> <em>"Met / Needs Improvement / Did Not Meet"</em> have no objective thresholds or automatic corrective-action triggers.</li>
+<li><em>Rosters:</em> Named Service Owners and a filing-by-filing <strong>Regulatory Compliance Calendar</strong> (Title IV, 90/10, FISAP, IPEDS, NC-SARA, Nursing Boards) should be attached as appendices.</li>
+</ul>
+</li>
+<li><strong>Non-Binding Executive Letters (3/4 — ChatGPT, Claude, Perplexity):</strong> Promotional and unverified claims in the CEO/President letters (e.g., <em>"industry low"</em> costs, eliminating federal aid reliance) create regulatory scrutiny and should be stripped or explicitly labeled non-operative context.</li>
+<li><strong>Third-Party Vendor Flow-Down Controls (3/4 — ChatGPT, Claude, Copilot):</strong> Require formal vendor risk assessments, advance notice/approval for subcontractors handling USU data, and mandatory flow-down of cybersecurity and audit rights.</li>
+<li><strong>AI &amp; Algorithmic Governance (2/4 — ChatGPT, Claude):</strong> Both flagged unregulated algorithmic influence—specifically the CEO letter's mention of CRM recruitment algorithms and potential AI use in instruction, advising, and assessment—recommending human-in-the-loop mandates and prohibitions on training external models with student data.</li>
+</ul>
+<hr />
+<h3>3. Areas of Direct Disagreement &amp; Divergence</h3>
+<p>While the reviews rarely contradict one another on governance philosophy, they diverge directly in four areas affecting negotiation strategy and prioritization:</p>
+<ol>
+<li><strong>Structural Soundness vs. Contractual Incompleteness:</strong><ul>
+<li><em>The Divergence:</em> <strong>Copilot</strong> concludes the agreement has <em>"no structural deficiencies"</em> and only requires operational precision. Conversely, <strong>ChatGPT, Claude, and Perplexity</strong> identify <em>severe structural omissions</em> (zero termination rights, no contract term, no commercial fee schedule, and no liability/indemnity framework).</li>
+<li><em>Advisor Assessment:</em> Side with the majority. Unless this SLA is explicitly subordinated to an existing, cross-referenced Master Services Agreement (MSA) containing commercial and exit terms, signing it as-is exposes USU to significant legal and accreditation risk.</li>
+</ul>
+</li>
+<li><strong>Severity &amp; Sequencing of Key Risk Controls:</strong><ul>
+<li><em>The Divergence:</em> <strong>Copilot</strong> classifies the System Inventory ("CNS") and an Accreditation Precedence Clause as <em>Low</em> priority, and Employer-of-Record and Escalation Timelines as <em>Medium</em> priority. <strong>ChatGPT, Claude, and Perplexity</strong> rate these exact items as <em>High</em> or <em>Critical</em> pre-execution blockers.</li>
+<li><em>Advisor Assessment:</em> Treat Order-of-Precedence, Employer-of-Record, and Escalation Clocks as <strong>High/Critical</strong> pre-signing items; deferring them weakens USU’s leverage post-execution.</li>
+</ul>
+</li>
+<li><strong>Financial Penalties vs. Governance Remedies:</strong><ul>
+<li><em>The Divergence:</em> <strong>ChatGPT (R17)</strong> proposes introducing financial <em>service credits or fee adjustments</em> for persistent SLA failures. <strong>Perplexity, Claude, and Copilot</strong> rely strictly on operational remedies (corrective action plans, Audit Committee escalation, alternate provider step-in rights, and termination for cause).</li>
+<li><em>Advisor Assessment:</em> In a 100% parent-subsidiary structure (AGI owns USU), financial service credits can complicate intercompany accounting and Title IV financial responsibility ratios without changing parent behavior; <strong>step-in rights, budget reallocation authority, and termination for cause</strong> are cleaner governance levers.</li>
+</ul>
+</li>
+<li><strong>Drafting Terminology — "Biannually" vs. "Semi-Annually":</strong><ul>
+<li><em>The Divergence:</em> <strong>ChatGPT and Perplexity</strong> retain the draft's term <em>"biannually"</em> for Audit Committee reviews (recommending fixed calendar months like May and November). <strong>Claude (S04)</strong> explicitly rejects <em>"biannually"</em> as legally ambiguous (meaning either twice a year or once every two years) and recommends replacing it with <strong>"semi-annually"</strong> alongside fixed dates.</li>
+<li><em>Advisor Assessment:</em> Adopt Claude's edit (<em>"semi-annually, in May and November"</em>) to eliminate any ambiguity in contract interpretation.</li>
+</ul>
+</li>
+</ol>
+  </div>
+
+  <p class="footnote">AI-generated analysis (Nov 20, 2026) — part of the USU–AGI SLA review record;
+     not legal advice, and external-compliance assertions should be verified with counsel. Sibling
+     syntheses: <a href="GPT-Analysis-of-all-reviews.html">GPT</a> ·
+     <a href="Gemini-Analysis-of-all-reviews.html">Gemini Pro</a> ·
+     <a href="Haiku-Analysis-of-all-reviews.html">Claude Haiku</a>. Format alternates (PDF, MD) are
+     mapped in the hub <a href="index.html#inventory">inventory</a>.</p>
+
+</div>
+</body>
+</html>

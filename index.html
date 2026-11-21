@@ -109,6 +109,67 @@
  .wflbar a{color:#fff}
  .wflclose{position:absolute;top:.7rem;right:1.2rem;font-size:1.9rem;color:#fff;text-decoration:none;line-height:1}
  @media (max-width:640px){ .pipe .arr{display:none} }
+
+ /* ---------- dark / light mode ---------- */
+ :root{--head:var(--navy);--thbg:#e8eef5;--thc:#22374c;--rowalt:#f8fafc;--hoverline:#b9c9d8;--hoverbg:#f6fafd}
+ [data-theme="dark"]{
+   color-scheme:dark;
+   --paper:#10151c; --ink:#e3e9f0; --muted:#a3b2c2; --faint:#7a8ba0;
+   --line:#2c3742; --white:#1a222c; --head:#a9c6e6; --navy:#1d3c59;
+   --blue:#8ab8e2; --blue-bg:#1c2b3d;
+   --accent:#63c2ae; --accent-bg:#143029;
+   --grey:#93a3b4; --grey-bg:#232e3a;
+   --amber:#e0b45c; --amber-bg:#2e2a1a;
+   --thbg:#1e2a37; --thc:#c9d7e4; --rowalt:#161d26; --hoverline:#3a4756; --hoverbg:#1a2634
+ }
+ h1,h2,h3,.doc-title,.chip b,.pipe b{color:var(--head)}
+ .card,.chip,.pipe a,table{background:var(--white)}
+ .card:hover{border-color:var(--hoverline)}
+ .pipe a:hover{background:var(--hoverbg)}
+ th{background:var(--thbg);color:var(--thc)}
+ tbody tr:nth-child(even){background:var(--rowalt)}
+ .grp td{background:var(--thbg);color:var(--thc)}
+
+ /* ---------- notes panel ---------- */
+ .tbtn{background:rgba(255,255,255,.12);color:#fff;border:1px solid #ffffff42;border-radius:999px;
+       padding:.28rem .8rem;font-weight:700;font-size:.78rem;cursor:pointer}
+ .tbtn:hover{background:rgba(255,255,255,.24)}
+ .tbtn .cnt{background:var(--accent);border-radius:999px;padding:.02rem .45rem;margin-left:.3rem;font-size:.72rem}
+ #notesPanel{position:fixed;top:0;right:0;bottom:0;width:min(400px,94vw);z-index:60;background:var(--white);
+   border-left:1px solid var(--line);box-shadow:-12px 0 34px rgba(10,20,32,.25);display:flex;flex-direction:column;
+   transform:translateX(105%);transition:transform .2s ease}
+ body.notes-open #notesPanel{transform:translateX(0)}
+ .np-head{padding:.85rem 1rem;border-bottom:1px solid var(--line);display:flex;align-items:baseline;gap:.6rem}
+ .np-head b{color:var(--head);font-size:1rem}
+ .np-hint{font-size:.66rem;color:var(--faint);flex:1}
+ .np-head button{background:none;border:0;color:var(--faint);font-size:1.3rem;cursor:pointer;line-height:1;padding:0}
+ .np-compose{padding:.8rem 1rem;border-bottom:1px solid var(--line)}
+ .np-compose textarea{width:100%;min-height:4.2rem;resize:vertical;border:1px solid var(--line);border-radius:8px;
+   padding:.55rem .65rem;font:inherit;font-size:.86rem;color:var(--ink);background:var(--paper)}
+ .np-tags{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.55rem}
+ .tagchip{font-size:.66rem;font-weight:700;border:1px solid var(--line);background:var(--paper);
+   color:var(--muted);border-radius:999px;padding:.14rem .5rem;cursor:pointer}
+ .tagchip.on{background:var(--accent-bg);color:var(--accent);border-color:var(--accent)}
+ .np-actions{display:flex;align-items:center;gap:.7rem;margin-top:.6rem}
+ .np-actions button{background:var(--accent);color:#fff;border:0;border-radius:8px;padding:.45rem .95rem;
+   font-weight:700;font-size:.84rem;cursor:pointer}
+ .np-warn{font-size:.7rem;color:var(--amber)}
+ .np-filter{padding:.6rem 1rem;border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:.3rem}
+ .np-filter .tagchip.on{background:var(--blue-bg);color:var(--blue);border-color:var(--blue)}
+ .np-list{flex:1;overflow-y:auto;padding:.8rem 1rem;display:flex;flex-direction:column;gap:.6rem}
+ .np-note{border:1px solid var(--line);border-radius:10px;padding:.6rem .7rem;background:var(--paper)}
+ .np-note .nt-top{display:flex;gap:.35rem;flex-wrap:wrap;align-items:center;margin-bottom:.3rem}
+ .np-note .ntag{font-size:.62rem;font-weight:700;background:var(--blue-bg);color:var(--blue);border-radius:999px;padding:.1rem .45rem}
+ .np-note .ntime{font-size:.66rem;color:var(--faint);margin-left:auto}
+ .np-note .nx{background:none;border:0;color:var(--faint);cursor:pointer;font-size:.95rem;line-height:1;padding:0 .2rem}
+ .np-note .nx:hover{color:#c0392b}
+ .np-note .ntext{font-size:.86rem;white-space:pre-wrap;margin:0;overflow-wrap:anywhere}
+ .np-empty{color:var(--faint);font-size:.84rem;text-align:center;padding:1.2rem .5rem}
+ .np-foot{padding:.7rem 1rem;border-top:1px solid var(--line);display:flex;gap:.6rem}
+ .np-foot button{flex:1;border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:8px;
+   padding:.45rem .5rem;font-weight:700;font-size:.8rem;cursor:pointer}
+ .np-foot button:hover{border-color:var(--blue);color:var(--blue)}
+ @media(min-width:1150px){body.notes-open .shell{padding-right:calc(clamp(1rem,4vw,2.5rem) + 400px)}}
 </style>
 </head>
 <body>
@@ -116,6 +177,10 @@
 <header class="topbar">
   <div class="brand">USU–AGI SLA Review <small>Document hub · AI-enhanced review workflow POC</small></div>
   <div class="tagline">15 unique documents · 31 files · one canonical link each</div>
+  <div class="topbtns">
+    <button id="themeBtn" class="tbtn" type="button">Dark mode</button>
+    <button id="notesToggle" class="tbtn" type="button">Notes <span class="cnt" id="notesCount">0</span></button>
+  </div>
 </header>
 
 <div class="shell">
@@ -400,6 +465,28 @@
 
 </div>
 
+  <aside id="notesPanel" aria-label="Review notes">
+    <div class="np-head">
+      <b>Review notes</b>
+      <span class="np-hint">saved in this browser only — nothing leaves the page</span>
+      <button id="notesClose" type="button" aria-label="Close notes panel">×</button>
+    </div>
+    <div class="np-compose">
+      <textarea id="npText" placeholder="Record a question or note as you explore the content…"></textarea>
+      <div class="np-tags" id="npTags"></div>
+      <div class="np-actions">
+        <button id="npAdd" type="button">Add note</button>
+        <span class="np-warn" id="npWarn"></span>
+      </div>
+    </div>
+    <div class="np-filter" id="npFilter"></div>
+    <div class="np-list" id="npList"></div>
+    <div class="np-foot">
+      <button id="npExport" type="button">Export notes (.md)</button>
+      <button id="npClear" type="button">Clear all</button>
+    </div>
+  </aside>
+
 <div class="wflbox" id="wfbox">
   <a class="wflclose" href="#" aria-label="Close">&#215;</a>
   <img src="AI-Enhanced_Document_Review_Workflow.view.jpg" alt="Enlarged diagram of the AI-enhanced review workflow">
@@ -409,5 +496,136 @@
     <a href="#">Close</a>
   </div>
 </div>
+<script>
+(function(){
+  /* ---------- theme: dark / light ---------- */
+  var THEME_KEY='hubTheme';
+  var themeBtn=document.getElementById('themeBtn');
+  function applyTheme(t){
+    document.documentElement.setAttribute('data-theme',t);
+    themeBtn.textContent = t==='dark' ? 'Light mode' : 'Dark mode';
+  }
+  var savedTheme='light';
+  try{ savedTheme = localStorage.getItem(THEME_KEY)==='dark' ? 'dark' : 'light'; }catch(e){}
+  applyTheme(savedTheme);
+  themeBtn.addEventListener('click',function(){
+    var t = document.documentElement.getAttribute('data-theme')==='dark' ? 'light' : 'dark';
+    applyTheme(t);
+    try{ localStorage.setItem(THEME_KEY,t); }catch(e){}
+  });
+
+  /* ---------- notes panel ---------- */
+  var NOTES_KEY='hubNotes.v1';
+  var TAGS=['SLA v2','MOS feedback','ChatGPT','Claude','Copilot','Perplexity','Comparison reports','Fusion engine','Board brief','Traceability report','Question','Follow-up','Other'];
+  var panel=document.getElementById('notesPanel'),
+      toggle=document.getElementById('notesToggle'),
+      countEl=document.getElementById('notesCount'),
+      textEl=document.getElementById('npText'),
+      tagsEl=document.getElementById('npTags'),
+      filterEl=document.getElementById('npFilter'),
+      listEl=document.getElementById('npList'),
+      warnEl=document.getElementById('npWarn');
+  var notes=[], picked=[], activeTag='All';
+
+  function store(){ try{ localStorage.setItem(NOTES_KEY,JSON.stringify(notes)); }catch(e){ warn('Storage unavailable — notes will not persist.'); } }
+  function load(){ try{ notes=JSON.parse(localStorage.getItem(NOTES_KEY))||[]; }catch(e){ notes=[]; } if(!Array.isArray(notes)) notes=[]; }
+  function warn(m){ if(warnEl){ warnEl.textContent=m; setTimeout(function(){ warnEl.textContent=''; },4000); } }
+  function fmtTime(t){ var d=new Date(t); return d.toLocaleDateString()+' '+d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}); }
+
+  function openPanel(o){
+    document.body.classList.toggle('notes-open',o);
+    if(o){ renderAll(); renderTagChips(); textEl.focus(); }
+  }
+  toggle.addEventListener('click',function(){ openPanel(!document.body.classList.contains('notes-open')); });
+  document.getElementById('notesClose').addEventListener('click',function(){ openPanel(false); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') openPanel(false); });
+
+  function renderTagChips(){
+    tagsEl.innerHTML='';
+    TAGS.forEach(function(t){
+      var b=document.createElement('button');
+      b.type='button'; b.className='tagchip'+(picked.indexOf(t)>=0?' on':''); b.textContent=t;
+      b.addEventListener('click',function(){
+        var i=picked.indexOf(t); if(i>=0){picked.splice(i,1);}else{picked.push(t);} renderTagChips();
+      });
+      tagsEl.appendChild(b);
+    });
+  }
+  function usedTags(){
+    var m={}; notes.forEach(function(n){ (n.tags||[]).forEach(function(t){ m[t]=(m[t]||0)+1; }); });
+    return Object.keys(m).sort();
+  }
+  function filtered(){
+    return activeTag==='All' ? notes.slice() : notes.filter(function(n){ return (n.tags||[]).indexOf(activeTag)>=0; });
+  }
+  function renderFilter(){
+    filterEl.innerHTML='';
+    var mk=function(label,count,tag){
+      var b=document.createElement('button');
+      b.type='button'; b.className='tagchip'+(activeTag===tag?' on':'');
+      b.textContent=label+(count?' ('+count+')':'');
+      b.addEventListener('click',function(){ activeTag=tag; renderFilter(); renderList(); });
+      filterEl.appendChild(b);
+    };
+    mk('All',notes.length,'All');
+    usedTags().forEach(function(t){
+      mk(t,notes.filter(function(n){ return (n.tags||[]).indexOf(t)>=0; }).length,t);
+    });
+  }
+  function renderList(){
+    listEl.innerHTML='';
+    var list=filtered().slice().reverse();
+    if(!list.length){
+      var p=document.createElement('div'); p.className='np-empty';
+      p.textContent = notes.length ? 'No notes match this tag.' : 'No notes yet — type a question above, tag it, and press Add note.';
+      listEl.appendChild(p); return;
+    }
+    list.forEach(function(n){
+      var d=document.createElement('div'); d.className='np-note';
+      var top=document.createElement('div'); top.className='nt-top';
+      (n.tags||[]).forEach(function(t){ var s=document.createElement('span'); s.className='ntag'; s.textContent=t; top.appendChild(s); });
+      var tm=document.createElement('span'); tm.className='ntime'; tm.textContent=fmtTime(n.t); top.appendChild(tm);
+      var x=document.createElement('button'); x.className='nx'; x.type='button'; x.textContent='×'; x.title='Delete note';
+      x.addEventListener('click',function(){ notes=notes.filter(function(o){ return o.id!==n.id; }); store(); renderAll(); });
+      top.appendChild(x);
+      var tx=document.createElement('p'); tx.className='ntext'; tx.textContent=n.text;
+      d.appendChild(top); d.appendChild(tx); listEl.appendChild(d);
+    });
+  }
+  function updateCount(){ countEl.textContent=notes.length; }
+  function renderAll(){ updateCount(); renderFilter(); renderList(); }
+
+  document.getElementById('npAdd').addEventListener('click',function(){
+    var v=textEl.value.trim();
+    if(!v){ warn('Type a note first.'); return; }
+    notes.push({ id:Date.now()+'-'+Math.random().toString(36).slice(2,7), t:Date.now(), text:v, tags:picked.slice() });
+    textEl.value=''; picked=[]; renderTagChips(); store(); renderAll();
+  });
+  document.getElementById('npClear').addEventListener('click',function(){
+    if(!notes.length){ warn('Notes are already empty.'); return; }
+    if(confirm('Clear all '+notes.length+' notes? This cannot be undone.')){
+      notes=[]; activeTag='All'; store(); renderAll();
+    }
+  });
+  document.getElementById('npExport').addEventListener('click',function(){
+    var list=filtered();
+    if(!list.length){ warn('No notes to export.'); return; }
+    var md='# Review notes — USU–AGI SLA Document Hub\n\n'
+      +'_Exported '+new Date().toLocaleString()+' · '+list.length+' notes'
+      +(activeTag!=='All'?' · filter: '+activeTag:'')+'\n\n'
+      +'_Reviewer-local notes; unverified commentary recorded while exploring — not legal advice._\n';
+    list.slice().reverse().forEach(function(n,i){
+      md+='\n---\n\n'+(i+1)+'. **'+fmtTime(n.t)+'**\n   Tags: '+((n.tags&&n.tags.length)?n.tags.join(', '):'untagged')+'\n\n'+n.text.trim()+'\n';
+    });
+    var blob=new Blob([md],{type:'text/markdown'});
+    var a=document.createElement('a');
+    a.href=URL.createObjectURL(blob);
+    a.download='hub-review-notes-'+new Date().toISOString().slice(0,10)+'.md';
+    document.body.appendChild(a); a.click(); a.remove();
+  });
+
+  load(); renderTagChips(); renderAll();
+})();
+</script>
 </body>
 </html>

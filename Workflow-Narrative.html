@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Project narrative for the USU–AGI SLA review POC: SLA v2 assessed by four AI models, compared by three cross-model comparison reports (12 lenses), fused into one final report, and looped back against the original MOS feedback — with no human review of AI output in this run.">
+<title>Workflow Narrative · USU–AGI SLA Review</title>
+<style>
+ :root{
+   --navy:#142c44; --navy-2:#1d3c59; --ink:#1c2d3e; --muted:#4d6073; --faint:#8296a8;
+   --line:#d6dfe8; --paper:#f3f6f9; --white:#fff;
+   --accent:#17625b; --accent-bg:#eaf6f2;
+   --blue:#205987; --blue-bg:#eaf2f9;
+ }
+ *{box-sizing:border-box}
+ html{scroll-behavior:smooth}
+ body{margin:0;background:var(--paper);color:var(--ink);
+      font:1rem/1.62 system-ui,-apple-system,"Segoe UI",sans-serif}
+ h1,h2,h3,h4{color:var(--navy);line-height:1.25;margin:0}
+ p{margin:0 0 .8rem} p:last-child{margin:0}
+ a{color:var(--blue);text-decoration:underline}
+ ul,ol{margin:.3rem 0 .9rem;padding-left:1.35rem} li{margin:.32rem 0}
+ strong{color:#12283d}
+
+ .topbar{position:sticky;top:0;z-index:20;background:rgba(20,44,68,.97);color:#fff;
+         padding:.8rem clamp(1rem,4vw,2.5rem);display:flex;flex-wrap:wrap;gap:.6rem 2rem;
+         align-items:baseline;justify-content:space-between;box-shadow:0 2px 12px rgba(16,36,58,.25)}
+ .topbar .brand{font-weight:800;letter-spacing:.02em}
+ .topbar .brand small{display:block;font-weight:450;color:#c5d3e0;font-size:.76rem}
+ .topbar .links{font-size:.8rem}
+ .topbar .links a{color:#fff;border:1px solid #ffffff42;border-radius:999px;padding:.25rem .7rem;
+   margin-left:.35rem;text-decoration:none}
+ .topbar .links a:hover{background:#ffffff22}
+
+ .shell{max-width:60rem;margin:0 auto;padding:0 clamp(1rem,4vw,2rem) 3rem}
+
+ .hero{padding:2.2rem 0 1.3rem;border-bottom:2.5px solid var(--navy);margin-bottom:1.6rem}
+ .eyebrow{font-size:.74rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--blue)}
+ .hero h1{font-size:clamp(1.55rem,3.6vw,2.15rem);letter-spacing:-.02em;margin:.35rem 0 .45rem}
+ .hero .sub{font-size:1.03rem;color:var(--muted);max-width:70ch}
+ .badges{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.85rem}
+ .badges span{font-size:.72rem;border:1px solid var(--line);background:#fff;color:var(--muted);
+      border-radius:999px;padding:.22rem .7rem}
+
+ .md{font-size:.98rem}
+ .md h2{font-size:1.3rem;border-bottom:1.5px solid var(--line);padding-bottom:.3rem;margin:2rem 0 .7rem}
+ .md h3{font-size:1.06rem;margin:1.5rem 0 .45rem}
+ .md hr{border:0;border-top:1.5px solid var(--line);margin:1.6rem 0}
+ .md table{border-collapse:collapse;width:100%;font-size:.86rem;background:#fff;margin:.6rem 0;
+      display:block;overflow-x:auto}
+ .md th{background:#e8eef5;color:#22374c;text-align:left;padding:.45rem .55rem;border:1px solid var(--line);
+    font-size:.68rem;text-transform:uppercase;letter-spacing:.05em}
+ .md td{vertical-align:top;padding:.42rem .55rem;border:1px solid var(--line)}
+ .md tbody tr:nth-child(even){background:#f8fafc}
+
+ .footnote{font-size:.78rem;color:var(--muted);border-top:1px solid var(--line);
+      padding-top:1rem;margin-top:2rem}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">USU–AGI SLA Review <small>Project narrative · workflow design pattern POC</small></div>
+  <div class="links"><a href="index.html">Document hub</a><a href="README.html">README</a></div>
+</header>
+
+<div class="shell">
+
+  <div class="hero">
+    <div class="eyebrow">Project narrative · how the pieces fed each other</div>
+    <h1>Workflow Narrative — AI-Enhanced Document Review &amp; Assessment POC</h1>
+    <p class="sub">The reference version of the project story: what was run, in what order, by which
+       models — and what was deliberately not exercised. Adopted terminology throughout:
+       <strong>fusion engine</strong> · <strong>assessments</strong> ·
+       <strong>cross-model comparison reports</strong> (twelve lenses).</p>
+    <div class="badges">
+      <span>Stages 0–4</span><span>Sept 12 → Nov 20, 2026</span><span>Human review of AI output: none in this run</span>
+    </div>
+  </div>
+
+  <div class="md">
+  <!-- Optional: workflow graphic (e.g., exported from NotebookLM) can be embedded here -->
+<p><em>Single reference version of the project story, cleaned up for consistency and clarity.
+Prepared for review; to be incorporated into the document set once approved.</em></p>
+<hr />
+<h2>What this project is</h2>
+<p>This project is a proof of concept for a repeatable workflow design pattern: an
+<strong>AI-enhanced, multi-participant document review and assessment workflow</strong>. A real
+governance document — the USU–AGI Service Level Agreement, Draft 2.0 ("SLA v2") — was
+processed through successive layers of AI analysis, cross-checking, and consolidation.
+The only human-generated input to the entire workflow was the original board-level
+reviewer feedback (the "MOS" comments) on the earlier SLA v1.</p>
+<hr />
+<h2>The workflow, stage by stage</h2>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>What happened</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0 · Human start</td>
+<td>Board-level reviewer "MOS" commented on SLA v1 (Sept 12, 2026); USU issued SLA v2 (Oct 14, 2026) incorporating those comments</td>
+<td>SLA v2 — the one document used downstream</td>
+</tr>
+<tr>
+<td>1 · Four independent assessments</td>
+<td>SLA v2 was handed to four different AI models, each instructed to assess the SLA and look for areas of potential improvement</td>
+<td>Four assessments — 80 findings total (ChatGPT 24, Claude 18, Copilot 10, Perplexity 28)</td>
+</tr>
+<tr>
+<td>2 · Three cross-model comparison reports</td>
+<td>All four assessments were handed to three <em>different</em> AI models. Each analyst model received all four assessments and was tasked with comparing them — areas of alignment, areas of disagreement, and suggestions</td>
+<td>Three comparison reports — effectively <strong>4 × 3 = 12 lenses</strong> brought to bear on the same document</td>
+</tr>
+<tr>
+<td>3 · Fusion into one report</td>
+<td>The four assessments and the three comparison reports were handed to the fusion engine, which looked across everything and condensed it — assessing all of the model reviews into a single overall report</td>
+<td>Final Comparative Board Brief (with a full transcript as the audit trail)</td>
+</tr>
+<tr>
+<td>4 · Closing the loop</td>
+<td>The MOS commentary (written against SLA v1) was compared against SLA v2 to determine whether the MOS suggestions were applied — and compared against the broader model assessments for overlap and other correspondences</td>
+<td>Traceability report (Draft 1)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>Stage detail</h2>
+<h3>Stage 1 — Four independent assessments of SLA v2</h3>
+<p>SLA v2 was the initial — and only — document supplied to the models. Four different
+AI models were each given the SLA with the same task: assess the agreement and look
+for areas of potential improvement. The four models worked independently; none saw
+another's work. Together they produced 80 findings.</p>
+<p>Each model was also instructed to produce a <strong>reviewable version</strong> of its assessment:
+an interactive document designed to be distributed to human reviewers, so those
+reviewers could comment on the model's assessment item by item. That capability was
+built into every Stage 1 document (comment fields, per-item status tracking, and note
+export) and remains available — but it was never used in this run (see <em>Human
+involvement</em> below).</p>
+<h3>Stage 2 — Three models compare the four assessments (the 12 lenses)</h3>
+<p>The four Stage 1 assessments were then handed to three <em>different</em> AI models. Each of
+the three received <strong>all four</strong> assessments. Their task was to compare the assessments:
+identify where the models aligned, where they disagreed, and what to suggest in
+response. Read together, the stage produced four assessments times three analysts —
+<strong>twelve distinct lenses</strong> on the same 80 findings.</p>
+<h3>Stage 3 — Fusion into a final report</h3>
+<p>The comparison reports were then handed to the fusion engine, which looked across all
+of the assessments and all of the alignment assessments, reconciled them, and presented
+an overall report — condensing and assessing the full set of model reviews into one
+final document. In this repository that output is the <strong>Final Comparative Board
+Brief</strong>; the fusion transcript preserves the reconciliation step, including corrections
+the fusion pass made to the earlier comparisons.</p>
+<h3>Stage 4 — Closing the loop with the human feedback</h3>
+<p>Finally, the commentary generated against <strong>version 1</strong> of the SLA — the MOS document —
+was brought back into the workflow. It was compared against <strong>SLA v2</strong> to assess
+whether the suggestions made in the MOS document had been applied, and it was compared
+against the broader model assessments to identify areas of overlap and other
+correspondences. That comparison is the <strong>traceability report</strong> (Draft 1).</p>
+<hr />
+<h2>Human involvement — what happened and what did not</h2>
+<ul>
+<li>The <strong>only</strong> human-generated input to the workflow was the original MOS feedback on SLA v1.</li>
+<li>At no time was any of the AI-produced material consumed or closely reviewed by a human.</li>
+<li>No documents were distributed to reviewers, and no reviewer comments were made on the
+  model outputs — <strong>despite that functionality being built into the initial review
+  documents</strong>. The interactive/commenting features exist and remain available for a
+  future run; they were simply not exercised in this POC.</li>
+<li>Because of the above, every statement in the AI materials is unverified model output.
+  The purpose of the POC is to demonstrate what the workflow produces — not to certify
+  the findings. Nothing here is legal advice, and external-compliance assertions would
+  need verification with counsel before any decision use.</li>
+</ul>
+<hr />
+<h2>Facts at a glance (consistency reference)</h2>
+<ul>
+<li><strong>Document under review:</strong> USU–AGI SLA Draft 2.0 (Oct 14, 2026) — "SLA v2"</li>
+<li><strong>Human predecessor:</strong> 19 MOS comments on SLA v1 (Sept 12, 2026); v1 itself was not part of the model workflow</li>
+<li><strong>Stage 1 models (assessors):</strong> ChatGPT (24), Claude (18), Copilot (10), Perplexity (28) — 80 findings, Nov 7, 2026</li>
+<li><strong>Stage 2 models (comparators):</strong> GPT, Gemini Pro, Claude Haiku — 3 comparison reports over 4 assessments = 12 lenses, Nov 20, 2026</li>
+<li><strong>Stage 3:</strong> Fusion engine → Final Comparative Board Brief (+ fusion transcript as audit trail), Nov 20, 2026</li>
+<li><strong>Stage 4:</strong> MOS ↔ v2 ↔ model-assessment comparison → Traceability report (Draft 1), Nov 20, 2026</li>
+<li><strong>Human review of AI output:</strong> none at any stage; reviewability features built but unused</li>
+</ul>
+  </div>
+
+  <p class="footnote">This page renders the project narrative (source:
+     <code>AI-Review-Workflow-Narrative.md</code>) — an AI-prepared navigation aid, part of the
+     USU–AGI SLA review record; not legal advice. Companion navigation:
+     <a href="Review-Process-Roadmap.html">roadmap</a> ·
+     <a href="index.html">document hub</a> · <a href="README.html">README</a>.</p>
+
+</div>
+</body>
+</html>

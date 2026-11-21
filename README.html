@@ -93,14 +93,15 @@
 <div class="shell">
 
   <div class="hero">
-    <div class="eyebrow">Readme</div>
+    <div class="eyebrow">Readme · a workflow design pattern POC</div>
     <h1>USU–AGI Service Level Agreement — Multi-Model AI Review</h1>
-    <p class="sub">Working repository for the review of the USU–AGI Service Level Agreement
+    <p class="sub">Working repository for an AI-enhanced, multi-participant document review and
+       assessment workflow proof of concept, applied to the USU–AGI Service Level Agreement
        (Draft 2.0, October 14, 2026): the agreement itself, the original board-level reviewer
        feedback that shaped it, four independent AI assessments, three cross-model comparison reports, a
        three-model fusion engine, and the board-facing reports that tie the process together.</p>
     <div class="badges">
-      <span>15 unique documents</span><span>28 files</span><span>80 findings</span>
+      <span>15 unique documents</span><span>28 files</span><span>80 findings</span><span>Workflow design pattern POC</span>
       <span>GitHub Pages ready</span><span>AI-assisted analysis · not legal advice</span>
     </div>
   </div>
@@ -124,15 +125,19 @@
     <p>United States University (USU) is a wholly-owned subsidiary of Aspen Group, Inc. (AGI), which
        provides shared services under a Service Level Agreement. The SLA was redrafted in 2026 after a
        board-level review (the “MOS” comments, September 12, 2026), producing Draft 2.0. That draft was
-       then examined by four AI systems working independently, compared by three comparison reports, and
+       then examined by four AI systems working independently, compared by three cross-model
+       comparison reports — each holding all four assessments, twelve lenses in total — and
        reconciled by a fusion engine into a final board brief.</p>
     <p>This repository preserves the complete documentary record of that process so that trustees,
-       executives, counsel, and auditors can trace any conclusion back to its source. Start at the
-       <a href="index.html">document hub</a> (<code>index.html</code>) — it links exactly one canonical
-       version of every document and maps all duplicate formats in its inventory.</p>
+       executives, counsel, and auditors can trace any conclusion back to its source. No human
+       reviewed the AI output in this run — the only human input was the original MOS feedback —
+       and the interactive assessment documents, though built for distribution to reviewers, were
+       not exercised. The full story is the <a href="Workflow-Narrative.html">workflow narrative</a>.
+       Start at the <a href="index.html">document hub</a> (<code>index.html</code>) — it links exactly
+       one canonical version of every document and maps all duplicate formats in its inventory.</p>
     <div class="callout accent">
       <span class="lbl">Headline finding</span>
-      The four independent reviews agree the draft is a sound governance framework that is
+      The four independent assessments agree the draft is a sound governance framework that is
       <strong>not yet an executable operating agreement</strong>. Consensus recommendation:
       <strong>endorse in principle; do not authorize signature</strong> until the pre-signature
       worklist (metrics exhibit, employer register, system inventory, delegation schedule, commercial
@@ -151,14 +156,18 @@
       <div><span class="st">Nov 20, 2026</span><b>Fusion engine</b> reconciles the comparison reports → <b>final Board brief</b></div>
     </div>
     <p>Each stage deliberately used different models so that later stages could check and correct earlier
-       ones rather than inherit a single system’s blind spots. The fusion engine caught real errors —
-       most notably, one comparison report labeled several disputed implementation details “unanimous”; the panel
-       traced them back to direct conflicts and replaced the unanimity claims with attributed support.</p>
+       ones rather than inherit a single system’s blind spots — and because each comparison model held
+       all four assessments, the comparison stage brought twelve distinct lenses to the same findings.
+       The fusion engine caught real errors — most notably, one comparison report labeled several
+       disputed implementation details “unanimous”; the engine traced them back to direct conflicts
+       and replaced the unanimity claims with attributed support.</p>
     <p>The traceability from the MOS comments through Draft 2.0 to the AI findings is documented
        item-by-item in the <a href="MOS-Feedback_vs_Draft2_vs_AI-Reviews_Comparison_DRAFT-1.html">traceability
        report</a>; the board-level orientation is the <a href="USU-AGI_SLA_Review_Master_View.html">master
-       view</a>; and the six-stage flow in one page — what consumed what — is the
-       <a href="Review-Process-Roadmap.html">review roadmap</a>.</p>
+       view</a>; the six-stage flow in one page — what consumed what — is the
+       <a href="Review-Process-Roadmap.html">review roadmap</a>; and the reference version of the full
+       story — including what was and was not exercised — is the
+       <a href="Workflow-Narrative.html">workflow narrative</a>.</p>
   </section>
 
   <!-- ============ CONTENTS ============ -->
@@ -248,13 +257,14 @@
     <p>The four Stage-1 assessments, the three comparison reports, the fusion transcript, and the final brief were
        produced by AI systems (ChatGPT, Claude, Copilot, Perplexity, GPT, Gemini Pro, Claude Haiku).
        The MOS board summary is itself an AI-prepared condensation of the reviewer’s 19 comments.
-       The master view, traceability report, hub, and this readme are AI-prepared navigation aids.</p>
+       The master view, traceability report, roadmap, workflow narrative, hub, and this readme are
+       AI-prepared navigation aids.</p>
     <div class="callout warn">
       <span class="lbl">Standing caveats</span>
       <ul style="margin:.2rem 0 0">
-        <li><strong>Nothing was independently verified.</strong> No stage checked the SLA against the
-            2017 acquisition/intercompany agreements or external regulation (WSCUC, U.S. ED, FERPA,
-            state boards).</li>
+        <li><strong>Nothing was independently verified.</strong> No human reviewed the AI output in
+            this run, and no stage checked the SLA against the 2017 acquisition/intercompany
+            agreements or external regulation (WSCUC, U.S. ED, FERPA, state boards).</li>
         <li><strong>AI output is not legal advice.</strong> External-compliance assertions in the
             reviews must be verified with counsel before the Board relies on them.</li>
         <li><strong>Silence ≠ agreement.</strong> Review depth varies 10–28 items; a shorter review’s

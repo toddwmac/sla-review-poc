@@ -92,7 +92,7 @@ th{background:#f2f5f8;color:#33485d}
 </head>
 <body>
 <header class="topbar">
- <div class="brand">USU × AGI <small>Service Level Agreement | Governance & Execution Review</small></div>
+ <div class="brand">USU × AGI <small>Service Level Agreement | Governance & Execution Review · An Applied AI Labs Project</small></div>
  <div class="top-actions">
   <a class="btn dark" href="index.html" style="text-decoration:none">Document Hub</a>
   <button class="btn dark" onclick="window.print()">Print report</button>
@@ -329,5 +329,6 @@ const links=[...document.querySelectorAll(".navlink")];
 const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){links.forEach(a=>a.classList.toggle("active",a.getAttribute("href")==="#"+e.target.id));}}),{rootMargin:"-20% 0px -70% 0px"});
 document.querySelectorAll("main section[id]").forEach(s=>observer.observe(s));
 </script>
+<div style="text-align:center;padding:12px 24px;font-size:12px;color:#7a8ba0;border-top:1px solid #d6dfe8">© 2026 Applied AI Labs · An Applied AI Labs Project</div>
 </body>
 </html>

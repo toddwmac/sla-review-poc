@@ -476,6 +476,7 @@
       <div class="np-tags" id="npTags"></div>
       <div class="np-actions">
         <button id="npAdd" type="button">Add note</button>
+        <button id="npCancel" type="button" hidden>Cancel</button>
         <span class="np-warn" id="npWarn"></span>
       </div>
     </div>
@@ -524,8 +525,10 @@
       tagsEl=document.getElementById('npTags'),
       filterEl=document.getElementById('npFilter'),
       listEl=document.getElementById('npList'),
-      warnEl=document.getElementById('npWarn');
-  var notes=[], picked=[], activeTag='All';
+      warnEl=document.getElementById('npWarn'),
+      addBtn=document.getElementById('npAdd'),
+      cancelBtn=document.getElementById('npCancel');
+  var notes=[], picked=[], activeTag='All', editingId=null;
 
   function store(){ try{ localStorage.setItem(NOTES_KEY,JSON.stringify(notes)); }catch(e){ warn('Storage unavailable — notes will not persist.'); } }
   function load(){ try{ notes=JSON.parse(localStorage.getItem(NOTES_KEY))||[]; }catch(e){ notes=[]; } if(!Array.isArray(notes)) notes=[]; }
@@ -585,8 +588,11 @@
       var top=document.createElement('div'); top.className='nt-top';
       (n.tags||[]).forEach(function(t){ var s=document.createElement('span'); s.className='ntag'; s.textContent=t; top.appendChild(s); });
       var tm=document.createElement('span'); tm.className='ntime'; tm.textContent=fmtTime(n.t); top.appendChild(tm);
+      var ed=document.createElement('button'); ed.className='nx'; ed.type='button'; ed.textContent='✎'; ed.title='Edit note';
+      ed.addEventListener('click',function(){ startEdit(n.id); });
+      top.appendChild(ed);
       var x=document.createElement('button'); x.className='nx'; x.type='button'; x.textContent='×'; x.title='Delete note';
-      x.addEventListener('click',function(){ notes=notes.filter(function(o){ return o.id!==n.id; }); store(); renderAll(); });
+      x.addEventListener('click',function(){ if(editingId===n.id) stopEdit(); notes=notes.filter(function(o){ return o.id!==n.id; }); store(); renderAll(); });
       top.appendChild(x);
       var tx=document.createElement('p'); tx.className='ntext'; tx.textContent=n.text;
       d.appendChild(top); d.appendChild(tx); listEl.appendChild(d);
@@ -595,15 +601,37 @@
   function updateCount(){ countEl.textContent=notes.length; }
   function renderAll(){ updateCount(); renderFilter(); renderList(); }
 
-  document.getElementById('npAdd').addEventListener('click',function(){
+  function startEdit(id){
+    var n=notes.find(function(o){ return o.id===id; });
+    if(!n) return;
+    editingId=id;
+    textEl.value=n.text; picked=(n.tags||[]).slice(); renderTagChips();
+    addBtn.textContent='Update note'; cancelBtn.hidden=false;
+    openPanel(true);
+    textEl.focus();
+  }
+  function stopEdit(){
+    editingId=null; textEl.value=''; picked=[]; renderTagChips();
+    addBtn.textContent='Add note'; cancelBtn.hidden=true;
+  }
+
+  addBtn.addEventListener('click',function(){
     var v=textEl.value.trim();
     if(!v){ warn('Type a note first.'); return; }
-    notes.push({ id:Date.now()+'-'+Math.random().toString(36).slice(2,7), t:Date.now(), text:v, tags:picked.slice() });
-    textEl.value=''; picked=[]; renderTagChips(); store(); renderAll();
+    if(editingId){
+      var n=notes.find(function(o){ return o.id===editingId; });
+      if(n){ n.text=v; n.tags=picked.slice(); }
+      stopEdit(); store(); renderAll();
+    } else {
+      notes.push({ id:Date.now()+'-'+Math.random().toString(36).slice(2,7), t:Date.now(), text:v, tags:picked.slice() });
+      stopEdit(); store(); renderAll();
+    }
   });
+  cancelBtn.addEventListener('click',stopEdit);
   document.getElementById('npClear').addEventListener('click',function(){
     if(!notes.length){ warn('Notes are already empty.'); return; }
     if(confirm('Clear all '+notes.length+' notes? This cannot be undone.')){
+      stopEdit();
       notes=[]; activeTag='All'; store(); renderAll();
     }
   });

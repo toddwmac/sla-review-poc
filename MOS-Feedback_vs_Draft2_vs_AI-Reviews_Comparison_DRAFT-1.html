@@ -110,6 +110,8 @@
  .sidenav{position:fixed;top:0;left:0;bottom:0;width:14.5rem;background:var(--navy);
    color:#d7e3ee;display:flex;flex-direction:column;z-index:50}
  .sn-brand{padding:1rem 1rem .8rem;border-bottom:1px solid #2a4560}
+ .sn-hub{display:block;margin:.7rem 1rem .2rem;background:#fff;color:var(--navy);border:1px solid #a7bbce;border-radius:8px;padding:.5rem .6rem;font-weight:700;font-size:.8rem;text-align:center;text-decoration:none}
+ .sn-hub:hover{background:#e3edf6}
  .sn-title{font-weight:800;font-size:.95rem;color:#fff;letter-spacing:.02em}
  .sn-sub{font-size:.72rem;line-height:1.45;color:#a9c0d4;margin-top:.25rem}
  .sn-viewing{font-size:.72rem;color:#9fb8cd;padding:.55rem 1rem;border-bottom:1px solid #2a4560}
@@ -136,7 +138,7 @@
    .sn-list a{white-space:nowrap;border-left:0;border-bottom:3px solid transparent;padding:.5rem .7rem}
    .sn-list a.active{border-bottom-color:#4fa3a0}
    .sn-list a.sub{display:none}
-   .sn-foot{border:0;padding:0 .6rem} .sn-note{display:none} .sn-print{width:auto;font-size:.72rem;padding:.4rem .6rem}
+   .sn-foot{border:0;padding:0 .6rem} .sn-note{display:none} .sn-print{width:auto;font-size:.72rem;padding:.4rem .6rem} .sn-hub{display:inline-block;margin:0 .5rem;width:auto;padding:.35rem .7rem;font-size:.72rem;white-space:nowrap}
  }
  @media print{ .sidenav{display:none!important} body{padding:0} html{scroll-behavior:auto} }
 </style>
@@ -148,6 +150,7 @@
     <div class="sn-title">USU–AGI SLA</div>
     <div class="sn-sub">MOS → Draft 2.0 → AI Reviews<br>Traceability report · Draft 1</div>
   </div>
+  <a class="sn-hub" href="index.html">← Document Hub</a>
   <div class="sn-viewing">Viewing: <strong id="sn-page">Page 1 of 9</strong></div>
   <ol class="sn-list">
     <li><a class="pg" href="#pg1"><span class="n">1</span>Cover · report metadata</a></li>

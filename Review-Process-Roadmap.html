@@ -94,6 +94,18 @@
  .fmt.pdf{background:#f9ecec;color:#8c3a3a}
  .fmt.md{background:#eef0f3;color:#4b5a6a}
  .footnote{font-size:.78rem;color:var(--muted);border-top:1px solid var(--line);padding-top:1rem;margin-top:2rem}
+ /* workflow diagram figure + lightbox */
+ .wffig{margin:1.2rem 0 0}
+ .wffig .wflink{display:block;line-height:0}
+ .wffig img{width:100%;max-width:860px;border:1px solid var(--line);border-radius:8px;display:block}
+ .wffig figcaption{font-size:.78rem;color:var(--muted);margin-top:.45rem}
+ .wflbox{position:fixed;inset:0;z-index:100;display:flex;flex-direction:column;align-items:center;justify-content:center;
+         background:rgba(10,20,32,.93);visibility:hidden;opacity:0;transition:opacity .15s;padding:2rem}
+ .wflbox:target{visibility:visible;opacity:1}
+ .wflbox img{max-width:min(1400px,92vw);max-height:76vh;border-radius:8px;box-shadow:0 12px 60px rgba(0,0,0,.55);display:block}
+ .wflbar{display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;align-items:center;justify-content:center;margin-top:.9rem;font-size:.85rem;color:#dbe7f2}
+ .wflbar a{color:#fff}
+ .wflclose{position:absolute;top:.7rem;right:1.2rem;font-size:1.9rem;color:#fff;text-decoration:none;line-height:1}
  @media (max-width:560px){ .io{grid-template-columns:4.6rem 1fr} .pipe{font-size:.72rem} }
 </style>
 </head>
@@ -126,12 +138,30 @@
   </nav>
 
   <div class="callout">
-    <span class="lbl">The short version</span>
-    A board-level reviewer marked up the first draft of the SLA (v1). The university rewrote it as
-    <strong>Draft 2.0</strong>. Four AI systems then reviewed v2 <strong>independently</strong>, producing
-    80 findings. Three further models cross-checked those findings for consistent themes, and a fusion
-    panel merged the cross-checks into one <strong>Board brief</strong>. Finally, a traceability report
-    loops back to confirm the original reviewer comments were actually resolved in v2.
+    <span class="lbl">The workflow in brief</span>
+    SLA v2 — the only document used — was assessed independently by four AI models, producing
+    80 findings; each assessment also shipped as an interactive, reviewer-ready document. The four
+    assessments then went to three different models, each comparing all four for alignment and
+    disagreement — twelve lenses in total (4 × 3). A fusion engine condensed the assessments and
+    the comparison reports into a single final report, and the original MOS feedback on SLA v1 was
+    compared against v2 and the model assessments to see what had been addressed. No human reviewed
+    any AI output in this run — the only human input was the original MOS feedback — and the
+    built-in reviewer-commenting features, though present, were not exercised. Prefer the fuller
+    telling? Read the <a href="Workflow-Narrative.html">workflow narrative</a>.
+  </div>
+
+  <figure class="wffig">
+    <a class="wflink" href="#wfbox" title="Click to enlarge"><img src="AI-Enhanced_Document_Review_Workflow.mini.jpg" alt="Diagram of the AI-enhanced, multi-participant document review and assessment workflow" loading="lazy"></a>
+    <figcaption><strong>Figure</strong> — The six stages at a glance: MOS feedback on SLA v1 → SLA v2 → four independent assessments → three cross-model comparison reports (12 lenses) → fusion engine → traceability. <a href="#wfbox">Click to enlarge</a>.</figcaption>
+  </figure>
+  <div class="wflbox" id="wfbox">
+    <a class="wflclose" href="#" aria-label="Close">&#215;</a>
+    <img src="AI-Enhanced_Document_Review_Workflow.view.jpg" alt="Enlarged diagram of the AI-enhanced review workflow">
+    <div class="wflbar">
+      <span>AI-enhanced, multi-participant document review &amp; assessment workflow</span>
+      <a href="AI-Enhanced_Document_Review_Workflow.png" download>Download full resolution (PNG)</a>
+      <a href="#">Close</a>
+    </div>
   </div>
 
   <div class="tl">
@@ -206,8 +236,7 @@
           <h3>Cross-model consistency assessment <span class="tag in">in this repository</span></h3>
           <span class="sdate">Nov 20, 2026</span>
         </div>
-        <p>Three <em>different</em> models — GPT, Gemini Pro, and Claude Haiku — each read <strong>all four
-           reviews</strong> and grouped the 80 findings into themes and topics. This is the consistency
+        <p>Three <em>different</em> models — GPT, Gemini Pro, and Claude Haiku — each read <strong>all four assessments</strong> and grouped the 80 findings into themes and topics. This is the consistency
            check: where several models converge, the theme is strong signal; where they conflict, the
            disagreement is named; where only one reviewer raised an item, it is marked as a
            single-reviewer issue worth a look.</p>

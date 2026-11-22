@@ -116,6 +116,7 @@
       <li><a href="#conventions">File and format conventions</a></li>
       <li><a href="#hosting">Hosting on GitHub Pages</a></li>
       <li><a href="#provenance">Provenance, caveats, and status</a></li>
+      <li><a href="#maintenance">Maintenance and handoff notes</a></li>
     </ol>
   </nav>
 
@@ -289,6 +290,82 @@
 
     <p class="footnote">Repository prepared November 20, 2026 · part of the USU–AGI SLA review record ·
        companion files: <span class="file">index.html</span> (document hub) and the documents it links. © 2026 Applied AI Labs · An Applied AI Labs Project</p>
+  </section>
+
+  <!-- ============ MAINTENANCE ============ -->
+  <section id="maintenance">
+    <h2>8 · Maintenance and handoff notes</h2>
+    <p class="secsub">Everything a future maintainer — human or AI assistant — needs to resume work on
+       this site without rediscovering it.</p>
+
+    <h3>Local workflow (how changes are published)</h3>
+    <ul>
+      <li><strong>Two directories, one source of truth.</strong> The working directory that contains this
+          README holds the canonical copy of every document. It is <em>not</em> a git repository.</li>
+      <li><strong><code>GitHub_site/</code></strong> (inside the working directory) is the git working tree
+          for <code>toddwmac/sla-review-poc</code> (branch <code>main</code>; repo root = site root).</li>
+      <li><strong>Update flow:</strong> edit files in the working directory → copy the changed files into
+          <code>GitHub_site/</code> → <code>git add / commit / push</code> there → GitHub Pages (deploy from
+          <code>main</code>, root) automatically rebuilds
+          <a href="https://toddwmac.github.io/sla-review-poc/">toddwmac.github.io/sla-review-poc</a>.</li>
+      <li><strong>Never edit files directly in <code>GitHub_site/</code></strong> — the working directory
+          wins. New documents are created in the working directory and copied over in the same pass.</li>
+      <li><strong>Verify after pushing:</strong> check the Pages build
+          (<code>gh api repos/toddwmac/sla-review-poc/pages/builds/latest</code>) and spot-check live URLs;
+          Pages filenames are case-sensitive.</li>
+      <li><strong>Local-only file:</strong> <code>AI-Review-Workflow-Narrative.md</code> (narrative source,
+          used for the workflow diagram) intentionally lives outside the repo.</li>
+    </ul>
+
+    <h3>Terminology and stage numbering (locked — do not drift)</h3>
+    <ul>
+      <li>Stage 1 outputs are <strong>“assessments”</strong> (never “reviews”); Stage 2 outputs are
+          <strong>“cross-model comparison reports”</strong> (consistency checks; the 4 × 3 = <strong>12
+          lenses</strong> framing); Stage 3 is the <strong>“fusion engine”</strong> (never “fusion panel”).</li>
+      <li>Stage numbering follows the workflow diagram: <strong>0</strong> = MOS feedback + SLA v2 ·
+          <strong>1</strong> = four independent assessments · <strong>2</strong> = comparison reports ·
+          <strong>3</strong> = fusion engine · <strong>4</strong> = MOS traceability. The roadmap page shows
+          six cards numbered <strong>0, 0, 1, 2, 3, 4</strong> to match the diagram.</li>
+      <li>Every page presenting the workflow carries the caveat that phase names/numbers may not align
+          across documents — the design process was emergent. Keep that caveat when editing.</li>
+      <li>Source documents keep their original titles (e.g., the ChatGPT workspace remains “Governance
+          &amp; Execution Review”) — terminology rules apply to navigation copy, not to the Stage-1
+          artifacts themselves.</li>
+    </ul>
+
+    <h3>Interactive features (all client-side; no dependencies)</h3>
+    <ul>
+      <li><strong>Notes panel</strong> (hub, right-side drawer): tag chips by document/topic, filter,
+          per-note edit/delete, Markdown export, clear-all with confirm. Persisted in
+          <code>localStorage</code> key <code>hubNotes.v1</code> — per-browser by design; notes never
+          leave the page.</li>
+      <li><strong>Dark/light mode</strong> (hub top bar): persists to <code>localStorage</code> key
+          <code>hubTheme</code>; driven by <code>[data-theme="dark"]</code> variable overrides.</li>
+      <li><strong>Workflow diagram:</strong> <code>AI-Enhanced_Document_Review_Workflow.png</code> is the
+          full-resolution original; <code>.view.jpg</code> (1600 px) and <code>.mini.jpg</code> (640 px)
+          are generated derivatives. Embedded via CSS-only <code>:target</code> lightboxes on the hub and
+          roadmap, and as Figure 1 on the workflow narrative page.</li>
+    </ul>
+
+    <h3>Branding and counts</h3>
+    <ul>
+      <li>Every document header carries “An Applied AI Labs Project”; footers carry
+          “© 2026 Applied AI Labs · An Applied AI Labs Project.” The hub additionally links both to
+          <a href="http://www.appliedailabs.com">appliedailabs.com</a> (http — switch to https if the site
+          supports it).</li>
+      <li>Current counts: <strong>15 unique documents · 31 files</strong> (excluding
+          <code>.nojekyll</code>). Keep the hub tagline and this readme’s badges in sync when adding files.</li>
+      <li>Hub policy: each document is linked exactly once in its section (plus its inventory row);
+          the roadmap card lives in “Start Here,” and the traceability report card in Stage 4.</li>
+    </ul>
+
+    <div class="callout">
+      <span class="lbl">Fastest way to resume</span>
+      Read the <a href="Review-Process-Roadmap.html">review roadmap</a> for the six-stage story and the
+      <a href="Workflow-Narrative.html">workflow narrative</a> for the full narrative and terminology
+      decisions; §5 above covers format conventions. Then follow the update flow in the first list of
+      this section — edit in the working directory, copy to <code>GitHub_site/</code>, commit, push.
+    </div>
   </section>
 
 </div>
